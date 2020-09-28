@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class PlaneController : MonoBehaviour
 {
     [Header("For user input")]
     [SerializeField] private float myPitchMultiplier = 1f;
