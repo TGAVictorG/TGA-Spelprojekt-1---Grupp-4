@@ -57,8 +57,8 @@ public class PickupScript : MonoBehaviour
             Destroy(myDebugLine);
         }
         StageManager.ourInstance.OnPickedUpBlock();
-        aPlayer.gameObject.GetComponent<FuelSystem>().AddFuel(myFuelToAdd);
         Destroy(gameObject);
+        aPlayer.gameObject.GetComponent<FuelSystem>().AddFuel(myFuelToAdd);
     }
 
     private void ActivateMeAsTarget()
