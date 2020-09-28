@@ -5,6 +5,8 @@ public class StageManager : MonoBehaviour
 {
     public static StageManager ourInstance;
 
+    public bool myIsStageComplete => !myStageData.myIsInvalid;
+
     public int myPickedUpBlocksCount { get; private set; } = 0;
     public float myStageStartTime { get; private set; } = 0.0f;
 
@@ -20,6 +22,11 @@ public class StageManager : MonoBehaviour
 
     public void OnStageComplete()
     {
+        if (myIsStageComplete)
+        {
+            return;
+        }
+
         myStageData.myStageDuration = Time.time - myStageStartTime;
 
         CalculateFinalScore();

@@ -30,12 +30,31 @@ public class GameManager : MonoBehaviour
         TransitionToMainMenu();
     }
 
+    public bool IsStagedUnlocked(int aStageIndex)
+    {
+        if(myStageData[aStageIndex].myIsInvalid)
+        {
+            return false;
+        }
+        else if(!myStageData[aStageIndex].myIsInvalid)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     #region Transitions
 
     public void TransitionToStage(int aStageIndex)
     {
         // TODO: Structure of stage scene names
-        SceneManager.LoadScene($"Stage_{aStageIndex}", LoadSceneMode.Single);
+        if(!myStageData[aStageIndex-1].myIsInvalid)
+        {
+            SceneManager.LoadScene($"Stage_{aStageIndex}", LoadSceneMode.Single);
+        }
 
         OnStageBegin(aStageIndex);
     }
