@@ -8,7 +8,7 @@ public class StageManager : MonoBehaviour
     public int myPickedUpBlocksCount { get; private set; } = 0;
     public float myStageStartTime { get; private set; } = 0.0f;
 
-    public GameObject myFirstBlock;
+    public PickupScript myFirstBlock;
     public string myHomeworkText;
 
     [Header("Events")]
@@ -30,7 +30,7 @@ public class StageManager : MonoBehaviour
     public void OnPickedUpBlock()
     {
         ++myPickedUpBlocksCount;
-
+        print("here");
         myOnPickedUpBlock?.Invoke();
     }
 

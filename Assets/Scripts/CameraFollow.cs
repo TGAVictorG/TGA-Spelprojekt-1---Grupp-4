@@ -22,6 +22,8 @@ public class CameraFollow : MonoBehaviour
         if(!myUseWorldOffset)
         {
             transform.position = targetPosition + myTargetOffset;
+            //transform.position = targetPosition - myTarget.forward * 3;
+            //transform.position = targetPosition - (myTarget.forward + new Vector3(0f,0f,2f)) * 3;
         }
         else
         {

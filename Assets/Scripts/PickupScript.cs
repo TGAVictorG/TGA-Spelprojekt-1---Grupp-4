@@ -7,6 +7,7 @@ public class PickupScript : MonoBehaviour
 
     [SerializeField] private float myRotatingSpeed = 50;
     [SerializeField] private PickupScript myNextTarget = null;
+    [SerializeField] private float myFuelToAdd = 2.0f;
 
     GameObject myTargetIndication = null;
 
@@ -28,6 +29,12 @@ public class PickupScript : MonoBehaviour
 
     }
 
+    public void SetActive(bool aActive)
+    {
+        gameObject.SetActive(aActive);
+        ActivateMeAsTarget();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -46,12 +53,20 @@ public class PickupScript : MonoBehaviour
 
         if (myNextTarget != null)
         {
-            myTargetIndication = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            myTargetIndication.GetComponent<Collider>().enabled = false;
-            myTargetIndication.transform.parent = myNextTarget.transform;
-            myTargetIndication.transform.position = myNextTarget.transform.position;
-            Destroy(gameObject);
+            myNextTarget.ActivateMeAsTarget();
             Destroy(myDebugLine);
         }
+        StageManager.ourInstance.OnPickedUpBlock();
+        aPlayer.gameObject.GetComponent<FuelSystem>().AddFuel(myFuelToAdd);
+        Destroy(gameObject);
+    }
+
+    private void ActivateMeAsTarget()
+    {
+        myTargetIndication = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        myTargetIndication.GetComponent<Collider>().enabled = false;
+        myTargetIndication.transform.parent = transform;
+        myTargetIndication.transform.position = transform.position;
     }
 }
+
