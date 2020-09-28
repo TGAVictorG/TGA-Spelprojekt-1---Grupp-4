@@ -26,9 +26,9 @@ public class WindZone : MonoBehaviour
 
     private IEnumerator DoWindTraversal(Transform aPlayerTransform)
     {
-        Movement playerMovementScript = aPlayerTransform.GetComponent<Movement>();
+        PlaneController planeController = aPlayerTransform.GetComponent<PlaneController>();
         Rigidbody playerRigidbody = aPlayerTransform.GetComponent<Rigidbody>();
-        playerMovementScript.enabled = false;
+        planeController.enabled = false;
 
         Vector3 playerVelocity = playerRigidbody.velocity;
         float playerStartSpeed = Mathf.Max(playerVelocity.magnitude, 2.5f);
@@ -93,7 +93,7 @@ public class WindZone : MonoBehaviour
         playerRigidbody.isKinematic = false;
         playerRigidbody.velocity = playerVelocity;
 
-        playerMovementScript.enabled = true;
+        planeController.enabled = true;
     }
 
     private void OnTriggerEnter(Collider anOther)
