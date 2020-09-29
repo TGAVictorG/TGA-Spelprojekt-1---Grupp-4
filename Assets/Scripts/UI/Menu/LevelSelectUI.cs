@@ -1,35 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class LevelSelectUI : MonoBehaviour
 {
-
-    public GameObject[] levelSelectButtons;
+    public GameObject[] myLevelSelectButtons;
     public Image[] myStageUnlockGraphics;
 
-    public LevelData[] myLevelData;
-
-    public void LoadLevel(int aSceneBuildIndex)
+    public void LoadLevel(int aStageIndex)
     {
-        GameManager.ourInstance.TransitionToStage(aSceneBuildIndex);
+        GameManager.ourInstance.TransitionToStage(aStageIndex);
     }
 
     private void Start()
     {
-        GameManager.ourInstance.onLevelUnlocked += UpdateLevelSelectionGraphics;
+        StageInformationRegistry.ourInstance.myOnStageDataUpdated += UpdateLevelSelectionGraphics;
         UpdateLevelSelectionGraphics();
+    }
+
+    private void OnDestroy()
+    {
+        StageInformationRegistry.ourInstance.myOnStageDataUpdated -= UpdateLevelSelectionGraphics;
     }
 
     public void UpdateLevelSelectionGraphics()
     {
-        for (int i = 0; i < levelSelectButtons.Length; i++)
+        for (int i = 0; i < myLevelSelectButtons.Length; i++)
         {
-            levelSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = myLevelData[i].myLevelName;
+            myLevelSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = StageInformationRegistry.ourInstance.GetStageInformation(i).myStageDisplayName;
 
-            if (myLevelData[i].myIsUnlocked)
+            if (StageInformationRegistry.ourInstance.IsStageUnlocked(i))
             {
                 myStageUnlockGraphics[i].color = Color.green;
             }
