@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Events;
 
 public class StageManager : MonoBehaviour
@@ -12,6 +13,9 @@ public class StageManager : MonoBehaviour
 
     public PickupScript myFirstBlock;
     public string myHomeworkText;
+
+    [SerializeField]
+    private int myBaseScore = 10000;
 
     [Header("Events")]
     public UnityEvent myOnPickedUpBlock = new UnityEvent();
@@ -54,22 +58,42 @@ public class StageManager : MonoBehaviour
     }
 
     private void CalculateFinalScore()
-    {
-        // TODO: Use myStageData to calculate the final value for myStageData.myFinalScore
-        myStageData.myFinalScore = 1;
+    {        
+        Debug.Assert(myStageData.myStageDuration > 0f, "myStageDuration is 0!");
+        float score = myBaseScore / myStageData.myStageDuration;
+        myStageData.myFinalScore = (int) Mathf.FloorToInt(score);
     }
 
     private void Awake()
     {
-        Debug.Assert(ourInstance == null, "Multiple StageManagers loaded!");
-
+        Debug.Assert(ourInstance == null, "Multiple StageManagers loaded!");    
         ourInstance = this;
     }
 
     private void Start()
-    {
+    {        
         myFirstBlock.SetActive(true);
 
         myStageStartTime = Time.time;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseGame();
+        }
+    }
+
+    private static void PauseGame()
+    {
+        if (Time.timeScale == 1.0f)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+        }
     }
 }
