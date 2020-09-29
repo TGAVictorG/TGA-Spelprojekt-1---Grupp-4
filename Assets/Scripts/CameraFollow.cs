@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] Transform myTarget;
     [SerializeField] Vector3 myTargetOffset;
 
-    [SerializeField] private float myDistanceToTarget;
+    [SerializeField] private float myDistanceToTarget = 3;
 
     // Update is called once per frame
     void Update()
@@ -18,7 +18,7 @@ public class CameraFollow : MonoBehaviour
 
     void SetPosition()
     {
-        Vector3 targetPosition = myTarget.position - myTarget.forward * myDistanceToTarget;
+        Vector3 targetPosition = myTarget.position - new Vector3(myTarget.forward.x, 0.0f, myTarget.forward.z).normalized * myDistanceToTarget;
         //targetPosition.y -= myTarget.forward.y;
 
         ////targetPosition.Normalize();
