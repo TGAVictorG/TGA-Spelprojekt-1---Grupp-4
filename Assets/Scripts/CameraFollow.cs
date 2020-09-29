@@ -19,8 +19,12 @@ public class CameraFollow : MonoBehaviour
     void SetPosition()
     {
         Vector3 targetPosition = myTarget.position - myTarget.forward * myDistanceToTarget;
+        //targetPosition.y -= myTarget.forward.y;
 
-        //targetPosition.y = 0;
+        ////targetPosition.Normalize();
+        //targetPosition *= myDistanceToTarget;
+
+        ////targetPosition.y = 0;
 
 
         targetPosition.y = myTarget.position.y;
