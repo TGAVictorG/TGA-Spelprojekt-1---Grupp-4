@@ -2,29 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LevelSelectUI : MonoBehaviour
 {
 
+    public GameObject[] levelSelectButtons;
     public Image[] myStageUnlockGraphics;
 
-    GameManager myGameManager = GameManager.ourInstance;
+    public LevelData[] myLevelData;
 
     public void LoadLevel(int aSceneBuildIndex)
     {
-        myGameManager.TransitionToStage(aSceneBuildIndex);
+        GameManager.ourInstance.TransitionToStage(aSceneBuildIndex);
     }
 
-    private void Update()
+    private void Start()
     {
-        for (int i = 0; i < myStageUnlockGraphics.Length; i++)
+        GameManager.ourInstance.onLevelUnlocked += UpdateLevelSelectionGraphics;
+        UpdateLevelSelectionGraphics();
+    }
+
+    public void UpdateLevelSelectionGraphics()
+    {
+        for (int i = 0; i < levelSelectButtons.Length; i++)
         {
-            if(myGameManager.IsStagedUnlocked(i) == true)
+            levelSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = myLevelData[i].myLevelName;
+
+            if (myLevelData[i].myIsUnlocked)
             {
-               // myStageUnlockGraphics[i].
+                myStageUnlockGraphics[i].color = Color.green;
+            }
+            else
+            {
+                myStageUnlockGraphics[i].color = Color.red;
             }
         }
     }
-
-
 }
