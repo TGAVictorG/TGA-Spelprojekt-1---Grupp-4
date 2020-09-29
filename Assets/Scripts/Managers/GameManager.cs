@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         // TODO: Structure of stage scene names
         if(!myStageData[aStageIndex-1].myIsInvalid)
         {
-            SceneManager.LoadScene($"Stage_{aStageIndex}", LoadSceneMode.Single);
+            SceneManager.LoadScene(aStageIndex, LoadSceneMode.Single);
         }
 
         OnStageBegin(aStageIndex);
