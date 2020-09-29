@@ -41,7 +41,6 @@ public class StageManager : MonoBehaviour
     public void OnPickedUpBlock()
     {
         ++myPickedUpBlocksCount;
-        print("here");
         myOnPickedUpBlock?.Invoke();
     }
 
