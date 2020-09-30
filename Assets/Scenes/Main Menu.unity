@@ -814,7 +814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692e61be16377694695870a0b33443f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSelectButtons:
+  myLevelSelectButtons:
   - {fileID: 91676889}
   - {fileID: 2027558028}
   - {fileID: 603542589}
@@ -822,10 +822,6 @@ MonoBehaviour:
   - {fileID: 1132992512}
   - {fileID: 2022417211}
   - {fileID: 1772255622}
-  myLevelData:
-  - {fileID: 11400000, guid: 81afd083ddb2b93459c391d8d584c0c3, type: 2}
-  - {fileID: 11400000, guid: 8d65024ea9edb1246894029d7fb19307, type: 2}
-  - {fileID: 11400000, guid: 32b6eb4cd73a975469ca7e438005ddc3, type: 2}
 --- !u!1 &91676889
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,7 +913,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1160,11 +1156,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213892663}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 661.09344, y: 405.1727, z: -154.79752}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1825038465}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &213892665
 MonoBehaviour:
@@ -1178,10 +1174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d64286a31e563408ec4a55364ca1c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myLevelData:
-  - {fileID: 11400000, guid: 81afd083ddb2b93459c391d8d584c0c3, type: 2}
-  - {fileID: 11400000, guid: 8d65024ea9edb1246894029d7fb19307, type: 2}
-  - {fileID: 11400000, guid: 32b6eb4cd73a975469ca7e438005ddc3, type: 2}
 --- !u!1 &219920820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2432,7 +2424,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3209,7 +3201,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 818341192}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -5054,8 +5046,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 818341193}
-  - {fileID: 213892664}
-  - {fileID: 2048008946}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5882,6 +5872,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1963935040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1963935041}
+  - component: {fileID: 1963935042}
+  m_Layer: 0
+  m_Name: StageInformationRegistry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1963935041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963935040}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1963935042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963935040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfbbcf6be156fe94f81f223cedc56928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myStageInformation:
+  - {fileID: 11400000, guid: 81afd083ddb2b93459c391d8d584c0c3, type: 2}
+  - {fileID: 11400000, guid: 8d65024ea9edb1246894029d7fb19307, type: 2}
+  - {fileID: 11400000, guid: 32b6eb4cd73a975469ca7e438005ddc3, type: 2}
 --- !u!1 &1996015591
 GameObject:
   m_ObjectHideFlags: 0
@@ -6324,7 +6361,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
