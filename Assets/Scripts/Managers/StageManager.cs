@@ -26,6 +26,8 @@ public class StageManager : MonoBehaviour
 
     public void OnStageComplete()
     {
+        GameManager.ourInstance.TransitionToMainMenu();
+
         if (myIsStageComplete)
         {
             return;
