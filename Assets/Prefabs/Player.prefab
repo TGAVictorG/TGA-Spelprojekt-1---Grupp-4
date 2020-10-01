@@ -56,9 +56,10 @@ GameObject:
   - component: {fileID: 8339423465720421724}
   - component: {fileID: 1131732466}
   - component: {fileID: 314365890}
+  - component: {fileID: 1792212758}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,10 +135,25 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  myMaxRollInput: 65
+  myMaxPitch: 75
   myStartingVelocity: 3
   mySpeedMultiplier: 0.03
   myVelocityCap: 1000
   myDragFactor: 0.02
+  mySpeedBoostVelocityAdd: 4
+  mySpeedBoostAccelerationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  mySpeedBoostFalloffCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   myVelocityByAngleCurve:
     serializedVersion: 2
     m_Curve:
@@ -280,6 +296,19 @@ MonoBehaviour:
     m_RotationOrder: 4
   myVelocityPitchMultiplier: 2500
   myRollPitchMultiplier: 100
+--- !u!65 &1792212758
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647666980536682985}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1718843, y: 0.025300741, z: 0.6226573}
+  m_Center: {x: 0.03905785, y: -0.013737321, z: 0.06132865}
 --- !u!1001 &3857736780879578560
 PrefabInstance:
   m_ObjectHideFlags: 0

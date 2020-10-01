@@ -12,6 +12,7 @@ public class JackInABox : MonoBehaviour
     private float myTimeCounter = 0f;
     private bool myFirstRun = true;
     private bool myAnimationIsPaused = false;
+    private bool myIsTriggered = false;
 
     [SerializeField] private float myCoolDownTime = 1f;
     [SerializeField] private float myAnimationPauseTime = 1f;
@@ -38,62 +39,70 @@ public class JackInABox : MonoBehaviour
 
     void Update()
     {
-        // Hack for opening lid manually... by doing so we are not relying solely on physics and hinge joint on their own... which I would have preferred.
-        if (myFirstRun)
+        if (myIsTriggered)
         {
-            myFirstRun = false;
-            myBoxLidAnchorPoint.transform.Rotate(new Vector3(0f, 0f, -90f));
-        }
-
-
-        if (myTimeCounter < myLerpTime && !myAnimationIsPaused)
-        {
-            myTimeCounter += Time.deltaTime;
-            if (myTimeCounter > myLerpTime)
+            // Hack for opening lid manually... by doing so we are not relying solely on physics and hinge joint on their own... which I would have preferred.
+            if (myFirstRun)
             {
-                // Freeze counter after exceeding myLerpTime    
-                myTimeCounter = myLerpTime;
+                myFirstRun = false;
+                myBoxLidAnchorPoint.transform.Rotate(new Vector3(0f, 0f, -90f));
             }
-        }
-        else
-        {            
 
-            // Repeat animaton for debugging and tweaking purposes:
-            if (repeatAnimation)
+
+            if (myTimeCounter < myLerpTime && !myAnimationIsPaused)
             {
-                if (myAnimationIsPaused)
+                myTimeCounter += Time.deltaTime;
+                if (myTimeCounter > myLerpTime)
                 {
-                    myAnimationPauseCounter += Time.deltaTime;
-                    if (myAnimationPauseCounter > myAnimationPauseTime)
-                    {
-                        myAnimationPauseCounter = 0f;
-                        myAnimationIsPaused = false;
-                        myFirstRun = true;
-                    }
-                }
-                else
-                {
-                    myCoolDownCounter += Time.deltaTime;
-                    if (myCoolDownCounter > myCoolDownTime)
-                    {
-                        myAnimationIsPaused = true;
-                        myCoolDownCounter = 0f;
-                        myTimeCounter = 0f;
-                        myBoxLidAnchorPoint.transform.Rotate(new Vector3(0f, 0f, 0f));
-                        myLidTransform.position = myLidStartPosition;
-                    }
+                    // Freeze counter after exceeding myLerpTime    
+                    myTimeCounter = myLerpTime;
                 }
             }
+            else
+            {
+
+                // Repeat animaton for debugging and tweaking purposes:
+                if (repeatAnimation)
+                {
+                    if (myAnimationIsPaused)
+                    {
+                        myAnimationPauseCounter += Time.deltaTime;
+                        if (myAnimationPauseCounter > myAnimationPauseTime)
+                        {
+                            myAnimationPauseCounter = 0f;
+                            myAnimationIsPaused = false;
+                            myFirstRun = true;
+                        }
+                    }
+                    else
+                    {
+                        myCoolDownCounter += Time.deltaTime;
+                        if (myCoolDownCounter > myCoolDownTime)
+                        {
+                            myAnimationIsPaused = true;
+                            myCoolDownCounter = 0f;
+                            myTimeCounter = 0f;
+                            myBoxLidAnchorPoint.transform.Rotate(new Vector3(0f, 0f, 0f));
+                            myLidTransform.position = myLidStartPosition;
+                        }
+                    }
+                }
+            }
+
+            // Scale the spring
+            float lerpRatio = myTimeCounter / myLerpTime; // x value of animation curve
+            float curveFactor = myAnimationCurve.Evaluate(lerpRatio); // y value of animation curve
+            var scale = Vector3.Lerp(myStartScale, myEndScale, curveFactor);
+            transform.localScale = scale;
+
+            // Adjust head position
+            var newChildCenterOffset = myChildTransform.position - myChildStartPosition;
+            myHead.transform.position = myHeadStartPosition + newChildCenterOffset * 2;
         }
+    }
 
-        // Scale the spring
-        float lerpRatio = myTimeCounter / myLerpTime; // x value of animation curve
-        float curveFactor = myAnimationCurve.Evaluate(lerpRatio); // y value of animation curve
-        var scale = Vector3.Lerp(myStartScale, myEndScale, curveFactor);
-        transform.localScale = scale;
-
-        // Adjust head position
-        var newChildCenterOffset = myChildTransform.position - myChildStartPosition;
-        myHead.transform.position = myHeadStartPosition + newChildCenterOffset * 2;
+    public void Trigger()
+    {
+        myIsTriggered = true;
     }
 }
