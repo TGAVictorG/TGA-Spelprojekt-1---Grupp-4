@@ -26,7 +26,6 @@ public class PickupScript : MonoBehaviour
             myDebugLine.transform.position = transform.position + (myNextTarget.transform.position - transform.position) / 2;
             myDebugLine.transform.up = (myNextTarget.transform.position - transform.position).normalized;
         }
-
     }
 
     public void SetActive(bool aActive)
@@ -50,15 +49,15 @@ public class PickupScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider aPlayer)
     {
-
         if (myNextTarget != null)
         {
             myNextTarget.ActivateMeAsTarget();
             Destroy(myDebugLine);
         }
+
         StageManager.ourInstance.OnPickedUpBlock();
         Destroy(gameObject);
-        aPlayer.gameObject.GetComponent<FuelSystem>().AddFuel(myFuelToAdd);
+        aPlayer.gameObject.GetComponent<Fuel>().AddFuel(myFuelToAdd);
     }
 
     private void ActivateMeAsTarget()

@@ -5,7 +5,7 @@ public class PlaneController : MonoBehaviour
     [Header("For user input")]
     [SerializeField] private float myPitchMultiplier = 1f;
     [SerializeField] private bool myPitchInvertState = false;
-    [SerializeField] private float myRollModifier = 1f;
+    [SerializeField] private float myRollMultiplier = 1f;
     [SerializeField] private bool myRollInvertState = false;
     [Header("How much effect user input has on roll based on rotation difference from 0 (Perfectly level)")]
     [SerializeField] private AnimationCurve myRollEffectByRotationCurve;
@@ -38,6 +38,10 @@ public class PlaneController : MonoBehaviour
     [SerializeField] private float myVelocityPitchMultiplier;
     [SerializeField] private float myRollPitchMultiplier;
 
+    [SerializeField] private float myNoFuelSteeringFactor = 0.2f;
+    [SerializeField] private float myNoFuelDragFactor = 10f;
+
+    private Fuel myFuel;
     private Rigidbody myRigidbody;
     private float myCurrentVelocity;
     private float myCurrentAngleOfAttack;
@@ -46,7 +50,15 @@ public class PlaneController : MonoBehaviour
 
     private void Start()
     {
-        myRigidbody = GetComponent<Rigidbody>();
+        if (!(myFuel = GetComponent<Fuel>()))
+        {
+            Debug.LogWarning("No Fuel-component attached!!");
+        }
+        if(!(myRigidbody = GetComponent<Rigidbody>()))
+        {
+            Debug.LogWarning("No Rigidbody-component attached!!");
+        }
+
         myCurrentVelocity = myStartingVelocity;
     }
 
@@ -117,8 +129,10 @@ public class PlaneController : MonoBehaviour
 
     private void ApplyDrag()
     {
-        myCurrentVelocity -= myDragByAngleCurve.Evaluate(myCurrentAngleOfAttack) * myDragFactor * myCurrentVelocity * myCurrentVelocity;
-        myCurrentVelocity = myCurrentVelocity < 0 ? 0 : myCurrentVelocity;
+        float dragMultiplier = myFuel.myFuelIsEmpty ? myDragFactor * myNoFuelDragFactor : myDragFactor;
+
+        myCurrentVelocity -= myDragByAngleCurve.Evaluate(myCurrentAngleOfAttack) * dragMultiplier * myCurrentVelocity * myCurrentVelocity;
+        myCurrentVelocity = Mathf.Clamp(myCurrentVelocity, 0.1f, myVelocityCap);
     }
 
     private void CalculateAngleOfAttack()
@@ -141,7 +155,9 @@ public class PlaneController : MonoBehaviour
     {
         float pitchValue = Input.GetAxis("Pitch");
         int invertValue = myPitchInvertState ? -1 : 1;
-        transform.Rotate(transform.right, pitchValue * myPitchMultiplier * invertValue, Space.World);
+        float pitchFactor = myFuel.myFuelIsEmpty ? myPitchMultiplier * myNoFuelSteeringFactor : myPitchMultiplier;
+
+        transform.Rotate(transform.right, pitchValue * pitchFactor * invertValue, Space.World);
     }
 
     private void AddRoll()
@@ -152,7 +168,7 @@ public class PlaneController : MonoBehaviour
 
         if (currentRollDiffFromZero > myMaxRollInput)
         {
-            bool rollingRight = rollInput > 0 ? true : false; 
+            bool rollingRight = rollInput > 0 ? true : false;
             if ((rollingRight && transformZRotation > 180) || !rollingRight && transformZRotation < 180)
             {
                 return;
@@ -160,7 +176,8 @@ public class PlaneController : MonoBehaviour
         }
 
         int invertValue = myRollInvertState ? -1 : 1;
-        transform.Rotate(transform.forward, (rollInput * myRollModifier * invertValue) * myRollEffectByRotationCurve.Evaluate(currentRollDiffFromZero / 180), Space.World);
+        float rollFactor = myFuel.myFuelIsEmpty ? myRollMultiplier * myNoFuelSteeringFactor : myRollMultiplier;
+        transform.Rotate(transform.forward, (rollInput * rollFactor * invertValue) * myRollEffectByRotationCurve.Evaluate(currentRollDiffFromZero / 180), Space.World);
     }
 
     public void SpeedBoost()
