@@ -9,12 +9,19 @@ public class PlaneController : MonoBehaviour
     [SerializeField] private bool myRollInvertState = false;
     [Header("How much effect user input has on roll based on rotation difference from 0 (Perfectly level)")]
     [SerializeField] private AnimationCurve myRollEffectByRotationCurve;
+    [SerializeField] private float myMaxRollInput = 65;
+    [SerializeField] private float myMaxPitch = 75;
 
     [Header("Speed & drag settings")]
     [SerializeField] private float myStartingVelocity = 3;
     [SerializeField] private float mySpeedMultiplier = 1f;
     [SerializeField] private float myVelocityCap = 5f;
     [SerializeField] private float myDragFactor = 0.2f;
+
+    [SerializeField] private float mySpeedBoostVelocityAdd = 4f;
+    [SerializeField] private AnimationCurve mySpeedBoostAccelerationCurve;
+    [SerializeField] private AnimationCurve mySpeedBoostFalloffCurve;
+
     [SerializeField] private AnimationCurve myVelocityByAngleCurve;
     [SerializeField] private AnimationCurve myDragByAngleCurve;
 
@@ -35,6 +42,8 @@ public class PlaneController : MonoBehaviour
     private float myCurrentVelocity;
     private float myCurrentAngleOfAttack;
 
+    private float mySpeedBoostCounter = 0.0f;
+
     private void Start()
     {
         myRigidbody = GetComponent<Rigidbody>();
@@ -43,7 +52,10 @@ public class PlaneController : MonoBehaviour
 
     private void Update()
     {
-        print(Input.GetButton("Horizontal"));
+        if (Input.GetButtonDown("Jump"))
+        {
+            SpeedBoost();
+        }
     }
 
     private void FixedUpdate()
@@ -88,7 +100,6 @@ public class PlaneController : MonoBehaviour
 
         float pitchValue = myAutoPitchByVelocityCurve.Evaluate(myCurrentVelocity / myVelocityCap) * myVelocityPitchMultiplier;
         pitchValue += myAutoPitchByRollCurve.Evaluate(currentRoll) * (myCurrentVelocity / myVelocityCap) * myRollPitchMultiplier;
-        print(pitchValue);
         transform.Rotate(transform.right, -pitchValue, Space.World);
     }
 
@@ -135,11 +146,26 @@ public class PlaneController : MonoBehaviour
 
     private void AddRoll()
     {
-        Vector3 currentRotation = transform.eulerAngles;
-        float foo = currentRotation.z > 180 ? 360 - currentRotation.z : currentRotation.z;
+        float transformZRotation = transform.eulerAngles.z;
+        float currentRollDiffFromZero = transformZRotation > 180 ? 360f - transform.eulerAngles.z : transform.eulerAngles.z;
+        float rollInput = Input.GetAxis("Roll");
 
-        float rollValue = Input.GetAxis("Roll");
+        if (currentRollDiffFromZero > myMaxRollInput)
+        {
+            bool rollingRight = rollInput > 0 ? true : false; 
+            if ((rollingRight && transformZRotation > 180) || !rollingRight && transformZRotation < 180)
+            {
+                return;
+            }
+        }
+
         int invertValue = myRollInvertState ? -1 : 1;
-        transform.Rotate(transform.forward, (rollValue * myRollModifier * invertValue) * myRollEffectByRotationCurve.Evaluate(foo / 180), Space.World);
+        transform.Rotate(transform.forward, (rollInput * myRollModifier * invertValue) * myRollEffectByRotationCurve.Evaluate(currentRollDiffFromZero / 180), Space.World);
+    }
+
+    public void SpeedBoost()
+    {
+        mySpeedBoostCounter = 0f;
+        myCurrentVelocity += mySpeedBoostVelocityAdd;
     }
 }
