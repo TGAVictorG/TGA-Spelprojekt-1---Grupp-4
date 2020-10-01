@@ -402,11 +402,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5647666980536682985, guid: 1626a49775be5654c971483e37cae09f,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 8339423465720421724, guid: 1626a49775be5654c971483e37cae09f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -464,37 +459,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1626a49775be5654c971483e37cae09f, type: 3}
---- !u!1 &1792212757 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5647666980536682985, guid: 1626a49775be5654c971483e37cae09f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1159413428}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1792212758
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792212757}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1718843, y: 0.025300741, z: 0.6226573}
-  m_Center: {x: 0.03905785, y: -0.013737321, z: 0.06132865}
---- !u!114 &612339280376504330 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5904872326267276828, guid: ed71898b2f5e0344cbc695ead326a7e1,
-    type: 3}
-  m_PrefabInstance: {fileID: 6452854852189826582}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8149bac3e8914ea479753ae59bf36aab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6452854852189826582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -502,21 +466,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3642284853433293842, guid: ed71898b2f5e0344cbc695ead326a7e1,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3642284853433293842, guid: ed71898b2f5e0344cbc695ead326a7e1,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3642284853433293842, guid: ed71898b2f5e0344cbc695ead326a7e1,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5904872324585908894, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_Name
@@ -577,37 +526,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6452854852189826584, guid: ed71898b2f5e0344cbc695ead326a7e1,
+        type: 3}
+      propertyPath: m_Radius
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed71898b2f5e0344cbc695ead326a7e1, type: 3}
---- !u!1 &6452854852189826583 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4876645733631497340, guid: ed71898b2f5e0344cbc695ead326a7e1,
-    type: 3}
-  m_PrefabInstance: {fileID: 6452854852189826582}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &6452854852189826584
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6452854852189826583}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 4
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &6452854852189826585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6452854852189826583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da9c58afb4a944f40b36daee3dbe6c7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myJackInABox: {fileID: 612339280376504330}
