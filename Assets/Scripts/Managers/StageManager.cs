@@ -26,6 +26,8 @@ public class StageManager : MonoBehaviour
 
     public void OnStageComplete()
     {
+        GameManager.ourInstance.TransitionToMainMenu();
+
         if (myIsStageComplete)
         {
             return;
@@ -72,7 +74,6 @@ public class StageManager : MonoBehaviour
     private void Start()
     {        
         myFirstBlock.SetActive(true);
-
         myStageStartTime = Time.time;
     }
 
