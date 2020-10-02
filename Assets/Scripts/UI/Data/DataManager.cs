@@ -7,6 +7,8 @@ namespace UI.Data
     {
         #region Private Fields
 
+        private bool myHasPlayerCompletedGame = false;
+        
         private SaveData _mySaveData = null;
         private JsonConverter _myJsonConverter = null;
 
@@ -15,6 +17,17 @@ namespace UI.Data
 
         #region Properties
 
+        #region Game
+
+        public bool HasPlayerCompletedGame
+        {
+            get => myHasPlayerCompletedGame;
+            set => myHasPlayerCompletedGame = value;
+        }
+
+        #endregion
+        
+        
         #region Audio
 
         public float MasterVolume
