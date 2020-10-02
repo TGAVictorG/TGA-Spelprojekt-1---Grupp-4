@@ -5,9 +5,16 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] Transform myTarget;
-    [SerializeField] Vector3 myTargetOffset;
+    //[SerializeField] Vector3 myTargetOffset;
 
-    [SerializeField] private float myDistanceToTarget = 3;
+    [SerializeField] private float myDistanceToTargetX = 3;
+    [SerializeField] private float myDistanceToTargetY = 1;
+
+    [SerializeField] private AnimationCurve myLookAtSpeedCurve;
+    private Vector3 myTargetLookAt;
+
+    [SerializeField] private AnimationCurve myMoveSpeedCurve;
+    private Vector3 myTargetPos;
 
     // Update is called once per frame
     void Update()
@@ -18,18 +25,14 @@ public class CameraFollow : MonoBehaviour
 
     void SetPosition()
     {
-        Vector3 targetPosition = myTarget.position - new Vector3(myTarget.forward.x, 0.0f, myTarget.forward.z).normalized * myDistanceToTarget;
-        //targetPosition.y -= myTarget.forward.y;
+        Vector3 targetPosition = myTarget.position - new Vector3(myTarget.forward.x, 0.0f, myTarget.forward.z).normalized * myDistanceToTargetX;
 
-        ////targetPosition.Normalize();
-        //targetPosition *= myDistanceToTarget;
+        targetPosition.y = myTarget.position.y + myDistanceToTargetY;
 
-        ////targetPosition.y = 0;
+        float angleOfTarget = Vector3.Angle(myTarget.up, Vector3.up);
 
-
-        targetPosition.y = myTarget.position.y;
-
-
+        targetPosition.x /= angleOfTarget;
+        targetPosition.z /= angleOfTarget;
 
         //transform.position = targetPosition + myTargetOffset;
         transform.position = targetPosition;
@@ -41,6 +44,7 @@ public class CameraFollow : MonoBehaviour
     {
         //transform.LookAt(myTarget.transform.position + myTarget.forward);
         //Vector3 newLookAt = new Vector3();
+        //transform.LookAt(myTarget.transform.position + (myTarget.transform.up + myTarget.forward) *0.5f);
         transform.LookAt(myTarget.transform.position);
     }
 }
