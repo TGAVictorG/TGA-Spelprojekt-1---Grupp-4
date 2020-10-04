@@ -59,6 +59,14 @@ namespace UI
 #endif
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                DisplayEndScreen();
+            }
+        }
+
         #endregion
 
 
