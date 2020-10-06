@@ -2,17 +2,27 @@
 
 public class PlaneController : MonoBehaviour
 {
-    [Header("For user input")]
+    [Header("(Skulle rekommenera att säkna myPitchMultiplier ifall båda är igång)")]
+    [Space(-10)]
+    [Header("(Man kan ha båda systemen samtidigt, nya petar nosen mot taket, gamla pitchar baserat på rotation)")]
+    [Header("DEBUG")]
+    [SerializeField] private bool myUseOldPitchSystem = false;
+    [SerializeField] private bool myUseNewPitchSystem = false;
+    [SerializeField] private bool myEnableSpaceSpeedBoost;
+    [SerializeField] private bool myEnableUnlimitedFuel;
+
+    [Header("USER INPUT")]
+    [Header("--------------------------------------------------------------------------------------------------------")]
+    //[Space()]
     [SerializeField] private float myPitchMultiplier = 1f;
     [SerializeField] private bool myPitchInvertState = false;
     [SerializeField] private float myRollMultiplier = 1f;
+    [SerializeField] [Tooltip("How hard the plane turns when rotating with A/D")] private float myRollTurnMultiplier = 0.01f;
     [SerializeField] private bool myRollInvertState = false;
-    [Header("How much effect user input has on roll based on rotation difference from 0 (Perfectly level)")]
-    [SerializeField] private AnimationCurve myRollEffectByRotationCurve;
-    [SerializeField] private float myMaxRollInput = 65;
+    [SerializeField] private float myMaxRoll = 65;
     [SerializeField] private float myMaxPitch = 75;
 
-    [Header("Speed & drag settings")]
+    [Header("SPEED & DRAG SETTINGS")]
     [SerializeField] private float myStartingVelocity = 3;
     [SerializeField] private float mySpeedMultiplier = 1f;
     [SerializeField] private float myVelocityCap = 5f;
@@ -29,14 +39,15 @@ public class PlaneController : MonoBehaviour
     [Space(-10)]
     [Header("such as how plane pitches towards the ground at lower speeds")]
     [Space(-10)]
-    [Header("Curves and multipliers for plane auto control")]
-    [SerializeField] private float myAutoPitchFactor = 1;
-    [SerializeField] private float myRollCorrectionFactor = 1;
+    [Header("AUTO CORRECTION")]
+    [SerializeField] [Tooltip("How much the plane automatically pitches towards the ground")] private float myAutoPitchFactor = 1;
+    [SerializeField] [Tooltip("How hard the plane corrects the roll of the plane")] private float myRollCorrectionFactor = 1;
     [SerializeField] private AnimationCurve myRollCorrectionByVelocityCurve;
     [SerializeField] private AnimationCurve myAutoPitchByVelocityCurve;
     [SerializeField] private AnimationCurve myAutoPitchByRollCurve;
     [SerializeField] private float myVelocityPitchMultiplier;
     [SerializeField] private float myRollPitchMultiplier;
+
 
     [SerializeField] private float myNoFuelSteeringFactor = 0.2f;
     [SerializeField] private float myNoFuelDragFactor = 10f;
@@ -54,7 +65,7 @@ public class PlaneController : MonoBehaviour
         {
             Debug.LogWarning("No Fuel-component attached!!");
         }
-        if(!(myRigidbody = GetComponent<Rigidbody>()))
+        if (!(myRigidbody = GetComponent<Rigidbody>()))
         {
             Debug.LogWarning("No Rigidbody-component attached!!");
         }
@@ -64,10 +75,12 @@ public class PlaneController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (myEnableSpaceSpeedBoost && Input.GetButtonDown("Jump"))
         {
             SpeedBoost();
         }
+
+        myFuel.myAllowFuelDepletion = !myEnableUnlimitedFuel;
     }
 
     private void FixedUpdate()
@@ -149,24 +162,61 @@ public class PlaneController : MonoBehaviour
     {
         AddPitch();
         AddRoll();
+
+        float currentRoll = transform.eulerAngles.z > 180 ? transform.eulerAngles.z - 360f : transform.eulerAngles.z;
+        transform.Rotate(Vector3.up, -currentRoll * myRollTurnMultiplier, Space.World);
     }
 
     private void AddPitch()
     {
-        float pitchValue = Input.GetAxis("Pitch");
-        int invertValue = myPitchInvertState ? -1 : 1;
-        float pitchFactor = myFuel.myFuelIsEmpty ? myPitchMultiplier * myNoFuelSteeringFactor : myPitchMultiplier;
+        float transformXRotation = transform.eulerAngles.x;
+        float currentAbsolutePitch = transform.eulerAngles.x > 180 ? 360 - transformXRotation : transformXRotation;
+        float pitchInput = Input.GetAxis("Pitch") * (myPitchInvertState ? -1 : 1);
 
-        transform.Rotate(transform.right, pitchValue * pitchFactor * invertValue, Space.World);
+
+
+        if (currentAbsolutePitch > myMaxPitch)
+        {
+            bool pitchingUp = pitchInput < 0 ? true : false;
+            print(pitchingUp);
+
+            if ((pitchingUp && transformXRotation > 180) || !pitchingUp && transformXRotation < 180)
+            {
+                return;
+            }
+        }
+
+        if (myUseOldPitchSystem)
+        {
+            int invertValue = myPitchInvertState ? -1 : 1;
+            float pitchFactor = myFuel.myFuelIsEmpty ? myPitchMultiplier * myNoFuelSteeringFactor : myPitchMultiplier;
+
+            transform.Rotate(transform.right, pitchInput * pitchFactor * invertValue, Space.World);
+        }
+        if (myUseNewPitchSystem)
+        {
+            Vector3 currentRotation = transform.eulerAngles;
+
+            if ((currentRotation.x > 270 && currentRotation.x < 360) || (currentRotation.x > 0 && currentRotation.x < 90))
+            {
+                currentRotation.x += pitchInput * myPitchMultiplier;
+            }
+            else
+            {
+                currentRotation.x -= pitchInput * myPitchMultiplier;
+            }
+
+            transform.eulerAngles = currentRotation;
+        }
     }
 
     private void AddRoll()
     {
         float transformZRotation = transform.eulerAngles.z;
-        float currentRollDiffFromZero = transformZRotation > 180 ? 360f - transform.eulerAngles.z : transform.eulerAngles.z;
+        float currentAbsoluteRoll = transformZRotation > 180 ? 360f - transformZRotation : transformZRotation;
         float rollInput = Input.GetAxis("Roll");
 
-        if (currentRollDiffFromZero > myMaxRollInput)
+        if (currentAbsoluteRoll > myMaxRoll)
         {
             bool rollingRight = rollInput > 0 ? true : false;
             if ((rollingRight && transformZRotation > 180) || !rollingRight && transformZRotation < 180)
@@ -177,7 +227,7 @@ public class PlaneController : MonoBehaviour
 
         int invertValue = myRollInvertState ? -1 : 1;
         float rollFactor = myFuel.myFuelIsEmpty ? myRollMultiplier * myNoFuelSteeringFactor : myRollMultiplier;
-        transform.Rotate(transform.forward, (rollInput * rollFactor * invertValue) * myRollEffectByRotationCurve.Evaluate(currentRollDiffFromZero / 180), Space.World);
+        transform.Rotate(transform.forward, (rollInput * rollFactor * invertValue), Space.World);
     }
 
     public void SpeedBoost()

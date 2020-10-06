@@ -5,9 +5,23 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] Transform myTarget;
-    [SerializeField] Vector3 myTargetOffset;
+    //[SerializeField] Vector3 myTargetOffset;
 
-    [SerializeField] private float myDistanceToTarget = 3;
+    [SerializeField] private float myDistanceToTargetX = 3;
+    [SerializeField] private float myDistanceToTargetY = 1;
+
+    [SerializeField] private AnimationCurve myLookAtSpeedCurve;
+    private Vector3 myTargetLookAt;
+
+    [SerializeField] private AnimationCurve myMoveSpeedCurve;
+    private Vector3 myTargetPos;
+
+
+    private void Start()
+    {
+        gameObject.transform.position = myTarget.position;
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -18,21 +32,24 @@ public class CameraFollow : MonoBehaviour
 
     void SetPosition()
     {
-        Vector3 targetPosition = myTarget.position - new Vector3(myTarget.forward.x, 0.0f, myTarget.forward.z).normalized * myDistanceToTarget;
-        //targetPosition.y -= myTarget.forward.y;
+        Vector3 targetPosition = myTarget.position - new Vector3(myTarget.forward.x, 0.0f, myTarget.forward.z).normalized * myDistanceToTargetX;
+        targetPosition.y = myTarget.position.y + myDistanceToTargetY;
 
-        ////targetPosition.Normalize();
-        //targetPosition *= myDistanceToTarget;
+        //targetPosition = myTarget.position;
 
-        ////targetPosition.y = 0;
+        float angleOfTarget = Vector3.Angle(new Vector3(myTarget.position.x, myTarget.position.y, 0f).normalized, Vector3.up);
+        print(myMoveSpeedCurve.Evaluate(angleOfTarget));
+        //Vector3 goHereThisFrame = (targetPosition - transform.position) * 0.01f + transform.position;
+        Vector3 goHereThisFrame = (targetPosition - transform.position) * myMoveSpeedCurve.Evaluate(angleOfTarget) / 100 + transform.position;
+        //print(myTarget.localRotation.z/10);
 
 
-        targetPosition.y = myTarget.position.y;
+        
 
 
 
         //transform.position = targetPosition + myTargetOffset;
-        transform.position = targetPosition;
+        transform.position = goHereThisFrame;
         //transform.position = targetPosition - (myTarget.forward + new Vector3(0f,0f,2f)) * 3;
 
     }
@@ -41,6 +58,13 @@ public class CameraFollow : MonoBehaviour
     {
         //transform.LookAt(myTarget.transform.position + myTarget.forward);
         //Vector3 newLookAt = new Vector3();
-        transform.LookAt(myTarget.transform.position);
+        //transform.LookAt(myTarget.transform.position + (myTarget.transform.up + myTarget.forward) *0.5f);
+
+        float angleOfTarget = Vector3.Angle(new Vector3(myTarget.position.x, myTarget.position.y, 0f).normalized, Vector3.up);
+        print(myMoveSpeedCurve.Evaluate(angleOfTarget));
+
+        Vector3 lookHereThisFrame = (myTarget.position - transform.position) * myLookAtSpeedCurve.Evaluate(angleOfTarget) / 100 + transform.position;
+
+        transform.LookAt(myTarget.position);
     }
 }

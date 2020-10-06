@@ -8,15 +8,22 @@ public class PickupScript : MonoBehaviour
     [SerializeField] private float myRotatingSpeed = 50;
     [SerializeField] private PickupScript myNextTarget = null;
     [SerializeField] private float myFuelToAdd = 2.0f;
+    [SerializeField] private Material myGlowMaterial;
 
-    GameObject myTargetIndication = null;
 
     //Visar en cylinder till nästa pickup. Endast i Runtime.
     GameObject myDebugLine = null;
     [SerializeField] private bool myDebugLineIsVisable;
+    [Tooltip("Can collect this pickup in any order.")]
+    [SerializeField] private bool myDebugIsCollectible = true;
 
     void Start()
     {
+        // Debug: collect in any order
+        if (myDebugIsCollectible) {
+            GetComponent<Collider>().enabled = true;
+        }
+        
         //debug-kod för LD
         if (myNextTarget != null)
         {
@@ -34,7 +41,6 @@ public class PickupScript : MonoBehaviour
         ActivateMeAsTarget();
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.Rotate(Vector3.up, myRotatingSpeed * Time.deltaTime);
@@ -63,10 +69,13 @@ public class PickupScript : MonoBehaviour
 
     private void ActivateMeAsTarget()
     {
-        myTargetIndication = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        myTargetIndication.GetComponent<Collider>().enabled = false;
-        myTargetIndication.transform.parent = transform;
-        myTargetIndication.transform.position = transform.position;
+        // Make me collectible
+        GetComponent<Collider>().enabled = true;
+
+        // Make me glow
+        GetComponent<MeshRenderer>().material = myGlowMaterial;
+        Behaviour halo = (Behaviour)GetComponent("Halo");
+        halo.enabled = true;
     }
 }
 
