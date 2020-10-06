@@ -2,25 +2,33 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CapsuleCollider))]
-public class WindZone : MonoBehaviour
+public class PlaneWindZone : MonoBehaviour
 {
-    [Tooltip("In degrees / second")]
-    public float myVelocityRotationSpeed = 135.0f;
+    [Header("Non steering parameters")]
     [Tooltip("In degrees / second (used when myUseSteering == false)")]
     public float myRotationSpeed = 135.0f;
+    public float myVelocityChangeSpeed = 20.0f;
+
+    [Header("Steering parameters")]
+    [Tooltip("Will use steering to get to the end position, but will not take myEndRotation into account")]
+    public bool myUseSteering = false;
+    [Tooltip("In degrees / second")]
+    public float myVelocityRotationSpeed = 135.0f;
+    public float myPlayerMaxTipAngle = 35.0f;
+
+    [Header("Generic parameters")]
     public float myPlayerSpeed = 7.0f;
 
     public float myEndZoneSize = 1.0f;
 
-    public float myPlayerMaxTipAngle = 35.0f;
-
-    public AnimationCurve mySpeedMultiplierOverTime = AnimationCurve.EaseInOut(0.0f, 1.0f, 3.0f, 0.3f);
+    public AnimationCurve mySpeedMultiplierOverTime = new AnimationCurve(
+        new Keyframe(0.0f, 0.3f),
+        new Keyframe(0.25f, 1.0f),
+        new Keyframe(3.0f, 0.3f)
+        );
 
     public Vector3 myEndPosition = Vector3.zero;
     public Vector3 myEndRotation = Vector3.forward;
-
-    [Tooltip("Will use steering to get to the end position, but will not take myEndRotation into account")]
-    public bool myUseSteering = false;
 
     private Collider myCollider;
 
@@ -33,6 +41,9 @@ public class WindZone : MonoBehaviour
         Vector3 playerVelocity = playerRigidbody.velocity;
         float playerStartSpeed = Mathf.Max(playerVelocity.magnitude, 2.5f);
 
+        CollisionDetectionMode savedCollisionDetectionMode = playerRigidbody.collisionDetectionMode;
+        if (savedCollisionDetectionMode != CollisionDetectionMode.Discrete)
+            playerRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         playerRigidbody.isKinematic = true;
 
         Vector3 endPosition = transform.TransformPoint(myEndPosition);
@@ -40,7 +51,6 @@ public class WindZone : MonoBehaviour
 
         float windStartTime = Time.time;
         float targetSpeed = myPlayerSpeed > playerStartSpeed ? myPlayerSpeed : playerStartSpeed * 2.0f;
-        float playerSpeed;
 
         do
         {
@@ -50,10 +60,10 @@ public class WindZone : MonoBehaviour
                 break;
             }
 
-            playerSpeed = mySpeedMultiplierOverTime.Evaluate(Time.time - windStartTime) * (targetSpeed - playerStartSpeed) + playerStartSpeed;
-
             if (myUseSteering)
             {
+                float playerSpeed = mySpeedMultiplierOverTime.Evaluate(Time.time - windStartTime) * (targetSpeed - playerStartSpeed) + playerStartSpeed;
+
                 playerVelocity = Vector3.RotateTowards(playerVelocity, playerToTarget, myVelocityRotationSpeed * Mathf.Deg2Rad * Time.deltaTime, 0.0f);
 
                 Vector3 leftAxis = Vector3.Cross(playerVelocity, Vector3.up);
@@ -77,20 +87,21 @@ public class WindZone : MonoBehaviour
             }
             else
             {
-                playerVelocity = Vector3.RotateTowards(playerVelocity, playerToTarget, myVelocityRotationSpeed * Mathf.Deg2Rad * Time.deltaTime, 0.0f).normalized;
+                playerVelocity = Vector3.MoveTowards(playerVelocity, playerToTarget.normalized * myPlayerSpeed, myVelocityChangeSpeed * mySpeedMultiplierOverTime.Evaluate(Time.time - windStartTime) * Time.deltaTime);
 
 #if UNITY_EDITOR
                 Debug.DrawLine(playerRigidbody.position, playerRigidbody.position + playerVelocity, Color.red);
 #endif
 
                 playerRigidbody.rotation = Quaternion.RotateTowards(playerRigidbody.rotation, Quaternion.LookRotation(endRotation), myRotationSpeed * Time.deltaTime);
-                playerRigidbody.position += playerVelocity * playerSpeed * Time.deltaTime;
+                playerRigidbody.position += playerVelocity * Time.deltaTime;
             }
 
             yield return null;
         } while (true);
 
         playerRigidbody.isKinematic = false;
+        playerRigidbody.collisionDetectionMode = savedCollisionDetectionMode;
         playerRigidbody.velocity = playerVelocity;
 
         planeController.enabled = true;
