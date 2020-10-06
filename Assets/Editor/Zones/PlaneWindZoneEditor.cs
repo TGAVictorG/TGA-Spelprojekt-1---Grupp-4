@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(WindZone))]
-public class WindZoneEditor : Editor
+[CustomEditor(typeof(PlaneWindZone))]
+public class PlaneWindZoneEditor : Editor
 {
     private void OnSceneGUI()
     {
-        WindZone windZone = target as WindZone;
+        PlaneWindZone windZone = target as PlaneWindZone;
 
         EditorGUI.BeginChangeCheck();
 
