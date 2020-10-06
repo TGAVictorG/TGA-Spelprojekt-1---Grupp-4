@@ -14,11 +14,17 @@ public class PickupScript : MonoBehaviour
     //Visar en cylinder till nästa pickup. Endast i Runtime.
     GameObject myDebugLine = null;
     [SerializeField] private bool myDebugLineIsVisable;
+    [Tooltip("Can collect this pickup in any order.")]
+    [SerializeField] private bool myDebugIsCollectible = true;
 
     void Start()
     {
+        // Debug: collect in any order
+        if (myDebugIsCollectible) {
+            GetComponent<Collider>().enabled = true;
+        }
+        
         //debug-kod för LD
-
         if (myNextTarget != null)
         {
             myDebugLine = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
