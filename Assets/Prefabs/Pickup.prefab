@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1630686787261022624}
   - component: {fileID: 1630686787261022625}
   - component: {fileID: -6239014964038551771}
+  - component: {fileID: 1763934297}
   m_Layer: 0
   m_Name: Pickup
   m_TagString: Untagged
@@ -57,11 +58,10 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: df39630b017591b44ab61cc0c9d2b0a7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,7 +82,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &1630686787261022625
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -92,7 +91,7 @@ BoxCollider:
   m_GameObject: {fileID: 1630686787261022626}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -110,3 +109,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRotatingSpeed: 50
   myNextTarget: {fileID: 0}
+  myFuelToAdd: 20
+  myGlowMaterial: {fileID: 2100000, guid: eac0a51c96269924fba4278a2c3b6940, type: 2}
+  myDebugLineIsVisable: 0
+--- !u!122 &1763934297
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630686787261022626}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4289462154
+  m_Size: 0.94
