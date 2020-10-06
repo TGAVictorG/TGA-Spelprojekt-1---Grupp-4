@@ -26,16 +26,23 @@ public class CameraFollow : MonoBehaviour
     void SetPosition()
     {
         Vector3 targetPosition = myTarget.position - new Vector3(myTarget.forward.x, 0.0f, myTarget.forward.z).normalized * myDistanceToTargetX;
-
         targetPosition.y = myTarget.position.y + myDistanceToTargetY;
 
-        float angleOfTarget = Vector3.Angle(myTarget.up, Vector3.up);
+        //targetPosition = myTarget.position;
 
-        targetPosition.x /= angleOfTarget;
-        targetPosition.z /= angleOfTarget;
+        float angleOfTarget = Vector3.Angle(new Vector3(myTarget.position.x, myTarget.position.y, 0f).normalized, Vector3.up);
+        print(myMoveSpeedCurve.Evaluate(angleOfTarget));
+        //Vector3 goHereThisFrame = (targetPosition - transform.position) * 0.01f + transform.position;
+        Vector3 goHereThisFrame = (targetPosition - transform.position) * myMoveSpeedCurve.Evaluate(angleOfTarget) / 100 + transform.position;
+        //print(myTarget.localRotation.z/10);
+
+
+        
+
+
 
         //transform.position = targetPosition + myTargetOffset;
-        transform.position = targetPosition;
+        transform.position = goHereThisFrame;
         //transform.position = targetPosition - (myTarget.forward + new Vector3(0f,0f,2f)) * 3;
 
     }
@@ -45,6 +52,12 @@ public class CameraFollow : MonoBehaviour
         //transform.LookAt(myTarget.transform.position + myTarget.forward);
         //Vector3 newLookAt = new Vector3();
         //transform.LookAt(myTarget.transform.position + (myTarget.transform.up + myTarget.forward) *0.5f);
-        transform.LookAt(myTarget.transform.position);
+
+        float angleOfTarget = Vector3.Angle(new Vector3(myTarget.position.x, myTarget.position.y, 0f).normalized, Vector3.up);
+        print(myMoveSpeedCurve.Evaluate(angleOfTarget));
+
+        Vector3 lookHereThisFrame = (myTarget.position - transform.position) * myLookAtSpeedCurve.Evaluate(angleOfTarget) / 100 + transform.position;
+
+        transform.LookAt(lookHereThisFrame);
     }
 }
