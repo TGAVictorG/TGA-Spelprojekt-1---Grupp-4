@@ -16,6 +16,13 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private AnimationCurve myMoveSpeedCurve;
     private Vector3 myTargetPos;
 
+
+    private void Start()
+    {
+        gameObject.transform.position = myTarget.position;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -58,6 +65,6 @@ public class CameraFollow : MonoBehaviour
 
         Vector3 lookHereThisFrame = (myTarget.position - transform.position) * myLookAtSpeedCurve.Evaluate(angleOfTarget) / 100 + transform.position;
 
-        transform.LookAt(lookHereThisFrame);
+        transform.LookAt(myTarget.position);
     }
 }
