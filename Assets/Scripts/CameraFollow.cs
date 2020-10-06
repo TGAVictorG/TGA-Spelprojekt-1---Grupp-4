@@ -7,8 +7,8 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] Transform myTarget;
     //[SerializeField] Vector3 myTargetOffset;
 
-    [SerializeField] private float myDistanceToTargetX = 3;
-    [SerializeField] private float myDistanceToTargetY = 1;
+    [SerializeField] public float myDistanceToTargetX = 3;
+    [SerializeField] public float myDistanceToTargetY = 1;
 
     [SerializeField] private AnimationCurve myLookAtSpeedCurve;
     private Vector3 myTargetLookAt;
