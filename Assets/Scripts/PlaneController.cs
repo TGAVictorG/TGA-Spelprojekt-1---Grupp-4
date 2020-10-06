@@ -39,7 +39,7 @@ public class PlaneController : MonoBehaviour
     [Space(-10)]
     [Header("such as how plane pitches towards the ground at lower speeds")]
     [Space(-10)]
-    [Header("Curves and multipliers for plane auto control")]
+    [Header("AUTO CORRECTION")]
     [SerializeField] [Tooltip("How much the plane automatically pitches towards the ground")] private float myAutoPitchFactor = 1;
     [SerializeField] [Tooltip("How hard the plane corrects the roll of the plane")] private float myRollCorrectionFactor = 1;
     [SerializeField] private AnimationCurve myRollCorrectionByVelocityCurve;
