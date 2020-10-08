@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlaneController : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class PlaneController : MonoBehaviour
     [Space(-10)]
     [Header("such as how plane pitches towards the ground at lower speeds")]
     [Space(-10)]
-    [Header("Curves and multipliers for plane auto control")]
+    [Header("AUTO CORRECTION")]
     [SerializeField] [Tooltip("How much the plane automatically pitches towards the ground")] private float myAutoPitchFactor = 1;
     [SerializeField] [Tooltip("How hard the plane corrects the roll of the plane")] private float myRollCorrectionFactor = 1;
     [SerializeField] private AnimationCurve myRollCorrectionByVelocityCurve;
@@ -78,9 +79,21 @@ public class PlaneController : MonoBehaviour
         if (myEnableSpaceSpeedBoost && Input.GetButtonDown("Jump"))
         {
             SpeedBoost();
+            StartCoroutine("DrawSpeedLines");
         }
 
         myFuel.myAllowFuelDepletion = !myEnableUnlimitedFuel;
+    }
+
+    private IEnumerator DrawSpeedLines() {
+        float timeToLive = 1.0f;
+        Transform trailRenderers = transform.Find("TrailRenderers");
+        trailRenderers.gameObject.SetActive(true);
+        while (timeToLive > 0) {
+            timeToLive -= Time.deltaTime;
+            yield return null;
+        }
+        trailRenderers.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
