@@ -26,8 +26,8 @@ public class CameraZoomZone : MonoBehaviour
         if (anOther.tag == "Player")
         {
 
-            Camera.main.GetComponent<CameraFollow>().myDistanceToTargetX *= myZoomValue;
-            Camera.main.GetComponent<CameraFollow>().myDistanceToTargetY *= myZoomValue;
+            Camera.main.GetComponent<CameraFollow>().myDistanceToTargetUp *= myZoomValue;
+            Camera.main.GetComponent<CameraFollow>().myDistanceToTargetBack *= myZoomValue;
         }
     }
 
@@ -36,8 +36,8 @@ public class CameraZoomZone : MonoBehaviour
         if (anOther.tag == "Player")
         {
 
-            Camera.main.GetComponent<CameraFollow>().myDistanceToTargetX /= myZoomValue;
-            Camera.main.GetComponent<CameraFollow>().myDistanceToTargetY /= myZoomValue;
+            Camera.main.GetComponent<CameraFollow>().myDistanceToTargetUp /= myZoomValue;
+            Camera.main.GetComponent<CameraFollow>().myDistanceToTargetBack /= myZoomValue;
         }
     }
 }
