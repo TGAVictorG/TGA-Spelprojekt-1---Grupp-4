@@ -3,7 +3,7 @@
 public class DiscoBall : MonoBehaviour
 {
     [SerializeField]
-    private float myRotationSpeed = 45.0f;
+    private float myRotationSpeed = 20.0f;
 
     private Rigidbody myRigidbody;
 
