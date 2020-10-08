@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlaneController : MonoBehaviour
 {
@@ -78,9 +79,21 @@ public class PlaneController : MonoBehaviour
         if (myEnableSpaceSpeedBoost && Input.GetButtonDown("Jump"))
         {
             SpeedBoost();
+            StartCoroutine("DrawSpeedLines");
         }
 
         myFuel.myAllowFuelDepletion = !myEnableUnlimitedFuel;
+    }
+
+    private IEnumerator DrawSpeedLines() {
+        float timeToLive = 1.0f;
+        Transform trailRenderers = transform.Find("TrailRenderers");
+        trailRenderers.gameObject.SetActive(true);
+        while (timeToLive > 0) {
+            timeToLive -= Time.deltaTime;
+            yield return null;
+        }
+        trailRenderers.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
