@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6522820344239584162}
+  - component: {fileID: 121038745}
   m_Layer: 0
   m_Name: Wagon5
   m_TagString: Untagged
@@ -23,14 +24,31 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 131789205689132983}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0.463}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8571824319040281581}
   m_Father: {fileID: 896650394715040222}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &121038745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131789205689132983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myRoutes:
+  - {fileID: 863340609843981469}
+  - {fileID: 863340608933753559}
+  myStartingParam: 0.05
+  mySpeedFactor: 2
 --- !u!1 &230449255774220022
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +175,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6176096729144128483}
   - component: {fileID: 242602887956788548}
-  - component: {fileID: 242602887956788549}
   m_Layer: 0
   m_Name: Locomotive
   m_TagString: Untagged
@@ -195,22 +212,8 @@ MonoBehaviour:
   myRoutes:
   - {fileID: 863340609843981469}
   - {fileID: 863340608933753559}
-  myParamOffset: 0
-  mySpeedFactor: 0.25
---- !u!114 &242602887956788549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 242602887956788551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bcdd165e2c925542a3f77b049c7e439, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myFollower: {fileID: 2319746999556532565}
-  myFollowerTimeOffset: 0.6
+  myStartingParam: 0.3
+  mySpeedFactor: 2
 --- !u!1 &520828092760224612
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,7 +268,7 @@ MonoBehaviour:
   myRoutes:
   - {fileID: 863340609843981469}
   - {fileID: 863340608933753559}
-  myParamOffset: 0
+  myStartingParam: 0
   mySpeedFactor: 0.25
 --- !u!1 &593109683944609106
 GameObject:
@@ -434,6 +437,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 376985444636457399}
+  - component: {fileID: 1992980061}
   m_Layer: 0
   m_Name: Wagon4
   m_TagString: Untagged
@@ -448,14 +452,31 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758324635469118250}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: -0.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6567011480386919165}
   m_Father: {fileID: 896650394715040222}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1992980061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758324635469118250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myRoutes:
+  - {fileID: 863340609843981469}
+  - {fileID: 863340608933753559}
+  myStartingParam: 0.1
+  mySpeedFactor: 2
 --- !u!1 &778347489878695944
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +487,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8571824319040281581}
   m_Layer: 0
-  m_Name: group16
+  m_Name: Wagon5Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -595,7 +616,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863340608223220718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 0.25, z: 2.65}
+  m_LocalPosition: {x: -5, y: 0, z: 2.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 863340609843981469}
@@ -625,7 +646,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863340608271671715}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.28, y: 0.25, z: 4.41}
+  m_LocalPosition: {x: 1.28, y: 0, z: 4.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 863340608933753559}
@@ -655,7 +676,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863340608434370893}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 0.25, z: 2.65}
+  m_LocalPosition: {x: -5, y: 0, z: 2.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 863340608933753559}
@@ -685,7 +706,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863340608793630992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.53, y: 0.25, z: 7.14}
+  m_LocalPosition: {x: -4.53, y: 0, z: 7.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 863340608933753559}
@@ -715,7 +736,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863340608890088591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.62, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0.62, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 863340608933753559}
@@ -797,7 +818,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863340609125982212}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.48, y: -0.1, z: -5.2}
+  m_LocalPosition: {x: 6.48, y: 0, z: -5.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 863340609843981469}
@@ -829,7 +850,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863340609582625351}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.63, y: 0.25, z: -1.79}
+  m_LocalPosition: {x: -5.63, y: 0, z: -1.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 863340609843981469}
@@ -859,7 +880,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863340609653720106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.62, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0.62, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 863340609843981469}
@@ -941,7 +962,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863340610225342455}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.13, y: 0.25, z: -5.39}
+  m_LocalPosition: {x: -0.13, y: 0, z: -5.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 863340609843981469}
@@ -1983,7 +2004,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1789120740160807084}
-  - component: {fileID: 2838152380342413883}
+  - component: {fileID: 92436059}
   m_Layer: 0
   m_Name: Wagon3
   m_TagString: Untagged
@@ -1998,15 +2019,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2838152380342413882}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: -0.875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5369009419344848001}
   m_Father: {fileID: 896650394715040222}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2838152380342413883
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &92436059
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2015,11 +2036,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2838152380342413882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bcdd165e2c925542a3f77b049c7e439, type: 3}
+  m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myFollower: {fileID: 6522820344239584162}
-  myFollowerTimeOffset: 0.6
+  myRoutes:
+  - {fileID: 863340609843981469}
+  - {fileID: 863340608933753559}
+  myStartingParam: 0.15
+  mySpeedFactor: 2
 --- !u!1 &3056345266660910686
 GameObject:
   m_ObjectHideFlags: 0
@@ -2267,7 +2291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5369009419344848001}
   m_Layer: 0
-  m_Name: group12
+  m_Name: Wagon3Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2541,7 +2565,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5963440513900333732}
-  - component: {fileID: 3745667538308926510}
+  - component: {fileID: 790785421}
   m_Layer: 0
   m_Name: Wagon2
   m_TagString: Untagged
@@ -2556,15 +2580,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3745667538308926513}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: -1.552}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4353379895700242304}
   m_Father: {fileID: 896650394715040222}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3745667538308926510
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &790785421
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2573,11 +2597,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3745667538308926513}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bcdd165e2c925542a3f77b049c7e439, type: 3}
+  m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myFollower: {fileID: 1789120740160807084}
-  myFollowerTimeOffset: 0.6
+  myRoutes:
+  - {fileID: 863340609843981469}
+  - {fileID: 863340608933753559}
+  myStartingParam: 0.2
+  mySpeedFactor: 2
 --- !u!1 &4028776607105226061
 GameObject:
   m_ObjectHideFlags: 0
@@ -2711,7 +2738,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6567011480386919165}
   m_Layer: 0
-  m_Name: group11
+  m_Name: Wagon4Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2746,6 +2773,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 523240322862134485}
+  - component: {fileID: 1900531745}
   m_Layer: 0
   m_Name: Wagon6
   m_TagString: Untagged
@@ -2760,14 +2788,31 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4421599704463963727}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 1.133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1499198928045132331}
   m_Father: {fileID: 896650394715040222}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1900531745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4421599704463963727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myRoutes:
+  - {fileID: 863340609843981469}
+  - {fileID: 863340608933753559}
+  myStartingParam: 0
+  mySpeedFactor: 2
 --- !u!1 &4544576535019850631
 GameObject:
   m_ObjectHideFlags: 0
@@ -3015,7 +3060,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4353379895700242304}
   m_Layer: 0
-  m_Name: group13
+  m_Name: Wagon2Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3029,7 +3074,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4681028111366899294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.795}
+  m_LocalPosition: {x: 0, y: 0, z: 0.725}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3022753638136231153}
@@ -4315,7 +4360,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2319746999556532565}
-  - component: {fileID: 7526603313107552259}
+  - component: {fileID: 920047988}
   m_Layer: 0
   m_Name: Wagon1
   m_TagString: Untagged
@@ -4330,15 +4375,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7526603313107552258}
-  m_LocalRotation: {x: 0, y: 0.0007854348, z: 0, w: 0.9999997}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0.03, y: 0, z: -2.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 975695955691565658}
   m_Father: {fileID: 896650394715040222}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0.09, z: 0}
---- !u!114 &7526603313107552259
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &920047988
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4347,11 +4392,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7526603313107552258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bcdd165e2c925542a3f77b049c7e439, type: 3}
+  m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myFollower: {fileID: 5963440513900333732}
-  myFollowerTimeOffset: 0.65
+  myRoutes:
+  - {fileID: 863340609843981469}
+  - {fileID: 863340608933753559}
+  myStartingParam: 0.25
+  mySpeedFactor: 2
 --- !u!1 &7969663516928649752
 GameObject:
   m_ObjectHideFlags: 0
@@ -4678,7 +4726,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1499198928045132331}
   m_Layer: 0
-  m_Name: group17
+  m_Name: Wagon6Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
