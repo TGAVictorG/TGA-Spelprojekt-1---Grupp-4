@@ -13,8 +13,8 @@ public class RouteFollow : MonoBehaviour
     [SerializeField] private Transform[] myRoutes;
     private int myCurrentRoute;
     private float myParam;
-    [SerializeField] private float myParamOffset = 0f;
-    [SerializeField] private float mySpeedFactor = 0.25f;
+    [SerializeField] [Range(0,0.5f)]float myStartingParam = 0f;    
+    [SerializeField] private float mySpeedFactor = 1f;
     private bool myCoroutineAllowed;
 
 
@@ -22,7 +22,7 @@ public class RouteFollow : MonoBehaviour
     void Start()
     {
         myCurrentRoute = 0;
-        myParam = 0f;
+        myParam = myStartingParam;
         myCoroutineAllowed = true;
     }
 
@@ -31,21 +31,29 @@ public class RouteFollow : MonoBehaviour
     {
         if (myCoroutineAllowed)
         {
-            StartCoroutine(TravelRoute(myCurrentRoute));
+            StartCoroutine(NewTravelRoute(myCurrentRoute));
         }
     }
 
-    private IEnumerator TravelRoute(int aRouteNumber) {
+    private IEnumerator NewTravelRoute(int aRouteNumber)
+    {
         myCoroutineAllowed = false;
         Vector3 p0 = myRoutes[myCurrentRoute].GetChild(0).position;
         Vector3 p1 = myRoutes[myCurrentRoute].GetChild(1).position;
         Vector3 p2 = myRoutes[myCurrentRoute].GetChild(2).position;
-        Vector3 p3 = myRoutes[myCurrentRoute].GetChild(3).position;
+        Vector3 p3 = myRoutes[myCurrentRoute].GetChild(3).position;        
 
-        while (myParam < 1) {
-            myParam += Time.deltaTime * mySpeedFactor;
-            float t = myParam - myParamOffset;
-            if (t >= 0) {
+        while (myParam < 1)
+        {
+            // https://gamedev.stackexchange.com/questions/27056/how-to-achieve-uniform-speed-of-movement-on-a-bezier-curve
+            float stepSize = Time.deltaTime * mySpeedFactor;
+            float t = myParam;
+            // Cubic Bezier derivative
+            Vector3 dBdt = 3 * Mathf.Pow(1 - t, 2) * (p1 - p0) + 6 * (1 - t) * t * (p2 - p1) + 3 * Mathf.Pow(t, 2) * (p3 - p2);
+            t += stepSize / dBdt.magnitude;
+                        
+            if (t >= 0)
+            {
                 Vector3 nextPos = Mathf.Pow(1 - t, 3) * p0 +
                                   3 * Mathf.Pow(1 - t, 2) * t * p1 +
                                   3 * (1 - t) * Mathf.Pow(t, 2) * p2 +
@@ -54,17 +62,19 @@ public class RouteFollow : MonoBehaviour
                 transform.LookAt(nextPos);
                 transform.position = nextPos;
             }
+            myParam = t;
 
             yield return new WaitForEndOfFrame();
         }
 
-        myParam = 0f;
+        myParam -= 1.0f; // Keep the remainder for the next route
         myCurrentRoute++;
-        if (myCurrentRoute >= myRoutes.Length) {
+        if (myCurrentRoute >= myRoutes.Length)
+        {
             myCurrentRoute = 0;
         }
 
         myCoroutineAllowed = true;
-    }
+    } 
 
 }
