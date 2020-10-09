@@ -72,8 +72,9 @@ public class StageManager : MonoBehaviour
     }
 
     private void Start()
-    {        
-        myFirstBlock.SetActive(true);
+    {   
+        if (myFirstBlock != null)
+            myFirstBlock.SetActive(true);
         myStageStartTime = Time.time;
     }
 
