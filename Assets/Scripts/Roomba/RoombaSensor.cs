@@ -10,7 +10,7 @@ public class RoombaSensor : MonoBehaviour
     {
         if(other.gameObject != myRoomba)
         {
-            myRoomba.GetComponent<Roomba>().isLookingForANewPath = true;
+            myRoomba.GetComponent<Roomba>().myIsLookingForANewPath = true;
            
         }
     }
