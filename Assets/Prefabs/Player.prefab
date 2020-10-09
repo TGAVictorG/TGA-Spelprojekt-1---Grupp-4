@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 244223602}
   - component: {fileID: 6132284430305466146}
   - component: {fileID: 2884616226040797706}
+  - component: {fileID: 1594064090}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -410,16 +411,16 @@ MonoBehaviour:
   myUseNewPitchSystem: 1
   myEnableSpaceSpeedBoost: 1
   myEnableUnlimitedFuel: 1
-  myPitchMultiplier: 1
+  myPitchMultiplier: 2
   myPitchInvertState: 0
-  myRollMultiplier: 4
+  myRollMultiplier: 5
   myRollTurnMultiplier: 0.0075
   myRollInvertState: 1
   myMaxRoll: 65
   myMaxPitch: 65
   myStartingVelocity: 3
-  mySpeedMultiplier: 0.03
-  myVelocityCap: 1000
+  mySpeedMultiplier: 0.1
+  myVelocityCap: 10
   myDragFactor: 0.02
   mySpeedBoostVelocityAdd: 4
   mySpeedBoostAccelerationCurve:
@@ -500,7 +501,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  myAutoPitchFactor: 1
+  myAutoPitchFactor: 0.2
   myRollCorrectionFactor: 0.035
   myRollCorrectionByVelocityCurve:
     serializedVersion: 2
@@ -574,8 +575,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  myVelocityPitchMultiplier: 2500
-  myRollPitchMultiplier: 100
+  myVelocityPitchMultiplier: 0
+  myRollPitchMultiplier: 0
   myNoFuelSteeringFactor: 0.4
   myNoFuelDragFactor: 10
 --- !u!114 &244223602
@@ -591,7 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myFuelDepletionSpeed: 3
-  myMaxFuel: 100
+  myMaxFuel: 30
 --- !u!33 &6132284430305466146
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -614,6 +615,27 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5919927030400587724, guid: cd575fada868ad3418f7b6034b39b70f, type: 3}
+--- !u!114 &1594064090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647666980536682985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee4731a6f6ac7f8449c78e08a4aa2a5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myTrailRenderers:
+  - {fileID: 6964839595657590391}
+  - {fileID: 1406779995856748142}
+  - {fileID: 3600511341825494879}
+  - {fileID: 4565124277438090147}
+  - {fileID: 5988893797967512149}
+  - {fileID: 6655945771607923772}
+  - {fileID: 511284071646609015}
+  myEmitAtStartState: 0
 --- !u!1 &6203594145283780725
 GameObject:
   m_ObjectHideFlags: 0

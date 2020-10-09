@@ -79,21 +79,9 @@ public class PlaneController : MonoBehaviour
         if (myEnableSpaceSpeedBoost && Input.GetButtonDown("Jump"))
         {
             SpeedBoost();
-            StartCoroutine("DrawSpeedLines");
         }
 
         myFuel.myAllowFuelDepletion = !myEnableUnlimitedFuel;
-    }
-
-    private IEnumerator DrawSpeedLines() {
-        float timeToLive = 1.0f;
-        Transform trailRenderers = transform.Find("TrailRenderers");
-        trailRenderers.gameObject.SetActive(true);
-        while (timeToLive > 0) {
-            timeToLive -= Time.deltaTime;
-            yield return null;
-        }
-        trailRenderers.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -247,5 +235,22 @@ public class PlaneController : MonoBehaviour
     {
         mySpeedBoostCounter = 0f;
         myCurrentVelocity += mySpeedBoostVelocityAdd;
+
+        StartCoroutine("DrawSpeedLines");
+    }
+
+    private IEnumerator DrawSpeedLines()
+    {
+        float timeToLive = 1.0f;
+        SpeedLineController trailRenderers = GetComponent<SpeedLineController>();
+        trailRenderers.ActivateSpeedLines(true);
+
+        while (timeToLive > 0)
+        {
+            timeToLive -= Time.deltaTime;
+            yield return null;
+        }
+
+        trailRenderers.ActivateSpeedLines(false);
     }
 }
