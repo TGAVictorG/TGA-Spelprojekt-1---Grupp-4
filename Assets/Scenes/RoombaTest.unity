@@ -1512,7 +1512,9 @@ MonoBehaviour:
   myBackwardMovingTimeTarget: 2
   myRotationDegrees: 30
   myRotationTime: 3
-  targetRotationVector: {x: 0, y: 0, z: 0}
+  myMinRotationAmount: 15
+  myMaxRotationAmount: 45
+  targetRotationVector: {x: 0, y: 330, z: 0}
   myShouldMovebackwards: 0
   isLookingForANewPath: 0
 --- !u!65 &2023805199

@@ -11,6 +11,9 @@ public class Roomba : MonoBehaviour
     public float myRotationDegrees = 15f;
     public float myRotationTime = 3f;
 
+    public float myMinRotationAmount = 15f;
+    public float myMaxRotationAmount = 45f;
+
     float myCurrentMovementSpeed;
     float myTimeMovingBackward;
 
@@ -19,8 +22,9 @@ public class Roomba : MonoBehaviour
     public Vector3 targetRotationVector;
 
     int timesRotationHasChanged = 1;
+    float myTurnDirection;
 
-    Quaternion myTargetRotation;
+    Quaternion myTargetRotationQuaternion;
 
     public bool myShouldMovebackwards = false;
     
@@ -35,7 +39,7 @@ public class Roomba : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
 
     private void Start()
@@ -67,10 +71,10 @@ public class Roomba : MonoBehaviour
             LookForNewPath();
         }
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            targetRotationVector.y += myRotationDegrees;
-        }
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    targetRotationVector.y += myRotationDegrees;
+        //}
     }
 
     void LookForNewPath()
@@ -79,7 +83,7 @@ public class Roomba : MonoBehaviour
         {
             ToggleMoveBackwards();
             hasToggledMoveBackwards = true;
-            Debug.Log("Toggling move backwards");
+           // Debug.Log("Toggling move backwards");
         }
 
         if (myTimeMovingBackward < myBackwardMovingTimeTarget)
@@ -95,13 +99,36 @@ public class Roomba : MonoBehaviour
                 ChangeTargetRotation();
                 hasChangedRotation = true;
             }
+
             
-            if (Mathf.Ceil(transform.rotation.eulerAngles.y) < targetRotationVector.y)
+            //if(targetRotationVector.y >= 359)
+            //{
+            //    Rotate();
+            //    if(transform.rotation.y >= 359 || transform.rotation.eulerAngles.y <= 0)
+            //    {
+            //        transform.eulerAngles = Vector3.zero;
+            //        targetRotationVector = Vector3.zero;
+            //
+            //        FoundNewPath();
+            //
+            //    }
+            //}
+
+            if (Quaternion.Angle(myTargetRotationQuaternion, transform.rotation) > 0.01f)
             {
-                
-                Debug.Log(Mathf.Ceil(transform.rotation.eulerAngles.y));
                 Rotate();
             }
+            else
+            {
+                //targetRotationVector.y = transform.eulerAngles.y;
+                FoundNewPath();
+            }
+            //if (Mathf.Ceil(transform.rotation.eulerAngles.y) < targetRotationVector.y)
+            //{
+            //    
+            //    Debug.Log(Mathf.Ceil(transform.rotation.eulerAngles.y));
+            //
+            //}
         }
     }
 
@@ -120,24 +147,46 @@ public class Roomba : MonoBehaviour
 
     void ChangeTargetRotation()
     {
+        //Debug.Log("Changing target rotation");
+
         if (canChangeRotation)
         {
-           
-            targetRotationVector.y += (myRotationDegrees+0.001f);
 
-            if (targetRotationVector.y >= 360)
+            myTurnDirection = Random.Range(0.0f, 1.0f);
+
+            
+            if(myTurnDirection >= 0.5f)
             {
-                targetRotationVector.y = 0;
+                targetRotationVector.y += (Random.Range(myMinRotationAmount, myMaxRotationAmount) + 0.001f);
+                myTargetRotationQuaternion = Quaternion.Euler(targetRotationVector);
+                //Debug.Log(Quaternion.Angle(myTargetRotationQuaternion, transform.rotation));
             }
+            else if(myTurnDirection < 0.5f)
+            {
+                targetRotationVector.y -= (Random.Range(myMinRotationAmount, myMaxRotationAmount) + 0.001f);
+                myTargetRotationQuaternion = Quaternion.Euler(targetRotationVector);
+               // Debug.Log(Quaternion.Angle(myTargetRotationQuaternion, transform.rotation));
+
+                //Debug.Log(Vector3.Distance(new Vector3(0, Mathf.Abs(transform.eulerAngles.y), 0), new Vector3(0, Mathf.Abs(targetRotationVector.y), 0)));
+            }
+
+
+
+
+            //transform.localEulerAngles = Vector3.zero;
+            //targetRotationVector = Vector3.zero;
+
             canChangeRotation = false;
         }
     }
 
     void Rotate()
     {
-        transform.localEulerAngles = Vector3.Lerp(transform.rotation.eulerAngles, targetRotationVector, myRotationTime * Time.deltaTime);
+        
+        transform.rotation = Quaternion.Lerp(transform.rotation, myTargetRotationQuaternion, myRotationTime * Time.deltaTime);
 
-        if((Mathf.Ceil(transform.rotation.eulerAngles.y) >= targetRotationVector.y))
+
+        if (Vector3.Distance(transform.eulerAngles, targetRotationVector) <= 0.1f)
         {
             FoundNewPath();
         }
