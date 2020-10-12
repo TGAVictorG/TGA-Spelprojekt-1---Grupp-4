@@ -8,6 +8,7 @@ public class PickupScript : MonoBehaviour
     [SerializeField] private float myRotatingSpeed = 50;
     [SerializeField] private PickupScript myNextTarget = null;
     [SerializeField] private float myFuelToAdd = 2.0f;    
+    [SerializeField] private float mySpeedBoost = 2.0f;    
 
 
     //Visar en cylinder till nästa pickup. Endast i Runtime.
@@ -61,6 +62,7 @@ public class PickupScript : MonoBehaviour
         }
 
         aPlayer.gameObject.GetComponent<Fuel>().AddFuel(myFuelToAdd);
+        aPlayer.gameObject.GetComponent<SpeedBoost>().ActivateSpeedBoost(mySpeedBoost);
 
         StageManager.ourInstance.OnPickedUpBlock();
         Destroy(gameObject);

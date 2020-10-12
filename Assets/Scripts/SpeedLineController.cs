@@ -15,7 +15,28 @@ public class SpeedLineController : MonoBehaviour
         }
     }
 
-    public void ActivateSpeedLines(bool aState)
+    public void Activate()
+    {
+        StartCoroutine(ActivateSpeedLines());
+    }
+
+    private IEnumerator ActivateSpeedLines()
+    {
+        float timeToLive = 1.0f;
+        SpeedLineController trailRenderers = GetComponent<SpeedLineController>();
+        SetSpeedLineState(true);
+
+        while (timeToLive > 0)
+        {
+            timeToLive -= Time.deltaTime;
+            yield return null;
+        }
+
+        SetSpeedLineState(false);
+    }
+
+
+    private void SetSpeedLineState(bool aState)
     {
         for (int i = 0; i < myTrailRenderers.Length; i++)
         {
