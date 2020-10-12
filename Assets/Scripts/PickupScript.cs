@@ -7,16 +7,23 @@ public class PickupScript : MonoBehaviour
 
     [SerializeField] private float myRotatingSpeed = 50;
     [SerializeField] private PickupScript myNextTarget = null;
-    [SerializeField] private float myFuelToAdd = 2.0f;
+    [SerializeField] private float myFuelToAdd = 2.0f;    
+    [SerializeField] private float mySpeedBoost = 2.0f;    
 
-    GameObject myTargetIndication = null;
 
     //Visar en cylinder till nästa pickup. Endast i Runtime.
     GameObject myDebugLine = null;
     [SerializeField] private bool myDebugLineIsVisable;
+    [Tooltip("Can collect this pickup in any order.")]
+    [SerializeField] private bool myDebugIsCollectible = true;
 
     void Start()
     {
+        // Debug: collect in any order
+        if (myDebugIsCollectible) {
+            GetComponent<Collider>().enabled = true;
+        }
+        
         //debug-kod för LD
         if (myNextTarget != null)
         {
@@ -34,7 +41,6 @@ public class PickupScript : MonoBehaviour
         ActivateMeAsTarget();
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.Rotate(Vector3.up, myRotatingSpeed * Time.deltaTime);
@@ -56,6 +62,7 @@ public class PickupScript : MonoBehaviour
         }
 
         aPlayer.gameObject.GetComponent<Fuel>().AddFuel(myFuelToAdd);
+        aPlayer.gameObject.GetComponent<SpeedBoost>().ActivateSpeedBoost(mySpeedBoost);
 
         StageManager.ourInstance.OnPickedUpBlock();
         Destroy(gameObject);
@@ -63,10 +70,27 @@ public class PickupScript : MonoBehaviour
 
     private void ActivateMeAsTarget()
     {
-        myTargetIndication = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        myTargetIndication.GetComponent<Collider>().enabled = false;
-        myTargetIndication.transform.parent = transform;
-        myTargetIndication.transform.position = transform.position;
+        // Make me collectible
+        GetComponent<Collider>().enabled = true;
+
+        // Make me glow        
+        var material = gameObject.GetComponent<Renderer>().material;
+        // Activate emission on material
+        material.EnableKeyword("_EMISSION");
+        //material.SetColor("_EMISSION", new Color(0.2541522f, 1F, 0.4072403f, 1f));
+
+        // Set material's Rendering mode to transparent
+        //https://answers.unity.com/questions/1004666/change-material-rendering-mode-in-runtime.html
+        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        material.SetInt("_ZWrite", 0);
+        material.DisableKeyword("_ALPHATEST_ON");
+        material.DisableKeyword("_ALPHABLEND_ON");
+        material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+        material.renderQueue = 3000;
+
+        Behaviour halo = (Behaviour)GetComponent("Halo");
+        halo.enabled = true;
     }
 }
 
