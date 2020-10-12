@@ -6755,7 +6755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
       propertyPath: myStartingVelocity
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
       propertyPath: myVelocityByAngleCurve.m_Curve.Array.data[0].time
@@ -6767,7 +6767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
       propertyPath: mySpeedMultiplier
-      value: 0.5
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
       propertyPath: myRollMultiplier
@@ -6784,6 +6784,18 @@ PrefabInstance:
     - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
       propertyPath: myVelocityCap
       value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
+      propertyPath: mySpeedBoostVelocityAdd
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
+      propertyPath: myVelocityByAngleCurve.m_Curve.Array.data[1].time
+      value: 0.49791622
+      objectReference: {fileID: 0}
+    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
+      propertyPath: myVelocityByAngleCurve.m_Curve.Array.data[1].value
+      value: 0.0003671736
       objectReference: {fileID: 0}
     - target: {fileID: 5647666980536682985, guid: 1626a49775be5654c971483e37cae09f,
         type: 3}
