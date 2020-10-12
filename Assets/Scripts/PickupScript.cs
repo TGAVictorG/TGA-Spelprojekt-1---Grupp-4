@@ -74,8 +74,8 @@ public class PickupScript : MonoBehaviour
         // Make me glow        
         var material = gameObject.GetComponent<Renderer>().material;
         // Activate emission on material
-        material.SetColor("_EMISSION", new Color(0.2541522f, 1F, 0.4072403f, 1f));
         material.EnableKeyword("_EMISSION");
+        //material.SetColor("_EMISSION", new Color(0.2541522f, 1F, 0.4072403f, 1f));
 
         // Set material's Rendering mode to transparent
         //https://answers.unity.com/questions/1004666/change-material-rendering-mode-in-runtime.html
