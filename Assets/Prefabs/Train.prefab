@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6522820344239584162}
   - component: {fileID: 121038745}
+  - component: {fileID: 864230138}
+  - component: {fileID: 864230137}
   m_Layer: 0
   m_Name: Wagon5
   m_TagString: Untagged
@@ -44,6 +46,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &864230138
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131789205689132983}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &864230137
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131789205689132983}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.3, z: 0.5}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &230449255774220022
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,6 +201,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6176096729144128483}
   - component: {fileID: 242602887956788548}
+  - component: {fileID: 1499899435}
+  - component: {fileID: 1499899434}
   m_Layer: 0
   m_Name: Locomotive
   m_TagString: Untagged
@@ -204,6 +237,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &1499899435
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242602887956788551}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1499899434
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242602887956788551}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.3, z: 0.5}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &520828092760224612
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,6 +329,7 @@ MonoBehaviour:
   - {fileID: 863340609843981469}
   - {fileID: 863340608933753559}
   mySpeedFactor: 2
+  myFollowerStartSpacing: 0.12
   myIsDebuggingSpeed: 1
 --- !u!1 &593109683944609106
 GameObject:
@@ -436,6 +499,8 @@ GameObject:
   m_Component:
   - component: {fileID: 376985444636457399}
   - component: {fileID: 1992980061}
+  - component: {fileID: 830083537}
+  - component: {fileID: 830083536}
   m_Layer: 0
   m_Name: Wagon4
   m_TagString: Untagged
@@ -470,6 +535,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &830083537
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758324635469118250}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &830083536
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758324635469118250}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.3, z: 0.5}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &778347489878695944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1998,6 +2092,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1789120740160807084}
   - component: {fileID: 92436059}
+  - component: {fileID: 1189359113}
+  - component: {fileID: 1189359112}
   m_Layer: 0
   m_Name: Wagon3
   m_TagString: Untagged
@@ -2032,6 +2128,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &1189359113
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2838152380342413882}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1189359112
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2838152380342413882}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.3, z: 0.5}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &3056345266660910686
 GameObject:
   m_ObjectHideFlags: 0
@@ -2554,6 +2679,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5963440513900333732}
   - component: {fileID: 790785421}
+  - component: {fileID: 78040220}
+  - component: {fileID: 78040219}
   m_Layer: 0
   m_Name: Wagon2
   m_TagString: Untagged
@@ -2588,6 +2715,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &78040220
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3745667538308926513}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &78040219
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3745667538308926513}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.3, z: 0.5}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &4028776607105226061
 GameObject:
   m_ObjectHideFlags: 0
@@ -2757,6 +2913,8 @@ GameObject:
   m_Component:
   - component: {fileID: 523240322862134485}
   - component: {fileID: 1900531745}
+  - component: {fileID: 1327779564}
+  - component: {fileID: 1327779563}
   m_Layer: 0
   m_Name: Wagon6
   m_TagString: Untagged
@@ -2791,6 +2949,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &1327779564
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4421599704463963727}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1327779563
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4421599704463963727}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.3, z: 0.5}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &4544576535019850631
 GameObject:
   m_ObjectHideFlags: 0
@@ -4339,6 +4526,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2319746999556532565}
   - component: {fileID: 920047988}
+  - component: {fileID: 325284137}
+  - component: {fileID: 325284136}
   m_Layer: 0
   m_Name: Wagon1
   m_TagString: Untagged
@@ -4373,6 +4562,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &325284137
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7526603313107552258}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &325284136
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7526603313107552258}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.3, z: 0.5}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &7969663516928649752
 GameObject:
   m_ObjectHideFlags: 0
