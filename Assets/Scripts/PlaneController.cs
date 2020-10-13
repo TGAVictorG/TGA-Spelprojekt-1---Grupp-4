@@ -55,6 +55,8 @@ public class PlaneController : MonoBehaviour
 
     private Fuel myFuel;
     private Rigidbody myRigidbody;
+    private SpeedLineController mySpeedLineController;
+    private SpeedBoost mySpeedBoost;
     private float myCurrentVelocity;
     private float myCurrentAngleOfAttack;
 
@@ -64,11 +66,23 @@ public class PlaneController : MonoBehaviour
     {
         if (!(myFuel = GetComponent<Fuel>()))
         {
-            Debug.LogWarning("No Fuel-component attached!!");
+            Debug.LogWarning("No Fuel-component attached!");
         }
         if (!(myRigidbody = GetComponent<Rigidbody>()))
         {
-            Debug.LogWarning("No Rigidbody-component attached!!");
+            Debug.LogWarning("No Rigidbody-component attached!");
+        }
+        if (!(mySpeedLineController = GetComponent<SpeedLineController>()))
+        {
+            Debug.LogWarning("No SpeedLineController-component attached!");
+        }
+        if(!(mySpeedBoost = GetComponent<SpeedBoost>()))
+        {
+            Debug.LogWarning("No SpeedBoost-component attached!");
+        }
+        else
+        {
+            mySpeedBoost.myOnSpeedBoost += SpeedBoost;
         }
 
         myCurrentVelocity = myStartingVelocity;
@@ -78,7 +92,7 @@ public class PlaneController : MonoBehaviour
     {
         if (myEnableSpaceSpeedBoost && Input.GetButtonDown("Jump"))
         {
-            SpeedBoost();
+            SpeedBoost(mySpeedBoostVelocityAdd);
         }
 
         myFuel.myAllowFuelDepletion = !myEnableUnlimitedFuel;
@@ -179,7 +193,6 @@ public class PlaneController : MonoBehaviour
         if (currentAbsolutePitch > myMaxPitch)
         {
             bool pitchingUp = pitchInput < 0 ? true : false;
-            print(pitchingUp);
 
             if ((pitchingUp && transformXRotation > 180) || !pitchingUp && transformXRotation < 180)
             {
@@ -231,26 +244,11 @@ public class PlaneController : MonoBehaviour
         transform.Rotate(transform.forward, (rollInput * rollFactor * invertValue), Space.World);
     }
 
-    public void SpeedBoost()
+    public void SpeedBoost(float aBoostAmount)
     {
         mySpeedBoostCounter = 0f;
-        myCurrentVelocity += mySpeedBoostVelocityAdd;
+        myCurrentVelocity += aBoostAmount;
 
-        StartCoroutine("DrawSpeedLines");
-    }
-
-    private IEnumerator DrawSpeedLines()
-    {
-        float timeToLive = 1.0f;
-        SpeedLineController trailRenderers = GetComponent<SpeedLineController>();
-        trailRenderers.ActivateSpeedLines(true);
-
-        while (timeToLive > 0)
-        {
-            timeToLive -= Time.deltaTime;
-            yield return null;
-        }
-
-        trailRenderers.ActivateSpeedLines(false);
+        mySpeedLineController.Activate();
     }
 }
