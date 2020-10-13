@@ -24,34 +24,34 @@ namespace UI
 		#region Private Serialized Fields
 		
 		[Header("Configuration")]
-		[SerializeField] private DataManager _myDataManager = null;
-		[SerializeField] private AudioMixer _myAudioMixer = null;
-		[SerializeField] private GameObject _myAudioOptionsScreen = null;
+		[SerializeField] private DataManager myDataManager = null;
+		[SerializeField] private AudioMixer myAudioMixer = null;
+		[SerializeField] private GameObject myOptionsScreen = null;
 
 		[Header("Audio Options | Sliders")]
-		[SerializeField] private Slider _myMasterVolumeSlider = null;
-		[SerializeField] private Slider _myMusicVolumeSlider = null;
-		[SerializeField] private Slider _mySFXVolumeSlider = null;
-		[SerializeField] private Slider _myVoiceVolumeSlider = null;
+		[SerializeField] private Slider myMasterVolumeSlider = null;
+		[SerializeField] private Slider myMusicVolumeSlider = null;
+		[SerializeField] private Slider mySFXVolumeSlider = null;
+		[SerializeField] private Slider myVoiceVolumeSlider = null;
 
 		[Header("Audio Options | Labels")]
-		[SerializeField] private TextMeshProUGUI _myMasterVolumeLabelText = null;
-		[SerializeField] private TextMeshProUGUI _myMusicVolumeLabelText = null;
-		[SerializeField] private TextMeshProUGUI _mySFXVolumeLabelText = null;
-		[SerializeField] private TextMeshProUGUI _myVoiceVolumeLabelText = null;
+		[SerializeField] private TextMeshProUGUI myMasterVolumeLabelText = null;
+		[SerializeField] private TextMeshProUGUI myMusicVolumeLabelText = null;
+		[SerializeField] private TextMeshProUGUI mySFXVolumeLabelText = null;
+		[SerializeField] private TextMeshProUGUI myVoiceVolumeLabelText = null;
 
 		[Header("Video Options")]
-		[SerializeField] private Toggle _myFullScreenToggle = null;
-		[SerializeField] private Toggle _myVsyncToggle = null;
-		[SerializeField] private TextMeshProUGUI _myResolutionLabelText = null;
-		[SerializeField] private Resolution[] _myResolutions = null;
+		[SerializeField] private Toggle myFullScreenToggle = null;
+		[SerializeField] private Toggle myVsyncToggle = null;
+		[SerializeField] private TextMeshProUGUI myResolutionLabelText = null;
+		[SerializeField] private Resolution[] myResolutions = null;
 		
 		#endregion
 
 
 		#region Private Fields
 		
-		private int _mySelectedResolution = 0;
+		private int mySelectedResolution = 0;
 		
 		#endregion
 		
@@ -77,49 +77,49 @@ namespace UI
 		private void ValidateComponents()
 		{
 			// DataManager
-			if (!_myDataManager)
+			if (!myDataManager)
 			{
 				Debug.LogError("DataManager is NULL.");
 			}
 			
 			// Sliders
-			if (!_myMasterVolumeSlider)
+			if (!myMasterVolumeSlider)
 			{
 				Debug.LogError("MasterVolume Slider is NULL.");
 			}
 			
-			if (!_myMusicVolumeSlider)
+			if (!myMusicVolumeSlider)
 			{
 				Debug.LogError("MusicVolume Slider is NULL.");
 			}
 			
-			if (!_mySFXVolumeSlider)
+			if (!mySFXVolumeSlider)
 			{
 				Debug.LogError("SFXVolume Slider is NULL.");
 			}
 			
-			if (!_myVoiceVolumeSlider)
+			if (!myVoiceVolumeSlider)
 			{
 				Debug.LogError("VoiceVolume Slider is NULL.");
 			}
 			
 			// Texts
-			if (!_myMasterVolumeLabelText)
+			if (!myMasterVolumeLabelText)
 			{
 				Debug.LogError("MasterVolume Text is NULL.");
 			}
 			
-			if (!_myMusicVolumeLabelText)
+			if (!myMusicVolumeLabelText)
 			{
 				Debug.LogError("MusicVolume Text is NULL.");
 			}
 			
-			if (!_mySFXVolumeLabelText)
+			if (!mySFXVolumeLabelText)
 			{
 				Debug.LogError("SFXVolume Text is NULL.");
 			}
 			
-			if (!_myVoiceVolumeLabelText)
+			if (!myVoiceVolumeLabelText)
 			{
 				Debug.LogError("VoiceVolume Text is NULL.");
 			}
@@ -128,19 +128,19 @@ namespace UI
 		//-------------------------------------------------
 		private void LoadVideoSettings()
 		{
-			_myDataManager.Load();
+			myDataManager.Load();
 			
-			_myFullScreenToggle.isOn = _myDataManager.FullScreenMode;
-			_myVsyncToggle.isOn = _myDataManager.VSync;
+			myFullScreenToggle.isOn = myDataManager.FullScreenMode;
+			myVsyncToggle.isOn = myDataManager.VSync;
 			
 			bool foundResolution = false;
-			for (int index = 0; index < _myResolutions.Length; ++index)
+			for (int index = 0; index < myResolutions.Length; ++index)
 			{
-				if (_myDataManager.Resolution.myWidth == _myResolutions[index].myWidth &&
-				    _myDataManager.Resolution.myHeight == _myResolutions[index].myHeight)
+				if (myDataManager.Resolution.myWidth == myResolutions[index].myWidth &&
+				    myDataManager.Resolution.myHeight == myResolutions[index].myHeight)
 				{
 					foundResolution = true;
-					_mySelectedResolution = index;
+					mySelectedResolution = index;
 					UpdateResolutionLabel();
 					break;
 				}
@@ -148,97 +148,100 @@ namespace UI
 
 			if (!foundResolution)
 			{
-				_myResolutionLabelText.text = $"{Screen.width} x {Screen.height}";
+				myResolutionLabelText.text = $"{Screen.width} x {Screen.height}";
 			}
 		}
 		
 		//-------------------------------------------------
 		private void SaveSettings()
 		{
-			if (_myDataManager)
+			if (myDataManager)
 			{
-				_myDataManager.Save();
+				myDataManager.Save();
 			}
 		}
 
 		//-------------------------------------------------
 		private void LoadAudioSettings()
 		{
-			if (!_myDataManager) return;
+			if (!myDataManager) return;
 			
-			_myDataManager.Load();
+			myDataManager.Load();
 
-			_myMasterVolumeSlider.value = _myDataManager.MasterVolume;
-			_myMusicVolumeSlider.value = _myDataManager.MusicVolume;
-			_mySFXVolumeSlider.value = _myDataManager.SFXVolume;
-			_myVoiceVolumeSlider.value = _myDataManager.VoiceVolume;
+			myMasterVolumeSlider.value = myDataManager.MasterVolume;
+			myMusicVolumeSlider.value = myDataManager.MusicVolume;
+			mySFXVolumeSlider.value = myDataManager.SFXVolume;
+			myVoiceVolumeSlider.value = myDataManager.VoiceVolume;
 		}
 		
 		//-------------------------------------------------
 		private void UpdateResolutionLabel()
 		{
-			_myResolutionLabelText.text =
-				$"{_myResolutions[_mySelectedResolution].myWidth} x {_myResolutions[_mySelectedResolution].myHeight}";
+			myResolutionLabelText.text =
+				$"{myResolutions[mySelectedResolution].myWidth} x {myResolutions[mySelectedResolution].myHeight}";
 		}
 
 		#endregion
 	
 
 		#region Public Methods
+		
+		//------------------- GENERAL ---------------------
+		//-------------------------------------------------
+		public void OnOptionsCloseButton()
+		{
+			SaveSettings();
+			myOptionsScreen.SetActive(false);
+		}
+		
+		
 	
 		//--------------------- AUDIO ---------------------
 		//-------------------------------------------------
-		public void OnAudioCloseButtonClicked()
-		{
-			SaveSettings();
-			_myAudioOptionsScreen.SetActive(false);
-		}
-
-		//-------------------------------------------------
 		public void OnAudioResetButtonClicked()
 		{
-			_myDataManager.Reset();
+			myDataManager.Reset();
 			LoadAudioSettings();
 		}
 
 		//-------------------------------------------------
 		public void OnMasterVolumeChanged(float aValue)
 		{
-			if (!_myDataManager) return;
+			if (!myDataManager) return;
 			
-			_myDataManager.MasterVolume = aValue;
-			_myAudioMixer.SetFloat(name: "MasterVolume", value: _myDataManager.MasterVolume);
-			_myMasterVolumeLabelText.text = $"{_myDataManager.MasterVolume + 80:F0}";
+			myDataManager.MasterVolume = aValue;
+			myAudioMixer.SetFloat(name: "MasterVolume", value: myDataManager.MasterVolume);
+			myMasterVolumeLabelText.text = $"{myDataManager.MasterVolume + 80:F0}";
 		}
 	
 		//-------------------------------------------------
 		public void OnMusicVolumeChanged(float aValue)
 		{
-			if (!_myDataManager) return;
+			if (!myDataManager) return;
 			
-			_myDataManager.MusicVolume = aValue;
-			_myAudioMixer.SetFloat(name: "MusicVolume", value: _myDataManager.MusicVolume);
-			_myMusicVolumeLabelText.text = $"{_myDataManager.MusicVolume + 80:F0}";
+			myDataManager.MusicVolume = aValue;
+			myAudioMixer.SetFloat(name: "MusicVolume", value: myDataManager.MusicVolume);
+			myMusicVolumeLabelText.text = $"{myDataManager.MusicVolume + 80:F0}";
 		}
 	
 		//-------------------------------------------------
 		public void OnSFXVolumeChanged(float aValue)
 		{
-			if (!_myDataManager) return;
+			if (!myDataManager) return;
 			
-			_myDataManager.SFXVolume = aValue;
-			_myAudioMixer.SetFloat(name: "SFXVolume", value: _myDataManager.SFXVolume);
-			_mySFXVolumeLabelText.text = $"{_myDataManager.SFXVolume + 80:F0}";
+			myDataManager.SFXVolume = aValue;
+			myAudioMixer.SetFloat(name: "SFXVolume", value: myDataManager.SFXVolume);
+			mySFXVolumeLabelText.text = $"{myDataManager.SFXVolume + 80:F0}";
 		}
 	
 		//-------------------------------------------------
 		public void OnVoiceVolumeChanged(float aValue)
 		{
-			if (!_myDataManager) return;
+			if (!myDataManager) return;
 			
-			_myDataManager.VoiceVolume = aValue;
-			_myAudioMixer.SetFloat(name: "VoiceVolume", value: _myDataManager.VoiceVolume);
-			_myVoiceVolumeLabelText.text = $"{_myDataManager.VoiceVolume + 80:F0}";
+			myDataManager.VoiceVolume = aValue;
+			myAudioMixer.SetFloat(name: "VoiceVolume", value: myDataManager.VoiceVolume);
+			myVoiceVolumeLabelText.text = $"{myDataManager.VoiceVolume + 80:F0}";
 		}
 
 		//--------------------- VIDEO ---------------------
@@ -246,31 +249,31 @@ namespace UI
 		public void OnApplyVideoChangesButtonClicked()
 		{
 			Screen.SetResolution(
-				width: _myResolutions[_mySelectedResolution].myWidth,
-				height: _myResolutions[_mySelectedResolution].myHeight,
-				fullscreen: _myFullScreenToggle.isOn);
+				width: myResolutions[mySelectedResolution].myWidth,
+				height: myResolutions[mySelectedResolution].myHeight,
+				fullscreen: myFullScreenToggle.isOn);
 			
-			QualitySettings.vSyncCount = _myVsyncToggle.isOn ? 1 : 0;
+			QualitySettings.vSyncCount = myVsyncToggle.isOn ? 1 : 0;
 			
-			_myDataManager.Resolution = _myResolutions[_mySelectedResolution];
-			_myDataManager.FullScreenMode = _myFullScreenToggle.isOn;
-			_myDataManager.VSync = QualitySettings.vSyncCount != 0;
+			myDataManager.Resolution = myResolutions[mySelectedResolution];
+			myDataManager.FullScreenMode = myFullScreenToggle.isOn;
+			myDataManager.VSync = QualitySettings.vSyncCount != 0;
 			
 			SaveSettings();
 
 			//  Simulates fullscreen toggling during development
 #if UNITY_EDITOR
 			EditorWindow window = EditorWindow.focusedWindow;
-			window.maximized = _myDataManager.FullScreenMode;
+			window.maximized = myDataManager.FullScreenMode;
 #endif
 		}
 		
 		//-------------------------------------------------
 		public void OnResolutionMoveLeftClicked()
 		{
-			if (_mySelectedResolution > 0)
+			if (mySelectedResolution > 0)
 			{ 
-				--_mySelectedResolution;
+				--mySelectedResolution;
 				UpdateResolutionLabel();
 			}
 		}
@@ -278,9 +281,9 @@ namespace UI
 		//-------------------------------------------------
 		public void OnResolutionMoveRightClicked()
 		{
-			if (_mySelectedResolution < _myResolutions.Length - 1)
+			if (mySelectedResolution < myResolutions.Length - 1)
 			{
-				++_mySelectedResolution;
+				++mySelectedResolution;
 				UpdateResolutionLabel();
 			}
 		}
