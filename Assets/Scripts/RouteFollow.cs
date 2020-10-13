@@ -64,7 +64,7 @@ public class RouteFollow : MonoBehaviour
             }
             myParam = t;
 
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
 
         myParam -= 1.0f; // Keep the remainder for the next route
