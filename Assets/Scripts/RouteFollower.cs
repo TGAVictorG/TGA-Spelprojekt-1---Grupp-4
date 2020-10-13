@@ -8,22 +8,26 @@ using UnityEngine.Rendering.PostProcessing;
  * https://www.youtube.com/watch?v=11ofnLOE8pw
  */
 
-public class RouteFollow : MonoBehaviour
+public class RouteFollower : MonoBehaviour
 {
-    [SerializeField] private Transform[] myRoutes;
+    public Transform[] myRoutes { get; set; }
     private int myCurrentRoute;
     private float myParam;
-    [SerializeField] [Range(0,0.5f)]float myStartingParam = 0f;    
-    [SerializeField] private float mySpeedFactor = 1f;
+    public float myStartingParam { get; set; } = 0f;    
+    public float mySpeedFactor { get; set; } = 1f;
+
     private bool myCoroutineAllowed;
 
+    void Awake()
+    {
+        myCurrentRoute = 0;        
+        myCoroutineAllowed = true;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        myCurrentRoute = 0;
         myParam = myStartingParam;
-        myCoroutineAllowed = true;
     }
 
     // Update is called once per frame
@@ -31,11 +35,11 @@ public class RouteFollow : MonoBehaviour
     {
         if (myCoroutineAllowed)
         {
-            StartCoroutine(NewTravelRoute(myCurrentRoute));
+            StartCoroutine(TravelRoute(myCurrentRoute));
         }
-    }
+    }       
 
-    private IEnumerator NewTravelRoute(int aRouteNumber)
+    private IEnumerator TravelRoute(int aRouteNumber)
     {
         myCoroutineAllowed = false;
         Vector3 p0 = myRoutes[myCurrentRoute].GetChild(0).position;
