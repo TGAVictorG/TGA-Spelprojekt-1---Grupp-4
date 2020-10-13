@@ -44,11 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRoutes:
-  - {fileID: 863340609843981469}
-  - {fileID: 863340608933753559}
-  myStartingParam: 0.05
-  mySpeedFactor: 2
 --- !u!1 &230449255774220022
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,11 +204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRoutes:
-  - {fileID: 863340609843981469}
-  - {fileID: 863340608933753559}
-  myStartingParam: 0.3
-  mySpeedFactor: 2
 --- !u!1 &520828092760224612
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +213,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 896650394715040222}
-  - component: {fileID: 520828092760224613}
+  - component: {fileID: 1490188179791871735}
   m_Layer: 0
   m_Name: Train
   m_TagString: Untagged
@@ -253,23 +243,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &520828092760224613
+--- !u!114 &1490188179791871735
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520828092760224612}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 6171f2c575d24694aa256e227064c01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myRouteFollowers:
+  - {fileID: 242602887956788548}
+  - {fileID: 920047988}
+  - {fileID: 790785421}
+  - {fileID: 92436059}
+  - {fileID: 1992980061}
+  - {fileID: 121038745}
+  - {fileID: 1900531745}
   myRoutes:
   - {fileID: 863340609843981469}
   - {fileID: 863340608933753559}
-  myStartingParam: 0
-  mySpeedFactor: 0.25
+  mySpeedFactor: 2
+  myIsDebuggingSpeed: 1
 --- !u!1 &593109683944609106
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,11 +470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRoutes:
-  - {fileID: 863340609843981469}
-  - {fileID: 863340608933753559}
-  myStartingParam: 0.1
-  mySpeedFactor: 2
 --- !u!1 &778347489878695944
 GameObject:
   m_ObjectHideFlags: 0
@@ -2039,11 +2032,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRoutes:
-  - {fileID: 863340609843981469}
-  - {fileID: 863340608933753559}
-  myStartingParam: 0.15
-  mySpeedFactor: 2
 --- !u!1 &3056345266660910686
 GameObject:
   m_ObjectHideFlags: 0
@@ -2600,11 +2588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRoutes:
-  - {fileID: 863340609843981469}
-  - {fileID: 863340608933753559}
-  myStartingParam: 0.2
-  mySpeedFactor: 2
 --- !u!1 &4028776607105226061
 GameObject:
   m_ObjectHideFlags: 0
@@ -2808,11 +2791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRoutes:
-  - {fileID: 863340609843981469}
-  - {fileID: 863340608933753559}
-  myStartingParam: 0
-  mySpeedFactor: 2
 --- !u!1 &4544576535019850631
 GameObject:
   m_ObjectHideFlags: 0
@@ -4395,11 +4373,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b3091d40d26bc478973529091fb0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRoutes:
-  - {fileID: 863340609843981469}
-  - {fileID: 863340608933753559}
-  myStartingParam: 0.25
-  mySpeedFactor: 2
 --- !u!1 &7969663516928649752
 GameObject:
   m_ObjectHideFlags: 0
