@@ -8,8 +8,9 @@ public class PickupScript : MonoBehaviour
     [SerializeField] private float myRotatingSpeed = 50;
     [SerializeField] private PickupScript myNextTarget = null;
     [SerializeField] private float myFuelToAdd = 2.0f;    
-    [SerializeField] private float mySpeedBoost = 2.0f;    
+    [SerializeField] private float mySpeedBoost = 2.0f;
 
+    private GameObject myHalo;
 
     //Visar en cylinder till nästa pickup. Endast i Runtime.
     GameObject myDebugLine = null;
@@ -23,6 +24,8 @@ public class PickupScript : MonoBehaviour
         if (myDebugIsCollectible) {
             GetComponent<Collider>().enabled = true;
         }
+
+        myHalo = transform.GetChild(0).gameObject;
         
         //debug-kod för LD
         if (myNextTarget != null)
@@ -75,9 +78,9 @@ public class PickupScript : MonoBehaviour
 
         // Make me glow        
         var material = gameObject.GetComponent<Renderer>().material;
-        // Activate emission on material
-        material.EnableKeyword("_EMISSION");
-        //material.SetColor("_EMISSION", new Color(0.2541522f, 1F, 0.4072403f, 1f));
+
+        // Activate emission on material        
+        material.EnableKeyword("_EMISSION");    
 
         // Set material's Rendering mode to transparent
         //https://answers.unity.com/questions/1004666/change-material-rendering-mode-in-runtime.html
@@ -89,7 +92,7 @@ public class PickupScript : MonoBehaviour
         material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
         material.renderQueue = 3000;
 
-        Behaviour halo = (Behaviour)GetComponent("Halo");
+        Behaviour halo = (Behaviour) myHalo.GetComponent("Halo");
         halo.enabled = true;
     }
 }
