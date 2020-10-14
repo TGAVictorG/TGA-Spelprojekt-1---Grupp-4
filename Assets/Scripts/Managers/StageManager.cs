@@ -26,8 +26,6 @@ public class StageManager : MonoBehaviour
 
     public void OnStageComplete()
     {
-        GameManager.ourInstance.TransitionToMainMenu();
-
         if (myIsStageComplete)
         {
             return;
@@ -37,7 +35,10 @@ public class StageManager : MonoBehaviour
 
         CalculateFinalScore();
 
+        GameManager.ourInstance.SaveStageData(myStageData);
+
         // TODO: Call UI to show win ui with myStageData & possibly myHighscoreStageData (previous highscore, if it isn't invalid)
+        GameManager.ourInstance.TransitionToMainMenu();
     }
 
     public void OnPickedUpBlock()
