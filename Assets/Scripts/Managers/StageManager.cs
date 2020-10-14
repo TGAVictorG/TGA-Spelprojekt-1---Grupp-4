@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.Events;
 
 public class StageManager : MonoBehaviour
@@ -37,13 +36,14 @@ public class StageManager : MonoBehaviour
 
         GameManager.ourInstance.SaveStageData(myStageData);
 
-        // TODO: Call UI to show win ui with myStageData & possibly myHighscoreStageData (previous highscore, if it isn't invalid)
-        GameManager.ourInstance.TransitionToMainMenu();
+        UI.EndScreenMenu.ourInstance.DisplayEndScreen(true);
+        FreezePlayer();
     }
 
     public void OnPickedUpBlock()
     {
         ++myPickedUpBlocksCount;
+
         myOnPickedUpBlock?.Invoke();
     }
 
@@ -54,6 +54,8 @@ public class StageManager : MonoBehaviour
         myOnPickedUpStar?.Invoke();
     }
 
+    public StageData GetStageData() => myStageData;
+
     public void SetHighscoreStageData(StageData aHighscoreData)
     {
         myHighscoreStageData = aHighscoreData;
@@ -63,7 +65,25 @@ public class StageManager : MonoBehaviour
     {        
         Debug.Assert(myStageData.myStageDuration > 0f, "myStageDuration is 0!");
         float score = myBaseScore / myStageData.myStageDuration;
-        myStageData.myFinalScore = (int) Mathf.FloorToInt(score);
+        myStageData.myFinalScore = Mathf.FloorToInt(score);
+    }
+
+    private void FreezePlayer()
+    {
+        // Could cache references
+
+        // Freeze the player
+        GameObject playerGameObject = GameObject.FindGameObjectWithTag("Player");
+        playerGameObject.GetComponent<PlaneController>().enabled = false;
+
+        Rigidbody rigidbody = playerGameObject.GetComponent<Rigidbody>();
+        rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+        rigidbody.isKinematic = true;
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.angularVelocity = Vector3.zero;
+
+        // Freeze the camera
+        Camera.main.GetComponent<CameraFollow>().enabled = false;
     }
 
     private void Awake()
@@ -76,6 +96,7 @@ public class StageManager : MonoBehaviour
     {   
         if (myFirstBlock != null)
             myFirstBlock.SetActive(true);
+
         myStageStartTime = Time.time;
     }
 
@@ -84,12 +105,14 @@ public class StageManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
+
+            // TODO: Show UI
         }
     }
 
     private static void PauseGame()
     {
-        if (Time.timeScale == 1.0f)
+        if (Mathf.Approximately(Time.timeScale, 1.0f))
         {
             Time.timeScale = 0;
         }

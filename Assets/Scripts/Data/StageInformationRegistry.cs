@@ -78,28 +78,52 @@ public class StageInformationRegistry : MonoBehaviour
 
     public void LoadStageData()
     {
-        DataSerializer<StageDataWrapper> dataSerializer = new DataSerializer<StageDataWrapper>("stage_data.sav");
-        myStageDataWrapper = dataSerializer.Load() ?? myStageDataWrapper;
+        myStageDataWrapper = CreateDataSerializer().Load() ?? myStageDataWrapper;
     }
 
     public void SaveStageData()
     {
-        DataSerializer<StageDataWrapper> dataSerializer = new DataSerializer<StageDataWrapper>("stage_data.sav");
-        dataSerializer.Save(myStageDataWrapper);
+        CreateDataSerializer().Save(myStageDataWrapper);
     }
 
-    private void Awake()
+    public void ClearData()
     {
-        Debug.Assert(ourInstance == null, "Multiple StageInformationRegistrys loaded!");
+        CreateDataSerializer().Delete();
+        ResetStageData();
+    }
 
-        ourInstance = this;
-        DontDestroyOnLoad(gameObject);
-
+    private void ResetStageData()
+    {
         myStageDataWrapper = new StageDataWrapper
         {
             myStageData = new StageData[myStageCount]
         };
+    }
 
+    private DataSerializer<StageDataWrapper> CreateDataSerializer() => new DataSerializer<StageDataWrapper>("stage_data.sav");
+
+#if UNITY_EDITOR
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.C))
+        {
+            ClearData();
+        }
+    }
+#endif
+
+    private void Awake()
+    {
+        if (ourInstance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        ourInstance = this;
+        DontDestroyOnLoad(gameObject);
+
+        ResetStageData();
         LoadStageData();
     }
 }

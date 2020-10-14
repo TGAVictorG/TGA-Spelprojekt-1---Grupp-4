@@ -74,7 +74,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Assert(ourInstance == null, "Multiple GameManagers loaded!");
+        if (ourInstance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         DontDestroyOnLoad(gameObject);
         ourInstance = this;
