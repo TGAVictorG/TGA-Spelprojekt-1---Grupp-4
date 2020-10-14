@@ -1,43 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraZoomZone : MonoBehaviour
 {
-    [SerializeField] private float myZoomValue = 0.5f;
+    [SerializeField] private float myCameraMoveSpeedMultiplier = 1.5f;
 
+    [SerializeField] private float myToTargetUpMultiplier = 0.5f;
+    [SerializeField] private float myToTargetBackMultiplier = 0.5f;
 
+    private CameraFollow myCameraFollow;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        myCameraFollow = Camera.main.GetComponent<CameraFollow>();
     }
 
     private void OnTriggerEnter(Collider anOther)
     {
-        if (anOther.tag == "Player")
+        if (anOther.CompareTag("Player"))
         {
+            myCameraFollow.myDistanceToTargetUp *= myToTargetUpMultiplier;
+            myCameraFollow.myDistanceToTargetBack *= myToTargetBackMultiplier;
 
-            Camera.main.GetComponent<CameraFollow>().myDistanceToTargetUp *= myZoomValue;
-            Camera.main.GetComponent<CameraFollow>().myDistanceToTargetBack *= myZoomValue;
+            myCameraFollow.myMoveSpeed *= myCameraMoveSpeedMultiplier;
         }
     }
 
     private void OnTriggerExit(Collider anOther)
     {
-        if (anOther.tag == "Player")
+        if (anOther.CompareTag("Player"))
         {
+            myCameraFollow.myMoveSpeed /= myCameraMoveSpeedMultiplier;
 
-            Camera.main.GetComponent<CameraFollow>().myDistanceToTargetUp /= myZoomValue;
-            Camera.main.GetComponent<CameraFollow>().myDistanceToTargetBack /= myZoomValue;
+            myCameraFollow.myDistanceToTargetBack /= myToTargetBackMultiplier;
+            myCameraFollow.myDistanceToTargetUp /= myToTargetUpMultiplier;
         }
     }
 }
