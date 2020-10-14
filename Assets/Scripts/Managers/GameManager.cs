@@ -1,17 +1,32 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager ourInstance;
 
-    public void CompleteStage(int aStageIndex, StageData aStageData)
+    private int myCurrentStageIndex = -1;
+
+    public void SaveStageData(StageData aStageData)
     {
-        StageInformationRegistry.ourInstance.UpdateStageData(aStageIndex, aStageData);
-        TransitionToMainMenu();
+        Debug.Assert(myCurrentStageIndex >= 0, "Trying to save stage data on invalid stage!");
+        StageInformationRegistry.ourInstance.UpdateStageData(myCurrentStageIndex, aStageData);
     }
 
     #region Transitions
+
+    public void RestartCurrentStage()
+    {
+        if (myCurrentStageIndex >= 0)
+        {
+            TransitionToStage(myCurrentStageIndex);
+        }
+        else
+        {
+            TransitionToMainMenu();
+        }
+    }
 
     public void TransitionToStage(int aStageIndex)
     {
@@ -20,21 +35,35 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // TODO: Fade effect?
-        SceneManager.LoadScene(StageInformationRegistry.ourInstance.GetStageInformation(aStageIndex).myStageSceneName, LoadSceneMode.Single);
-        OnStageBegin(aStageIndex);
+        StartCoroutine(LoadStage(aStageIndex));
     }
 
     public void TransitionToMainMenu()
     {
+        myCurrentStageIndex = -1;
+
         // TODO: Fade effect?
-        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
     #endregion
 
+    private IEnumerator LoadStage(int aStageIndex)
+    {
+        // TODO: Fade effect?
+
+        SceneManager.LoadScene(StageInformationRegistry.ourInstance.GetStageInformation(aStageIndex).myStageSceneName, LoadSceneMode.Single);
+
+        // Wait for next frame when the scene is fully loaded and active
+        yield return null;
+
+        OnStageBegin(aStageIndex);
+    }
+
     private void OnStageBegin(int aStageIndex)
     {
+        myCurrentStageIndex = aStageIndex;
+
         Debug.Assert(StageManager.ourInstance != null, "StageManager not found in loaded stage!");
 
         if (StageInformationRegistry.ourInstance.HasValidStageData(aStageIndex))
@@ -45,7 +74,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Assert(ourInstance == null, "Multiple GameManagers loaded!");
+        if (ourInstance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         DontDestroyOnLoad(gameObject);
         ourInstance = this;
