@@ -1,9 +1,7 @@
-using System;
 using TMPro;
 using UI.Data;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI
@@ -11,6 +9,8 @@ namespace UI
     //-------------------------------------------------------------------------
     public class EndScreenMenu : MonoBehaviour
     {
+        public static EndScreenMenu ourInstance;
+
         #region Private Serializable Fields
 
         [Header("Configuration")]
@@ -48,6 +48,10 @@ namespace UI
         //-------------------------------------------------
         private void Awake()
         {
+            Debug.Assert(ourInstance == null, "Multiple EndScreenMenus loaded!");
+
+            ourInstance = this;
+
             myEndScreenMenu.SetActive(false);
         }
 
@@ -63,7 +67,7 @@ namespace UI
         {
             if (Input.GetKeyDown(KeyCode.T))
             {
-                DisplayEndScreen();
+                DisplayEndScreen(false);
             }
         }
 
@@ -127,15 +131,6 @@ namespace UI
                 myGameOutcomeText.color = myGameOverStringColor;
             }
         }
-        
-        //-------------------------------------------------
-        private void LoadScene(string sceneName)
-        {
-            if (sceneName != string.Empty)
-                SceneManager.LoadScene(sceneName: sceneName);
-            else
-                Debug.LogError("Scene Name is Empty.");
-        }
 
         #endregion
 
@@ -144,13 +139,12 @@ namespace UI
         
         //-------------------------------------------------
         // NOTE: This should be called when the game ends, through victory or loss.
-        // Make sure to set 'HasPlayerCompletedGame' on DataManager and then call DataManager.Save() for data to be persistent
-        public void DisplayEndScreen()
+        public void DisplayEndScreen(bool anIsVictory)
         {
             myEndScreenMenu.SetActive(true);
-            
+
             myDataManager.Load();
-            myIsGameCompleted = myDataManager.HasPlayerCompletedGame;
+            myIsGameCompleted = anIsVictory;
 
             ChangeBackground();
             ChangeText();
@@ -159,13 +153,13 @@ namespace UI
         //-------------------------------------------------
         public void OnPlayAgainClicked()
         {
-            LoadScene(myGameScene);
+            GameManager.ourInstance.RestartCurrentStage();
         }
 
         //-------------------------------------------------
         public void OnMainMenuClicked()
         {
-            LoadScene(myMainMenuScene);
+            GameManager.ourInstance.TransitionToMainMenu();
         }
 
         //-------------------------------------------------
