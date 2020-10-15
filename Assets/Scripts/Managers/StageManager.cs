@@ -6,6 +6,8 @@ public class StageManager : MonoBehaviour
 {
     public static StageManager ourInstance;
 
+    public bool myIsGoalEnabled => myPickedUpBlocksCount >= myBlockCount;
+
     public bool myIsStageComplete => !myStageData.myIsInvalid;
 
     public int myPickedUpBlocksCount { get; private set; } = 0;
@@ -20,6 +22,15 @@ public class StageManager : MonoBehaviour
     [Header("Events")]
     public UnityEvent myOnPickedUpBlock = new UnityEvent();
     public UnityEvent myOnPickedUpStar = new UnityEvent();
+
+    private int myBlockCount
+    {
+        get {
+            Debug.Assert(myHomeworkText != null && myHomeworkText.Length > 0);
+
+            return myHomeworkText.Replace(" ", string.Empty).Length;
+        }
+    }
 
     private StageData myStageData = StageData.ourInvalid;
     private StageData myHighscoreStageData = StageData.ourInvalid;
