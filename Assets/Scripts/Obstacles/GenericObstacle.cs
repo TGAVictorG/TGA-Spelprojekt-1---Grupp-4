@@ -2,6 +2,14 @@
 
 public class GenericObstacle : MonoBehaviour
 {
+
+    ShakeableTransform myCameraShake;
+
+    private void Awake()
+    {
+        myCameraShake = Camera.main.GetComponent<ShakeableTransform>();
+    }
+
     public void OnCollisionEnter(Collision aCollision)
     {
         Debug.Assert(aCollision.contactCount > 0, "Collision without contact points!");
@@ -12,6 +20,7 @@ public class GenericObstacle : MonoBehaviour
         if (angle < 45.0f)
         {
             // TODO: Kill player
+            myCameraShake.ShakeCamera(1);
         }
     }
 }
