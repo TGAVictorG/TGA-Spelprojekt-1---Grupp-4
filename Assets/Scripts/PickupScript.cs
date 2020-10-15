@@ -7,7 +7,7 @@ public class PickupScript : MonoBehaviour
 
     [SerializeField] private float myRotatingSpeed = 50;
     [SerializeField] private PickupScript myNextTarget = null;
-    [SerializeField] private float myFuelToAdd = 2.0f;    
+    [SerializeField] private float myFuelToAdd = 2.0f;
     [SerializeField] private float mySpeedBoost = 2.0f;
 
     private GameObject myHalo;
@@ -21,12 +21,13 @@ public class PickupScript : MonoBehaviour
     void Start()
     {
         // Debug: collect in any order
-        if (myDebugIsCollectible) {
+        if (myDebugIsCollectible)
+        {
             GetComponent<Collider>().enabled = true;
         }
 
         myHalo = transform.GetChild(0).gameObject;
-        
+
         //debug-kod för LD
         if (myNextTarget != null)
         {
@@ -58,17 +59,20 @@ public class PickupScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider aPlayer)
     {
-        if (myNextTarget != null)
+        if (aPlayer.CompareTag("Player"))
         {
-            myNextTarget.ActivateMeAsTarget();
-            Destroy(myDebugLine);
+            if (myNextTarget != null)
+            {
+                myNextTarget.ActivateMeAsTarget();
+                Destroy(myDebugLine);
+            }
+
+            aPlayer.gameObject.GetComponent<Fuel>().AddFuel(myFuelToAdd);
+            aPlayer.gameObject.GetComponent<SpeedBoost>().ActivateSpeedBoost(mySpeedBoost);
+
+            StageManager.ourInstance.OnPickedUpBlock();
+            Destroy(gameObject);
         }
-
-        aPlayer.gameObject.GetComponent<Fuel>().AddFuel(myFuelToAdd);
-        aPlayer.gameObject.GetComponent<SpeedBoost>().ActivateSpeedBoost(mySpeedBoost);
-
-        StageManager.ourInstance.OnPickedUpBlock();
-        Destroy(gameObject);
     }
 
     private void ActivateMeAsTarget()
@@ -80,7 +84,7 @@ public class PickupScript : MonoBehaviour
         var material = gameObject.GetComponent<Renderer>().material;
 
         // Activate emission on material        
-        material.EnableKeyword("_EMISSION");    
+        material.EnableKeyword("_EMISSION");
 
         // Set material's Rendering mode to transparent
         //https://answers.unity.com/questions/1004666/change-material-rendering-mode-in-runtime.html
@@ -92,7 +96,7 @@ public class PickupScript : MonoBehaviour
         material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
         material.renderQueue = 3000;
 
-        Behaviour halo = (Behaviour) myHalo.GetComponent("Halo");
+        Behaviour halo = (Behaviour)myHalo.GetComponent("Halo");
         halo.enabled = true;
     }
 }
