@@ -15,7 +15,6 @@ namespace UI
 
         [Header("Configuration")]
         [SerializeField] private GameObject myEndScreenMenu = null;
-        [SerializeField] private DataManager myDataManager = null;
         
         [Header("Scene Settings")]
         [SerializeField] private string myGameScene = string.Empty;
@@ -143,7 +142,6 @@ namespace UI
         {
             myEndScreenMenu.SetActive(true);
 
-            myDataManager.Load();
             myIsGameCompleted = anIsVictory;
 
             ChangeBackground();
