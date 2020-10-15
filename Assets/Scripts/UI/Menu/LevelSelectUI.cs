@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelSelectUI : MonoBehaviour
@@ -10,8 +11,8 @@ public class LevelSelectUI : MonoBehaviour
         public Button myButton;
         public Image myLockImage;
 
-        public Text myLevelNameText;
-        public Text myLevelRecordText;
+        public TextMeshProUGUI myLevelNameText;
+        public TextMeshProUGUI myLevelRecordText;
 #pragma warning restore 0649
     }
 

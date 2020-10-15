@@ -5,7 +5,7 @@ public class GoalZone : MonoBehaviour
 {
     private void OnTriggerEnter(Collider anOther)
     {
-        if (anOther.CompareTag("Player"))
+        if (anOther.CompareTag("Player") && StageManager.ourInstance.myIsGoalEnabled)
         {
             StageManager.ourInstance.OnStageComplete();
 
