@@ -41283,7 +41283,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8a592c23db0cd05468bba44824c4d71f, type: 2}
+      objectReference: {fileID: 2100000, guid: 9ce91354698dd274283bff8ae88b449e, type: 2}
     - target: {fileID: 919132149155446097, guid: 4660bdd138b857044881cbea303e9f37,
         type: 3}
       propertyPath: m_Name
@@ -44357,17 +44357,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc197aa49cb6d54c8abf228fb8b1bec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myEndScreenMenu: {fileID: 1133471569202503110}
-  myGameScene: Level_1
-  myMainMenuScene: MainMenu
-  myBackgroundImage: {fileID: 1133471569653299501}
-  myBackgroundVictoryColor: {r: 1, g: 0, b: 0.64705884, a: 1}
-  myBackgroundGameOverColor: {r: 0, g: 0, b: 0, a: 1}
-  myGameOutcomeText: {fileID: 1133471570230735793}
-  myVictoryString: VICTORY!
-  myGameOverString: WASTED!
-  myVictoryStringColor: {r: 0, g: 1, b: 0, a: 1}
-  myGameOverStringColor: {r: 1, g: 0, b: 0, a: 1}
+  myPopupImage: {fileID: 0}
+  myWinSprite: {fileID: 0}
+  myLossSprite: {fileID: 0}
 --- !u!1 &1133471570075303156
 GameObject:
   m_ObjectHideFlags: 0
@@ -45436,7 +45428,7 @@ PrefabInstance:
     - target: {fileID: 5019330866532979709, guid: 04507d1cb78795a47bf42f864864e590,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.029999971
+      value: 0.031273
       objectReference: {fileID: 0}
     - target: {fileID: 5019330866532979709, guid: 04507d1cb78795a47bf42f864864e590,
         type: 3}
@@ -45483,10 +45475,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5019330866532979709, guid: 04507d1cb78795a47bf42f864864e590,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.74532
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019330866532979709, guid: 04507d1cb78795a47bf42f864864e590,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7762727
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019330866532979709, guid: 04507d1cb78795a47bf42f864864e590,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.46710205
+      objectReference: {fileID: 0}
     - target: {fileID: 5684649357180815687, guid: 04507d1cb78795a47bf42f864864e590,
         type: 3}
       propertyPath: m_Name
       value: SM_movingBox (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6347327363067400370, guid: 04507d1cb78795a47bf42f864864e590,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -141849057501016350, guid: b98894ab585630040b102631bebb4efa,
+        type: 3}
+    - target: {fileID: 8216788112963345496, guid: 04507d1cb78795a47bf42f864864e590,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -141849057501016350, guid: b98894ab585630040b102631bebb4efa,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04507d1cb78795a47bf42f864864e590, type: 3}
