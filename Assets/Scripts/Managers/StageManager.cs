@@ -104,7 +104,8 @@ public class StageManager : MonoBehaviour
         ourInstance = this;
 
         SceneManager.LoadScene("UIBase", LoadSceneMode.Additive);
-        SceneManager.LoadScene("EndScreenScene", LoadSceneMode.Additive);
+        SceneManager.LoadScene("PlayerUI", LoadSceneMode.Additive);
+        SceneManager.LoadScene("EndScreenUI", LoadSceneMode.Additive);
     }
 
     private void Start()

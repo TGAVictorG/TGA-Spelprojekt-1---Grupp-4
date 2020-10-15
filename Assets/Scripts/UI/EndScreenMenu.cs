@@ -28,9 +28,9 @@ namespace UI
             Debug.Assert(ourInstance == null, "Multiple EndScreenMenus loaded!");
 
 #if UNITY_EDITOR
-            if (gameObject.scene.name != "EndScreenScene")
+            if (gameObject.scene.name != "EndScreenUI")
             {
-                Debug.LogWarning("EndScreenMenu in non EndScreenScene scene! Please remove EndScreenMenu UI from stage scenes!");
+                Debug.LogWarning("EndScreenMenu in non EndScreenUI scene! Please remove EndScreenMenu UI from stage scenes!");
             }
 #endif
 
