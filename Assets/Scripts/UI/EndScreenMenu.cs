@@ -1,7 +1,6 @@
-using TMPro;
-using UI.Data;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI
@@ -13,35 +12,13 @@ namespace UI
 
         #region Private Serializable Fields
 
+        [SerializeField] private Image myPopupImage;
+
         [Header("Configuration")]
-        [SerializeField] private GameObject myEndScreenMenu = null;
-        [SerializeField] private DataManager myDataManager = null;
-        
-        [Header("Scene Settings")]
-        [SerializeField] private string myGameScene = string.Empty;
-        [SerializeField] private string myMainMenuScene = string.Empty;
-
-        [Header("Background Settings")]
-        [SerializeField] private Image myBackgroundImage = null;
-        [SerializeField] private Color myBackgroundVictoryColor = Color.green;
-        [SerializeField] private Color myBackgroundGameOverColor = Color.red;
-        
-        [Header("Text Settings")]
-        [SerializeField] private TextMeshProUGUI myGameOutcomeText = null;
-        [SerializeField] private string myVictoryString = "VICTORY!";
-        [SerializeField] private string myGameOverString = "WASTED!";
-        [SerializeField] private Color myVictoryStringColor = Color.green;
-        [SerializeField] private Color myGameOverStringColor = Color.red;
-        
-        #endregion
-
-
-        #region Private Fields
-
-        private bool myIsGameCompleted = false;
+        [SerializeField] private Sprite myWinSprite;
+        [SerializeField] private Sprite myLossSprite;
 
         #endregion
-
 
         #region Unity Methods
 
@@ -50,90 +27,19 @@ namespace UI
         {
             Debug.Assert(ourInstance == null, "Multiple EndScreenMenus loaded!");
 
+#if UNITY_EDITOR
+            if (gameObject.scene.name != "EndScreenUI")
+            {
+                Debug.LogWarning("EndScreenMenu in non EndScreenUI scene! Please remove EndScreenMenu UI from stage scenes!");
+            }
+#endif
+
             ourInstance = this;
 
-            myEndScreenMenu.SetActive(false);
-        }
-
-        //-------------------------------------------------
-        private void Start()
-        {
-#if UNITY_EDITOR
-            ValidateComponents();
-#endif
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                DisplayEndScreen(false);
-            }
+            gameObject.SetActive(false);
         }
 
         #endregion
-
-
-        #region Private Methods
-        
-        //-------------------------------------------------
-        private void ValidateComponents()
-        {
-            if (myGameScene == string.Empty)
-            {
-                Debug.LogError("Game Scene name is EMPTY:");
-            }
-            
-            if (myMainMenuScene == string.Empty)
-            {
-                Debug.LogError("Main Menu Scene name is EMPTY:");
-            }
-            
-            if (!myBackgroundImage)
-            {
-                Debug.LogError("Background Image is NULL.");
-            }
-
-            if (!myGameOutcomeText)
-            {
-                Debug.LogError("GameOutcomeText is NULL.");
-            }
-        }
-        
-        //-------------------------------------------------
-        private void ChangeBackground()
-        {
-            if (!myBackgroundImage) return;
-            
-            if (myIsGameCompleted)
-            {
-                myBackgroundImage.color = myBackgroundVictoryColor;
-            }
-            else
-            {
-                myBackgroundImage.color = myBackgroundGameOverColor;
-            }
-        }
-
-        //-------------------------------------------------
-        private void ChangeText()
-        {
-            if (!myGameOutcomeText) return;
-            
-            if (myIsGameCompleted)
-            {
-                myGameOutcomeText.text = myVictoryString;
-                myGameOutcomeText.color = myVictoryStringColor;
-            }
-            else
-            {
-                myGameOutcomeText.text = myGameOverString;
-                myGameOutcomeText.color = myGameOverStringColor;
-            }
-        }
-
-        #endregion
-
 
         #region Public Methods
         
@@ -141,17 +47,18 @@ namespace UI
         // NOTE: This should be called when the game ends, through victory or loss.
         public void DisplayEndScreen(bool anIsVictory)
         {
-            myEndScreenMenu.SetActive(true);
+            if (gameObject.activeSelf)
+            {
+                return;
+            }
 
-            myDataManager.Load();
-            myIsGameCompleted = anIsVictory;
+            myPopupImage.sprite = anIsVictory ? myWinSprite : myLossSprite;
 
-            ChangeBackground();
-            ChangeText();
+            gameObject.SetActive(true);
         }
 
         //-------------------------------------------------
-        public void OnPlayAgainClicked()
+        public void OnRestartClicked()
         {
             GameManager.ourInstance.RestartCurrentStage();
         }
