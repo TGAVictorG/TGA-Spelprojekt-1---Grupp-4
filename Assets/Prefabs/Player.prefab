@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 8339423465720421724}
   - component: {fileID: 1131732466}
   - component: {fileID: 314365890}
+  - component: {fileID: 4893301425863219938}
   - component: {fileID: 244223602}
   - component: {fileID: 6132284430305466146}
   - component: {fileID: 2884616226040797706}
@@ -365,6 +366,18 @@ MonoBehaviour:
   myRollPitchMultiplier: 0
   myNoFuelSteeringFactor: 0.4
   myNoFuelDragFactor: 10
+--- !u!114 &4893301425863219938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647666980536682985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf7ba2b9b5602fe4698499a9b5252205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &244223602
 MonoBehaviour:
   m_ObjectHideFlags: 0
