@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
     public static StageManager ourInstance;
+
+    public bool myIsGoalEnabled => myPickedUpBlocksCount >= myBlockCount;
 
     public bool myIsStageComplete => !myStageData.myIsInvalid;
 
@@ -19,6 +22,15 @@ public class StageManager : MonoBehaviour
     [Header("Events")]
     public UnityEvent myOnPickedUpBlock = new UnityEvent();
     public UnityEvent myOnPickedUpStar = new UnityEvent();
+
+    private int myBlockCount
+    {
+        get {
+            Debug.Assert(myHomeworkText != null && myHomeworkText.Length > 0);
+
+            return myHomeworkText.Replace(" ", string.Empty).Length;
+        }
+    }
 
     private StageData myStageData = StageData.ourInvalid;
     private StageData myHighscoreStageData = StageData.ourInvalid;
@@ -90,6 +102,9 @@ public class StageManager : MonoBehaviour
     {
         Debug.Assert(ourInstance == null, "Multiple StageManagers loaded!");    
         ourInstance = this;
+
+        SceneManager.LoadScene("UIBase", LoadSceneMode.Additive);
+        SceneManager.LoadScene("EndScreenScene", LoadSceneMode.Additive);
     }
 
     private void Start()
