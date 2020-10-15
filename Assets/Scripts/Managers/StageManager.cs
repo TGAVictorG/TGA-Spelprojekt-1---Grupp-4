@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
@@ -90,6 +91,9 @@ public class StageManager : MonoBehaviour
     {
         Debug.Assert(ourInstance == null, "Multiple StageManagers loaded!");    
         ourInstance = this;
+
+        SceneManager.LoadScene("UIBase", LoadSceneMode.Additive);
+        SceneManager.LoadScene("EndScreenScene", LoadSceneMode.Additive);
     }
 
     private void Start()
