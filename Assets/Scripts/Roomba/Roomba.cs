@@ -66,8 +66,6 @@ public class Roomba : MonoBehaviour
                 case false:
                     Move(myCurrentMovementSpeed);
                     break;
-                default:
-                    break;
             }
         }
        

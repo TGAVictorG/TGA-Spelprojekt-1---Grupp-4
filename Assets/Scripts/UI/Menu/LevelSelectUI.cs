@@ -1,11 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class LevelSelectUI : MonoBehaviour
 {
-    public GameObject[] myLevelSelectButtons;
-    public Image[] myStageUnlockGraphics;
+    [System.Serializable]
+    private struct LevelUIData
+    {
+#pragma warning disable 0649
+        public Button myButton;
+        public Image myLockImage;
+
+        public Text myLevelNameText;
+        public Text myLevelRecordText;
+#pragma warning restore 0649
+    }
+
+    [SerializeField]
+    private LevelUIData[] myLevelUIData;
 
     public void LoadLevel(int aStageIndex)
     {
@@ -25,18 +36,34 @@ public class LevelSelectUI : MonoBehaviour
 
     public void UpdateLevelSelectionGraphics()
     {
-        for (int i = 0; i < myLevelSelectButtons.Length; i++)
-        {
-            myLevelSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = StageInformationRegistry.ourInstance.GetStageInformation(i).myStageDisplayName;
+        StageInformationRegistry stageInformationRegistry = StageInformationRegistry.ourInstance;
 
-            if (StageInformationRegistry.ourInstance.IsStageUnlocked(i))
+        for (int i = 0; i < myLevelUIData.Length; ++i)
+        {
+            LevelUIData levelUIData = myLevelUIData[i];
+
+            levelUIData.myLevelNameText.text = stageInformationRegistry.GetStageInformation(i).myStageDisplayName;
+
+            if (stageInformationRegistry.HasValidStageData(i))
             {
-                myStageUnlockGraphics[i].color = Color.green;
+                float duration = stageInformationRegistry.GetStageData(i).myStageDuration;
+
+                int minutes = Mathf.FloorToInt(duration / 60.0f);
+                int seconds = Mathf.FloorToInt(duration) % 60;
+
+                levelUIData.myLevelRecordText.text = $"{minutes:D2}:{seconds:D2}";
             }
             else
             {
-                myStageUnlockGraphics[i].color = Color.red;
+                levelUIData.myLevelRecordText.text = string.Empty;
             }
+
+            bool isUnlocked = stageInformationRegistry.IsStageUnlocked(i);
+
+            levelUIData.myButton.enabled = isUnlocked;
+            levelUIData.myLockImage.enabled = !isUnlocked;
+            levelUIData.myLevelNameText.enabled = isUnlocked;
+            levelUIData.myLevelRecordText.enabled = isUnlocked;
         }
     }
 }
