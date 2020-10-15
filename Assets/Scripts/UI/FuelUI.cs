@@ -9,6 +9,13 @@ public class FuelUI : MonoBehaviour
 
     private void Start()
     {
+#if UNITY_EDITOR
+        if (gameObject.scene.name != "PlayerUI")
+        {
+            Debug.LogWarning("Part of Player UI not in PlayerUI Scene! FuelUI not in Player UI Scene!");
+            gameObject.SetActive(false);
+        }
+#endif
         myPlayerFuel = GameObject.FindGameObjectWithTag("Player").GetComponent<Fuel>();
         if (myPlayerFuel == null)
         {
