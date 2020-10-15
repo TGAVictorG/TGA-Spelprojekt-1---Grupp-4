@@ -32,6 +32,7 @@ public class CameraFollow : MonoBehaviour
     private Dictionary<Collider, FadeData[]> myNotPresentElements = new Dictionary<Collider, FadeData[]>(16);
 
     private Shader myTransparentShader;
+    private int myIgnoreCameraFadeLayer;
 
     private void PopulateHitBuffer(Vector3 anOrigin, Vector3 aDirection, float someMaxDistance)
     {
@@ -79,6 +80,11 @@ public class CameraFollow : MonoBehaviour
             if (minDistance < 0.0f || hit.distance < minDistance)
             {
                 minDistance = hit.distance;
+            }
+
+            if (hit.collider.gameObject.layer == myIgnoreCameraFadeLayer)
+            {
+                continue;
             }
 
             if (!myFadingElements.ContainsKey(hit.collider))
@@ -154,6 +160,7 @@ public class CameraFollow : MonoBehaviour
     private void Awake()
     {
         myTransparentShader = Shader.Find("Transparent/Diffuse");
+        myIgnoreCameraFadeLayer = LayerMask.NameToLayer("IgnoreCameraFade");
     }
 
     private void Start()
