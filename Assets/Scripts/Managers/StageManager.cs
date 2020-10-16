@@ -140,7 +140,7 @@ public class StageManager : MonoBehaviour
         rigidbody.angularVelocity = Vector3.zero;
 
         // Freeze the camera
-        Camera.main.GetComponent<CameraFollow>().enabled = false;
+        Camera.main.transform.parent.GetComponent<CameraFollow>().enabled = false;
     }
 
     private void Awake()
