@@ -7,6 +7,7 @@ public class GenericObstacle : MonoBehaviour
 
     private void Awake()
     {
+        //NOTE: Will be implemented today
         myCameraShake = Camera.main.GetComponent<ShakeableTransform>();
     }
 
@@ -20,7 +21,11 @@ public class GenericObstacle : MonoBehaviour
         if (angle < 45.0f)
         {
             // TODO: Kill player
-            myCameraShake.ShakeCamera(1);
+            //NOTE: Will be implemented today
+            if(myCameraShake != null)
+            {
+                myCameraShake.ShakeCamera();
+            }
         }
     }
 }

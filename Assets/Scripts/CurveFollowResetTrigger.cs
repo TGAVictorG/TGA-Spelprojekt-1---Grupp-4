@@ -8,7 +8,10 @@ public class CurveFollowResetTrigger : MonoBehaviour
 
     private void Start()
     {
-        transform.position = myLastCurvePoint.position;
+        if(myLastCurvePoint != null)
+        {
+            transform.position = myLastCurvePoint.position;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
