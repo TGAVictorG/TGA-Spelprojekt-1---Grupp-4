@@ -26,16 +26,14 @@ public class GenericObstacle : MonoBehaviour
         }
         if (mydeadTime < 0)
         {
-
             UI.EndScreenMenu.ourInstance.DisplayEndScreen(false);
             mydeadTime = myTimeBeforeDeathScreen;
+
             if (myStunnedOnImpact)
             {
                 GetComponent<PlaneController>().enabled = true;
                 GetComponent<Rigidbody>().useGravity = false;
             }
-
-
         }
     }
 
@@ -49,12 +47,13 @@ public class GenericObstacle : MonoBehaviour
 
         if (angle < 45.0f)
         {
+            StageManager.ourInstance.OnPlayerDied();
+
             GetComponentInChildren<Animator>().Play("Dead");
             mydeadTime -= Time.deltaTime;
 
             if (myStunnedOnImpact)
             {
-
                 GetComponent<PlaneController>().enabled = false;
                 GetComponent<Rigidbody>().useGravity = true;
 
@@ -63,7 +62,6 @@ public class GenericObstacle : MonoBehaviour
                     myCameraShake.ShakeCamera();
 
                 }
-
             }
         }
     }

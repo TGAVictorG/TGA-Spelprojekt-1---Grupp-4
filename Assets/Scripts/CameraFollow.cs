@@ -176,10 +176,11 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        if(myTarget.GetComponent<PlaneController>().enabled == true)
+        if(!StageManager.ourInstance.myIsPlayerDead)
         {
             UpdatePosition();
         }
+
         UpdateRotation();
     }
 }
