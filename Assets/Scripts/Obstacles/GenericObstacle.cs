@@ -3,12 +3,17 @@
 public class GenericObstacle : MonoBehaviour
 {
 
+
     [SerializeField] private bool myStunnedOnImpact = true;
     [SerializeField] private float myTimeBeforeDeathScreen = 3;
+    ShakeableTransform myCameraShake;
     private float mydeadTime;
     private void Awake()
     {
         mydeadTime = myTimeBeforeDeathScreen;
+
+
+        myCameraShake = Camera.main.GetComponent<ShakeableTransform>();
     }
 
     public void OnCollisionEnter(Collision aCollision)
@@ -19,7 +24,6 @@ public class GenericObstacle : MonoBehaviour
         Debug.Assert(aCollision.contactCount > 0, "Collision without contact points!");
 
         ContactPoint contactPoint = aCollision.GetContact(0);
-
 
 
 
@@ -38,8 +42,16 @@ public class GenericObstacle : MonoBehaviour
             {
 
                 GetComponent<PlaneController>().enabled = false;
+                myCameraShake.ShakeCamera(1);
+
             }
         }
+
+        //float angle = Vector3.Angle(aCollision.collider.transform.forward, contactPoint.normal);
+        //if (angle < 45.0f)
+        //{
+        //    // TODO: Kill player
+        //}
 
 
     }
@@ -59,7 +71,10 @@ public class GenericObstacle : MonoBehaviour
             {
                 GetComponent<PlaneController>().enabled = true;
             }
+
+
         }
     }
-
 }
+
+

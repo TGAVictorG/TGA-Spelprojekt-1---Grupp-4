@@ -6,6 +6,7 @@ public class SpeedLineController : MonoBehaviour
 {
     [SerializeField] TrailRenderer[] myTrailRenderers;
     [SerializeField] bool myEmitAtStartState;
+    private ParticleSystem mySpeedLineFX;
 
     private void Start()
     {
@@ -13,6 +14,7 @@ public class SpeedLineController : MonoBehaviour
         {
             myTrailRenderers[i].emitting = myEmitAtStartState;
         }
+        mySpeedLineFX = Camera.main.transform.GetChild(0).GetComponentInChildren<ParticleSystem>();
     }
 
     public void Activate()
@@ -25,13 +27,13 @@ public class SpeedLineController : MonoBehaviour
         float timeToLive = 1.0f;
         SpeedLineController trailRenderers = GetComponent<SpeedLineController>();
         SetSpeedLineState(true);
-
+        mySpeedLineFX.Play();
         while (timeToLive > 0)
         {
             timeToLive -= Time.deltaTime;
             yield return null;
         }
-
+        
         SetSpeedLineState(false);
     }
 
