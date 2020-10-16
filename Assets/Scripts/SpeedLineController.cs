@@ -14,7 +14,7 @@ public class SpeedLineController : MonoBehaviour
         {
             myTrailRenderers[i].emitting = myEmitAtStartState;
         }
-        mySpeedLineFX = Camera.main.transform.GetChild(0).GetComponentInChildren<ParticleSystem>();
+        mySpeedLineFX = Camera.main.transform.parent.GetComponentInChildren<ParticleSystem>();
     }
 
     public void Activate()
