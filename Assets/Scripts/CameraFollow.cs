@@ -176,7 +176,11 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        UpdatePosition();
+        if(!StageManager.ourInstance.myIsPlayerDead)
+        {
+            UpdatePosition();
+        }
+
         UpdateRotation();
     }
 }
