@@ -176,7 +176,10 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        UpdatePosition();
+        if(myTarget.GetComponent<PlaneController>().enabled == true)
+        {
+            UpdatePosition();
+        }
         UpdateRotation();
     }
 }
