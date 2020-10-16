@@ -70,6 +70,8 @@ public class PickupScript : MonoBehaviour
             aPlayer.gameObject.GetComponent<Fuel>().AddFuel(myFuelToAdd);
             aPlayer.gameObject.GetComponent<SpeedBoost>().ActivateSpeedBoost(mySpeedBoost);
 
+           // aPlayer.gameObject.GetComponent<FOVAnimator>().ZoomFov(75);
+
             StageManager.ourInstance.OnPickedUpBlock();
             Destroy(gameObject);
         }
@@ -99,5 +101,7 @@ public class PickupScript : MonoBehaviour
         Behaviour halo = (Behaviour)myHalo.GetComponent("Halo");
         halo.enabled = true;
     }
+
+    
 }
 
