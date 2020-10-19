@@ -43,6 +43,6 @@ public class ButtonScaleHover : EventTrigger
 
     private void Update()
     {
-        transform.localScale = Vector3.MoveTowards(transform.localScale, myAnimationTarget, myScaleSpeed * Time.deltaTime);
+        transform.localScale = Vector3.MoveTowards(transform.localScale, myAnimationTarget, myScaleSpeed * Time.unscaledDeltaTime);
     }
 }

@@ -6,10 +6,14 @@ public class StageManager : MonoBehaviour
 {
     public static StageManager ourInstance;
 
+    public static bool ourIsPaused => Mathf.Approximately(Time.timeScale, 0.0f);
+    public static bool ourCanPause => !ourInstance.myIsPlayerDead && !ourInstance.myIsStageComplete;
+
     public bool myIsGoalEnabled => myPickedUpBlocksCount >= myBlockCount;
 
     public bool myIsStageComplete => !myStageData.myIsInvalid;
 
+    public bool myIsPlayerDead { get; private set; } = false;
     public int myPickedUpBlocksCount { get; private set; } = 0;
     public float myStageStartTime { get; private set; } = 0.0f;
 
@@ -22,6 +26,8 @@ public class StageManager : MonoBehaviour
     [Header("Events")]
     public UnityEvent myOnPickedUpBlock = new UnityEvent();
     public UnityEvent myOnPickedUpStar = new UnityEvent();
+    public UnityEvent myOnPauseStateChanged = new UnityEvent();
+    public UnityEvent myOnPlayerDied = new UnityEvent();
 
     private int myBlockCount
     {
@@ -34,6 +40,45 @@ public class StageManager : MonoBehaviour
 
     private StageData myStageData = StageData.ourInvalid;
     private StageData myHighscoreStageData = StageData.ourInvalid;
+
+    public static void TogglePause()
+    {
+        if (ourIsPaused)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+    }
+
+    public static void ResumeGame()
+    {
+        if (ourCanPause && ourIsPaused)
+        {
+            Time.timeScale = 1.0f;
+            ourInstance.myOnPauseStateChanged?.Invoke();
+        }
+    }
+
+    public static void PauseGame()
+    {
+        if (ourCanPause && !ourIsPaused)
+        {
+            Time.timeScale = 0.0f;
+            ourInstance.myOnPauseStateChanged?.Invoke();
+        }
+    }
+
+    public void OnPlayerDied()
+    {
+        if (!myIsPlayerDead)
+        {
+            myIsPlayerDead = true;
+            myOnPlayerDied?.Invoke();
+        }
+    }
 
     public void OnStageComplete()
     {
@@ -95,7 +140,7 @@ public class StageManager : MonoBehaviour
         rigidbody.angularVelocity = Vector3.zero;
 
         // Freeze the camera
-        Camera.main.GetComponent<CameraFollow>().enabled = false;
+        Camera.main.transform.parent.GetComponent<CameraFollow>().enabled = false;
     }
 
     private void Awake()
@@ -105,6 +150,7 @@ public class StageManager : MonoBehaviour
 
         SceneManager.LoadScene("UIBase", LoadSceneMode.Additive);
         SceneManager.LoadScene("PlayerUI", LoadSceneMode.Additive);
+        SceneManager.LoadScene("PauseUI", LoadSceneMode.Additive);
         SceneManager.LoadScene("EndScreenUI", LoadSceneMode.Additive);
     }
 
@@ -120,21 +166,7 @@ public class StageManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
-
-            // TODO: Show UI
-        }
-    }
-
-    private static void PauseGame()
-    {
-        if (Mathf.Approximately(Time.timeScale, 1.0f))
-        {
-            Time.timeScale = 0;
-        }
-        else
-        {
-            Time.timeScale = 1.0f;
+            TogglePause();
         }
     }
 }
