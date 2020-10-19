@@ -28,7 +28,7 @@ public class JackInABox : MonoBehaviour
     private Transform myChildTransform;
     private Transform myLidTransform;
 
-    void Start()
+    private void Start()
     {
         myHeadStartPosition = myHead.transform.position;
         myChildTransform = transform.GetChild(0).transform; // child has the actual mesh renderer
@@ -37,7 +37,7 @@ public class JackInABox : MonoBehaviour
         myLidStartPosition = myLidTransform.position;
     }
 
-    void Update()
+    private void Update()
     {
         if (myIsTriggered)
         {
@@ -101,7 +101,7 @@ public class JackInABox : MonoBehaviour
         }
     }
 
-    public void Trigger()
+    virtual public void Trigger()
     {
         myIsTriggered = true;
     }
