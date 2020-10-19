@@ -4167,6 +4167,12 @@ MonoBehaviour:
   myOnPickedUpStar:
     m_PersistentCalls:
       m_Calls: []
+  myOnPauseStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  myOnPlayerDied:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &218801749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19598,7 +19604,7 @@ PrefabInstance:
     - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
       propertyPath: mySpeedBoost
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022624, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
