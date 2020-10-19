@@ -92,4 +92,13 @@ public class LogoSequenceUI : MonoBehaviour
 
         SceneManager.LoadScene("Intro");
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            StopAllCoroutines();
+            SceneManager.LoadScene("Intro");
+        }
+    }
 }

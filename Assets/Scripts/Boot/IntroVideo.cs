@@ -12,6 +12,20 @@ public class IntroVideo : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            VideoPlayer videoPlayer = gameObject.GetComponent<VideoPlayer>();
+            if (videoPlayer != null)
+            {
+                videoPlayer.Stop();
+            }
+
+            OnVideoEnded();
+        }
+    }
+
     private void Awake()
     {
         if (myVideoClip != null)
