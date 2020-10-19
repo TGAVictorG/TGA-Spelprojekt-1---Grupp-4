@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 67319517}
   - component: {fileID: 67319514}
   - component: {fileID: 67319516}
+  - component: {fileID: 67319518}
   m_Layer: 5
   m_Name: Options Button
   m_TagString: Untagged
@@ -292,9 +293,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 850, y: 200}
+  m_AnchoredPosition: {x: 414, y: 200}
   m_SizeDelta: {x: 872, y: 146}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &67319514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,7 +314,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -451,6 +452,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &67319518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67319512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c86a21953d2b04b93c1b0538aec554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  myHoverScale: 1.1
+  myScaleSpeed: 1
 --- !u!1 &82166405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,6 +2171,7 @@ GameObject:
   - component: {fileID: 370230957}
   - component: {fileID: 370230954}
   - component: {fileID: 370230956}
+  - component: {fileID: 370230958}
   m_Layer: 5
   m_Name: Credits Button
   m_TagString: Untagged
@@ -2179,9 +2196,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 800, y: 70}
+  m_AnchoredPosition: {x: 454, y: 70}
   m_SizeDelta: {x: 692, y: 133}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &370230954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2200,7 +2217,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2327,6 +2344,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &370230958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370230952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c86a21953d2b04b93c1b0538aec554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  myHoverScale: 1.1
+  myScaleSpeed: 1
 --- !u!1 &390114557
 GameObject:
   m_ObjectHideFlags: 0
@@ -3140,6 +3172,7 @@ GameObject:
   - component: {fileID: 581137557}
   - component: {fileID: 581137556}
   - component: {fileID: 581137558}
+  - component: {fileID: 581137559}
   m_Layer: 5
   m_Name: Exit Button
   m_TagString: Untagged
@@ -3283,6 +3316,21 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &581137559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581137554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c86a21953d2b04b93c1b0538aec554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  myHoverScale: 1.1
+  myScaleSpeed: 1
 --- !u!1 &588252156
 GameObject:
   m_ObjectHideFlags: 0
@@ -8617,6 +8665,7 @@ GameObject:
   - component: {fileID: 1996015596}
   - component: {fileID: 1996015593}
   - component: {fileID: 1996015595}
+  - component: {fileID: 1996015597}
   m_Layer: 5
   m_Name: Quit Button
   m_TagString: Untagged
@@ -8641,9 +8690,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 750, y: -40}
+  m_AnchoredPosition: {x: 474, y: -40}
   m_SizeDelta: {x: 552, y: 117}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1996015593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8662,7 +8711,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -8778,6 +8827,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1996015597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996015591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c86a21953d2b04b93c1b0538aec554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  myHoverScale: 1.1
+  myScaleSpeed: 1
 --- !u!1 &2012482474
 GameObject:
   m_ObjectHideFlags: 0
@@ -9089,6 +9153,7 @@ GameObject:
   - component: {fileID: 2050263434}
   - component: {fileID: 2050263431}
   - component: {fileID: 2050263433}
+  - component: {fileID: 2050263435}
   m_Layer: 5
   m_Name: Play Button
   m_TagString: Untagged
@@ -9134,7 +9199,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -9261,6 +9326,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2050263435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050263429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c86a21953d2b04b93c1b0538aec554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  myHoverScale: 1.025
+  myScaleSpeed: 1
 --- !u!1 &2058234789
 GameObject:
   m_ObjectHideFlags: 0
@@ -9713,6 +9793,7 @@ GameObject:
   - component: {fileID: 7330868051664636452}
   - component: {fileID: 7330868051664636453}
   - component: {fileID: 7330868051664636449}
+  - component: {fileID: 7330868051664636450}
   m_Layer: 0
   m_Name: ResetAudioChangesButton
   m_TagString: Untagged
@@ -9763,6 +9844,21 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &7330868051664636450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7330868051664636448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c86a21953d2b04b93c1b0538aec554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  myHoverScale: 1.1
+  myScaleSpeed: 1
 --- !u!224 &7330868051664636451
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9829,7 +9925,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.81528294, g: 0.61574405, b: 0.9528302, a: 1}
@@ -11642,6 +11738,7 @@ GameObject:
   - component: {fileID: 7330868052763310234}
   - component: {fileID: 7330868052763310235}
   - component: {fileID: 7330868052763310236}
+  - component: {fileID: 7330868052763310238}
   m_Layer: 0
   m_Name: ApplyVideoChangesButton
   m_TagString: Untagged
@@ -11696,7 +11793,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.81528294, g: 0.61574405, b: 0.9528302, a: 1}
@@ -11783,6 +11880,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7330868052763310233}
   m_CullTransparentMesh: 0
+--- !u!114 &7330868052763310238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7330868052763310233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c86a21953d2b04b93c1b0538aec554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  myHoverScale: 1.1
+  myScaleSpeed: 1
 --- !u!224 &7330868052792241990
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12750,7 +12862,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.81528294, g: 0.61574405, b: 0.9528302, a: 1}
@@ -12837,6 +12949,7 @@ GameObject:
   - component: {fileID: 7330868053040032160}
   - component: {fileID: 7330868053040032161}
   - component: {fileID: 7330868053040032192}
+  - component: {fileID: 7330868053040032193}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -12887,6 +13000,21 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &7330868053040032193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7330868053040032191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c86a21953d2b04b93c1b0538aec554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  myHoverScale: 1.1
+  myScaleSpeed: 1
 --- !u!224 &7330868053065917284
 RectTransform:
   m_ObjectHideFlags: 0
