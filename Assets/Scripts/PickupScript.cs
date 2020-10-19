@@ -18,6 +18,11 @@ public class PickupScript : MonoBehaviour
     [Tooltip("Can collect this pickup in any order.")]
     [SerializeField] private bool myDebugIsCollectible = true;
 
+    void Awake()
+    {
+        myHalo = transform.GetChild(0).gameObject;
+    }
+
     void Start()
     {
         // Debug: collect in any order
@@ -25,8 +30,6 @@ public class PickupScript : MonoBehaviour
         {
             GetComponent<Collider>().enabled = true;
         }
-
-        myHalo = transform.GetChild(0).gameObject;
 
         //debug-kod för LD
         if (myNextTarget != null)
