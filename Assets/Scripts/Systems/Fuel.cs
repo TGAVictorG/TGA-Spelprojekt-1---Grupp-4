@@ -1,8 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class Fuel : MonoBehaviour
 {
+    public delegate void FuelPickup(float amount);
+    public event FuelPickup OnFuelPickup;
+
     public bool myAllowFuelDepletion { get; set; } = true;
     public float myCurrentFuel { get; private set; }
     public bool myFuelIsEmpty { get; private set; }
@@ -10,6 +13,7 @@ public class Fuel : MonoBehaviour
     [Tooltip("In fuel / second")]
     [SerializeField] private float myFuelDepletionSpeed = 15.0f;
     [SerializeField] private float myMaxFuel = 100.0f;
+    [SerializeField] private float myLowFuelPercentThreshold = .20f;
 
     private void Start()
     {
@@ -32,6 +36,11 @@ public class Fuel : MonoBehaviour
 
     public void AddFuel(float anAmount)
     {
+        if(OnFuelPickup != null)
+        {
+            OnFuelPickup.Invoke(anAmount);
+        }
+
         SetFuel(myCurrentFuel + anAmount);
     }
 
@@ -40,4 +49,8 @@ public class Fuel : MonoBehaviour
         return myCurrentFuel / myMaxFuel;
     }
 
+    public bool IsLowOnFuel()
+    {
+        return GetCurrentFuelPercentage() < myLowFuelPercentThreshold;
+    }
 }
