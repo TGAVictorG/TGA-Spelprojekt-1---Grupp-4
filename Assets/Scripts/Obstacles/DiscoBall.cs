@@ -5,14 +5,16 @@ public class DiscoBall : MonoBehaviour
     [SerializeField]
     private float myRotationSpeed = 20.0f;
 
+    [SerializeField]
+    private float myLossScreenDelay = 2.0f;
+
     private Rigidbody myRigidbody;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            // TODO: Kill player
-            Debug.Log("Kill player");
+            other.GetComponent<PlayerDeathHandler>().Kill(PlayerDeathHandler.DeathReason.Laser, myLossScreenDelay);
         }
     }
 
@@ -20,8 +22,7 @@ public class DiscoBall : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // TODO: Kill player
-            Debug.Log("Kill player");
+            collision.gameObject.GetComponent<PlayerDeathHandler>().Kill(PlayerDeathHandler.DeathReason.Laser, myLossScreenDelay);
         }
     }
 

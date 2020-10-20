@@ -11,11 +11,6 @@ public class ButtonScaleHover : EventTrigger
 
     private Vector3 myAnimationTarget = Vector3.one;
 
-    public override void OnDeselect(BaseEventData eventData)
-    {
-        StopEffect();
-    }
-
     public override void OnPointerEnter(PointerEventData eventData)
     {
         StartEffect();
@@ -24,11 +19,6 @@ public class ButtonScaleHover : EventTrigger
     public override void OnPointerExit(PointerEventData eventData)
     {
         StopEffect();
-    }
-
-    public override void OnSelect(BaseEventData eventData)
-    {
-        StartEffect();
     }
 
     private void StartEffect()
