@@ -139,8 +139,10 @@ public class CameraFollow : MonoBehaviour
 
         playerToTargetMagnitude = minDistance >= 0.0f ? Mathf.Min(playerToTargetMagnitude, minDistance) : playerToTargetMagnitude;
 
+#if UNITY_EDITOR
         Debug.DrawRay(myTarget.position, playerToTarget * playerToTargetMagnitude, Color.red);
         Debug.DrawRay(myTarget.position, transform.position - myTarget.position, Color.blue);
+#endif
 
         return myTarget.position + playerToTarget * playerToTargetMagnitude;
     }

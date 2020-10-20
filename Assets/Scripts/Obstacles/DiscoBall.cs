@@ -48,7 +48,9 @@ public class DiscoBall : MonoBehaviour
             Vector3 origin = laserTransform.position - laserTransform.forward;
             Ray ray = new Ray(origin, laserTransform.forward);
 
+#if UNITY_EDITOR
             Debug.DrawRay(ray.origin, ray.direction, Color.red);
+#endif
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, myLayerMask))
             {
