@@ -19,10 +19,7 @@
         public SaveData()
         {
             SetDefaultAudioSettings();
-
-            myIsFullScreenOn = false;
-            myIsVsyncOn = false;
-            myResolution = new Resolution {myWidth = 1920, myHeight = 1080};
+            SetDefaultVideoSettings();
         }
 
         //-------------------------------------------------
@@ -32,6 +29,14 @@
             myMusicVolume = 0.0f;
             mySFXVolume = 0.0f;
             myVoiceVolume = 0.0f;
+        }
+        
+        //-------------------------------------------------
+        public void SetDefaultVideoSettings()
+        {
+            myIsFullScreenOn = true;
+            myIsVsyncOn = false;
+            myResolution = new Resolution {myWidth = 1920, myHeight = 1080};
         }
     }
 }
