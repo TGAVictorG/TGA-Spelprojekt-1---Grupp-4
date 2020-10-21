@@ -11,6 +11,7 @@ public class PickupScript : MonoBehaviour
     [SerializeField] private float mySpeedBoost = 2.0f;
 
     private GameObject myHalo;
+    private Material myMaterial;
 
     //Visar en cylinder till nästa pickup. Endast i Runtime.
     GameObject myDebugLine = null;
@@ -21,6 +22,9 @@ public class PickupScript : MonoBehaviour
     void Awake()
     {
         myHalo = transform.GetChild(0).gameObject;
+        myMaterial = gameObject.GetComponent<Renderer>().material;
+        SetMaterialTransparent(myMaterial);
+
     }
 
     void Start()
@@ -44,7 +48,8 @@ public class PickupScript : MonoBehaviour
 
     public void SetActive(bool aActive)
     {
-        gameObject.SetActive(aActive);
+
+        gameObject.SetActive(aActive);        
         ActivateMeAsTarget();
     }
 
@@ -86,23 +91,35 @@ public class PickupScript : MonoBehaviour
         GetComponent<Collider>().enabled = true;
 
         // Make me glow        
-        var material = gameObject.GetComponent<Renderer>().material;
 
-        // Activate emission on material        
-        material.EnableKeyword("_EMISSION");
+        // Activate emission on material
+        myMaterial.EnableKeyword("_EMISSION");
+                
+        // Set alpha to 1
+        Color color = myMaterial.color;
+        color.a = 1f;
+        myMaterial.color = color;
 
-        // Set material's Rendering mode to transparent
-        //https://answers.unity.com/questions/1004666/change-material-rendering-mode-in-runtime.html
-        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        material.SetInt("_ZWrite", 0);
-        material.DisableKeyword("_ALPHATEST_ON");
-        material.DisableKeyword("_ALPHABLEND_ON");
-        material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
-        material.renderQueue = 3000;
 
         Behaviour halo = (Behaviour)myHalo.GetComponent("Halo");
         halo.enabled = true;
+    }
+
+    private void SetMaterialTransparent(Material aMaterial)
+    {
+        // Set alpha
+        Color color = aMaterial.color;
+        color.a = 0.25f;
+        aMaterial.color = color;
+
+        //https://answers.unity.com/questions/1004666/change-material-rendering-mode-in-runtime.html
+        aMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        aMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        aMaterial.SetInt("_ZWrite", 0);
+        aMaterial.DisableKeyword("_ALPHATEST_ON");
+        aMaterial.DisableKeyword("_ALPHABLEND_ON");
+        aMaterial.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+        aMaterial.renderQueue = 3000;
     }
 
     
