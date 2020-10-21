@@ -37,7 +37,7 @@ public class PickupScript : MonoBehaviour
                 myEmissionIntensity = 0.4f;
                 break;
             case "Level_3":
-                myEmissionIntensity = 0.75f;
+                myEmissionIntensity = 0.35f;
                 break;
         }
     }
