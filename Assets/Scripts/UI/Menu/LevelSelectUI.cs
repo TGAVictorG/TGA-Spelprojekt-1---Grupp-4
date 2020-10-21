@@ -9,12 +9,16 @@ public class LevelSelectUI : MonoBehaviour
     {
 #pragma warning disable 0649
         public Button myButton;
+        public Image myLevelImage;
         public Image myLockImage;
 
         public TextMeshProUGUI myLevelNameText;
         public TextMeshProUGUI myLevelRecordText;
 #pragma warning restore 0649
     }
+
+    [SerializeField]
+    private Material myBlurMaterial;
 
     [SerializeField]
     private LevelUIData[] myLevelUIData;
@@ -60,6 +64,13 @@ public class LevelSelectUI : MonoBehaviour
             }
 
             bool isUnlocked = stageInformationRegistry.IsStageUnlocked(i);
+
+            levelUIData.myLevelImage.sprite = stageInformationRegistry.GetStageInformation(i).myStageThumbnail;
+            levelUIData.myLevelImage.material = isUnlocked ? null : myBlurMaterial;
+
+            AspectRatioFitter aspectRatioFitter = levelUIData.myLevelImage.GetComponent<AspectRatioFitter>();
+            aspectRatioFitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+            aspectRatioFitter.aspectRatio = levelUIData.myLevelImage.sprite.rect.width / levelUIData.myLevelImage.sprite.rect.height;
 
             levelUIData.myButton.enabled = isUnlocked;
             levelUIData.myLockImage.enabled = !isUnlocked;
