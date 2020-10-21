@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PickupScript : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PickupScript : MonoBehaviour
 
     private GameObject myHalo;
     private Material myMaterial;
+    private float myEmissionIntensity = 1.0f;
 
     //Visar en cylinder till nästa pickup. Endast i Runtime.
     GameObject myDebugLine = null;
@@ -25,6 +27,19 @@ public class PickupScript : MonoBehaviour
         myMaterial = gameObject.GetComponent<Renderer>().material;
         SetMaterialTransparent(myMaterial);
 
+        Scene scene = SceneManager.GetActiveScene();
+        switch (scene.name)
+        {
+            case "Level_1":
+                myEmissionIntensity = 0.55f;
+                break;
+            case "Level_2":
+                myEmissionIntensity = 0.4f;
+                break;
+            case "Level_3":
+                myEmissionIntensity = 0.35f;
+                break;
+        }
     }
 
     void Start()
@@ -90,16 +105,16 @@ public class PickupScript : MonoBehaviour
         // Make me collectible
         GetComponent<Collider>().enabled = true;
 
-        // Make me glow        
-
+        // Make me glow:
         // Activate emission on material
-        myMaterial.EnableKeyword("_EMISSION");
                 
         // Set alpha to 1
         Color color = myMaterial.color;
         color.a = 1f;
         myMaterial.color = color;
+        myMaterial.SetColor("_EmissionColor", color * myEmissionIntensity); //new Color(0.06372549f, 0.25f, 0.40784314f, 1f)
 
+        myMaterial.EnableKeyword("_EMISSION");
 
         Behaviour halo = (Behaviour)myHalo.GetComponent("Halo");
         halo.enabled = true;
