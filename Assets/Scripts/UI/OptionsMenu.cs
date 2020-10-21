@@ -1,9 +1,9 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UI.Data;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace UI
@@ -27,7 +27,6 @@ namespace UI
 		[Header("Configuration")]
 		[SerializeField] private DataManager myDataManager = null;
 		[SerializeField] private AudioMixer myAudioMixer = null;
-		[SerializeField] private GameObject myOptionsScreen = null;
 
 		[Header("Audio Options | Sliders")]
 		[SerializeField] private Slider myMasterVolumeSlider = null;
@@ -46,13 +45,20 @@ namespace UI
 		[SerializeField] private Toggle myVsyncToggle = null;
 		[SerializeField] private TextMeshProUGUI myResolutionLabelText = null;
 		[SerializeField] private Resolution[] myResolutions = null;
-		
-		#endregion
+
+        #endregion
+
+        #region Public Fields
+
+        [Header("Events")]
+		public UnityEvent myOnCloseRequest = new UnityEvent();
+
+        #endregion
 
 
-		#region Private Fields
-		
-		private int mySelectedResolution = 0;
+        #region Private Fields
+
+        private int mySelectedResolution = 0;
 		
 		#endregion
 		
@@ -217,7 +223,7 @@ namespace UI
 		public void OnOptionsCloseButton()
 		{
 			SaveSettings();
-			myOptionsScreen.SetActive(false);
+			myOnCloseRequest?.Invoke();
 		}
 		
 		
