@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UI.Data;
 using UnityEditor;
 using UnityEngine;
@@ -150,6 +151,8 @@ namespace UI
 			{
 				myResolutionLabelText.text = $"{Screen.width} x {Screen.height}";
 			}
+			
+			SetVideoSettings();
 		}
 		
 		//-------------------------------------------------
@@ -181,6 +184,29 @@ namespace UI
 				$"{myResolutions[mySelectedResolution].myWidth} x {myResolutions[mySelectedResolution].myHeight}";
 		}
 
+		//-------------------------------------------------
+		private void SetVideoSettings()
+		{
+			Screen.SetResolution(
+				width: myResolutions[mySelectedResolution].myWidth,
+				height: myResolutions[mySelectedResolution].myHeight,
+				fullscreen: myFullScreenToggle.isOn);
+			
+			QualitySettings.vSyncCount = myVsyncToggle.isOn ? 1 : 0;
+			
+			myDataManager.Resolution = myResolutions[mySelectedResolution];
+			myDataManager.FullScreenMode = myFullScreenToggle.isOn;
+			myDataManager.VSync = QualitySettings.vSyncCount != 0;
+			
+			SaveSettings();
+
+			//  Simulates fullscreen toggling during development
+#if UNITY_EDITOR
+			EditorWindow window = EditorWindow.focusedWindow;
+			window.maximized = myDataManager.FullScreenMode;
+#endif
+		}
+		
 		#endregion
 	
 
@@ -248,24 +274,7 @@ namespace UI
 		//-------------------------------------------------
 		public void OnApplyVideoChangesButtonClicked()
 		{
-			Screen.SetResolution(
-				width: myResolutions[mySelectedResolution].myWidth,
-				height: myResolutions[mySelectedResolution].myHeight,
-				fullscreen: myFullScreenToggle.isOn);
-			
-			QualitySettings.vSyncCount = myVsyncToggle.isOn ? 1 : 0;
-			
-			myDataManager.Resolution = myResolutions[mySelectedResolution];
-			myDataManager.FullScreenMode = myFullScreenToggle.isOn;
-			myDataManager.VSync = QualitySettings.vSyncCount != 0;
-			
-			SaveSettings();
-
-			//  Simulates fullscreen toggling during development
-#if UNITY_EDITOR
-			EditorWindow window = EditorWindow.focusedWindow;
-			window.maximized = myDataManager.FullScreenMode;
-#endif
+			SetVideoSettings();
 		}
 		
 		//-------------------------------------------------
