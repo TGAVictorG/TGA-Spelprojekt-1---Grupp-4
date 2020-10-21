@@ -728,16 +728,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692e61be16377694695870a0b33443f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myBlurMaterial: {fileID: 2100000, guid: b8ea5b585eb9aeb40af238b3e7e8c1d0, type: 2}
   myLevelUIData:
   - myButton: {fileID: 1406967179}
+    myLevelImage: {fileID: 1351028741}
     myLockImage: {fileID: 1207500079}
     myLevelNameText: {fileID: 1876232067}
     myLevelRecordText: {fileID: 1443959878}
   - myButton: {fileID: 1664288817}
+    myLevelImage: {fileID: 1181192197}
     myLockImage: {fileID: 220670012}
     myLevelNameText: {fileID: 1205777958}
     myLevelRecordText: {fileID: 180049280}
   - myButton: {fileID: 815494500}
+    myLevelImage: {fileID: 1482990973}
     myLockImage: {fileID: 1401294332}
     myLevelNameText: {fileID: 221640969}
     myLevelRecordText: {fileID: 579797232}
@@ -5057,6 +5061,7 @@ GameObject:
   - component: {fileID: 1181192196}
   - component: {fileID: 1181192198}
   - component: {fileID: 1181192197}
+  - component: {fileID: 1181192199}
   m_Layer: 5
   m_Name: LevelGraphic
   m_TagString: Untagged
@@ -5102,8 +5107,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cef0be2b275f4f34cad568ce679240d8, type: 3}
-  m_Type: 2
+  m_Sprite: {fileID: 0}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5120,6 +5125,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181192195}
   m_CullTransparentMesh: 0
+--- !u!114 &1181192199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181192195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 4
+  m_AspectRatio: 0.6980609
 --- !u!1 &1205777956
 GameObject:
   m_ObjectHideFlags: 0
@@ -5663,6 +5682,7 @@ GameObject:
   - component: {fileID: 1351028740}
   - component: {fileID: 1351028742}
   - component: {fileID: 1351028741}
+  - component: {fileID: 1351028743}
   m_Layer: 5
   m_Name: LevelGraphic
   m_TagString: Untagged
@@ -5708,9 +5728,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cef0be2b275f4f34cad568ce679240d8, type: 3}
-  m_Type: 2
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -5726,6 +5746,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351028739}
   m_CullTransparentMesh: 0
+--- !u!114 &1351028743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351028739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 4
+  m_AspectRatio: 0.6980609
 --- !u!1 &1401294329
 GameObject:
   m_ObjectHideFlags: 0
@@ -6151,6 +6185,7 @@ GameObject:
   - component: {fileID: 1482990972}
   - component: {fileID: 1482990974}
   - component: {fileID: 1482990973}
+  - component: {fileID: 1482990975}
   m_Layer: 5
   m_Name: LevelGraphic
   m_TagString: Untagged
@@ -6196,8 +6231,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cef0be2b275f4f34cad568ce679240d8, type: 3}
-  m_Type: 2
+  m_Sprite: {fileID: 0}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -6214,6 +6249,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482990971}
   m_CullTransparentMesh: 0
+--- !u!114 &1482990975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482990971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 4
+  m_AspectRatio: 0.6980609
 --- !u!1 &1491034227
 GameObject:
   m_ObjectHideFlags: 0

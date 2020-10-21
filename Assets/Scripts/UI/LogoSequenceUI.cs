@@ -53,7 +53,7 @@ public class LogoSequenceUI : MonoBehaviour
             color.a = Mathf.Lerp(0.0f, 1.0f, t);
 
             myImage.color = color;
-            rectTransform.localScale = Vector3.Slerp(startScale, Vector3.one, t);
+            rectTransform.localScale = Vector3.Slerp(startScale, Vector3.one, t) * 2;
 
             yield return null;
         } while (time < myAnimateInDuration);
