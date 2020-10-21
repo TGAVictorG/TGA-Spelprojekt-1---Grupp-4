@@ -7,6 +7,7 @@ public class JackInABox : MonoBehaviour
     [SerializeField] public AnimationCurve myAnimationCurve;
     [SerializeField] public GameObject myHead;
     [SerializeField] public GameObject myBoxLidAnchorPoint;
+    [SerializeField] public GameObject myCrank;
     [SerializeField] public bool repeatAnimation = false;
 
     private float myTimeCounter = 0f;
@@ -47,7 +48,6 @@ public class JackInABox : MonoBehaviour
                 myFirstRun = false;
                 myBoxLidAnchorPoint.transform.Rotate(new Vector3(0f, 0f, -90f));
             }
-
 
             if (myTimeCounter < myLerpTime && !myAnimationIsPaused)
             {
@@ -94,6 +94,12 @@ public class JackInABox : MonoBehaviour
             float curveFactor = myAnimationCurve.Evaluate(lerpRatio); // y value of animation curve
             var scale = Vector3.Lerp(myStartScale, myEndScale, curveFactor);
             transform.localScale = scale;
+
+            // Rotate my crank
+            if (myTimeCounter < myLerpTime)
+            {
+                myCrank.transform.Rotate(new Vector3(0,0,1), 5/ myTimeCounter);
+            }
 
             // Adjust head position
             var newChildCenterOffset = myChildTransform.position - myChildStartPosition;
