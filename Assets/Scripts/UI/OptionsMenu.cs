@@ -25,7 +25,6 @@ namespace UI
 		#region Private Serialized Fields
 		
 		[Header("Configuration")]
-		[SerializeField] private DataManager myDataManager = null;
 		[SerializeField] private AudioMixer myAudioMixer = null;
 
 		[Header("Audio Options | Sliders")]
@@ -53,10 +52,12 @@ namespace UI
         [Header("Events")]
 		public UnityEvent myOnCloseRequest = new UnityEvent();
 
-        #endregion
+		#endregion
 
 
-        #region Private Fields
+		#region Private Fields
+
+		private OptionsDataManager myOptionsDataManager => GameManager.ourInstance.myOptionsDataManager;
 
         private int mySelectedResolution = 0;
 		
@@ -83,12 +84,6 @@ namespace UI
 		//-------------------------------------------------
 		private void ValidateComponents()
 		{
-			// DataManager
-			if (!myDataManager)
-			{
-				Debug.LogError("DataManager is NULL.");
-			}
-			
 			// Sliders
 			if (!myMasterVolumeSlider)
 			{
@@ -135,16 +130,16 @@ namespace UI
 		//-------------------------------------------------
 		private void LoadVideoSettings()
 		{
-			myDataManager.Load();
+			myOptionsDataManager.Load();
 			
-			myFullScreenToggle.isOn = myDataManager.FullScreenMode;
-			myVsyncToggle.isOn = myDataManager.VSync;
+			myFullScreenToggle.isOn = myOptionsDataManager.FullScreenMode;
+			myVsyncToggle.isOn = myOptionsDataManager.VSync;
 			
 			bool foundResolution = false;
 			for (int index = 0; index < myResolutions.Length; ++index)
 			{
-				if (myDataManager.Resolution.myWidth == myResolutions[index].myWidth &&
-				    myDataManager.Resolution.myHeight == myResolutions[index].myHeight)
+				if (myOptionsDataManager.Resolution.myWidth == myResolutions[index].myWidth &&
+				    myOptionsDataManager.Resolution.myHeight == myResolutions[index].myHeight)
 				{
 					foundResolution = true;
 					mySelectedResolution = index;
@@ -164,23 +159,22 @@ namespace UI
 		//-------------------------------------------------
 		private void SaveSettings()
 		{
-			if (myDataManager)
-			{
-				myDataManager.Save();
-			}
+			Debug.Assert(myOptionsDataManager != null, "myOptionsDataManager should not be null!");
+
+			myOptionsDataManager.Save();
 		}
 
 		//-------------------------------------------------
 		private void LoadAudioSettings()
 		{
-			if (!myDataManager) return;
-			
-			myDataManager.Load();
+			Debug.Assert(myOptionsDataManager != null, "myOptionsDataManager should not be null!");
 
-			myMasterVolumeSlider.value = myDataManager.MasterVolume;
-			myMusicVolumeSlider.value = myDataManager.MusicVolume;
-			mySFXVolumeSlider.value = myDataManager.SFXVolume;
-			myVoiceVolumeSlider.value = myDataManager.VoiceVolume;
+			myOptionsDataManager.Load();
+
+			myMasterVolumeSlider.value = myOptionsDataManager.MasterVolume;
+			myMusicVolumeSlider.value = myOptionsDataManager.MusicVolume;
+			mySFXVolumeSlider.value = myOptionsDataManager.SFXVolume;
+			myVoiceVolumeSlider.value = myOptionsDataManager.VoiceVolume;
 		}
 		
 		//-------------------------------------------------
@@ -200,16 +194,16 @@ namespace UI
 			
 			QualitySettings.vSyncCount = myVsyncToggle.isOn ? 1 : 0;
 			
-			myDataManager.Resolution = myResolutions[mySelectedResolution];
-			myDataManager.FullScreenMode = myFullScreenToggle.isOn;
-			myDataManager.VSync = QualitySettings.vSyncCount != 0;
+			myOptionsDataManager.Resolution = myResolutions[mySelectedResolution];
+			myOptionsDataManager.FullScreenMode = myFullScreenToggle.isOn;
+			myOptionsDataManager.VSync = QualitySettings.vSyncCount != 0;
 			
 			SaveSettings();
 
 			//  Simulates fullscreen toggling during development
 #if UNITY_EDITOR
 			EditorWindow window = EditorWindow.focusedWindow;
-			window.maximized = myDataManager.FullScreenMode;
+			window.maximized = myOptionsDataManager.FullScreenMode;
 #endif
 		}
 		
@@ -232,48 +226,48 @@ namespace UI
 		//-------------------------------------------------
 		public void OnAudioResetButtonClicked()
 		{
-			myDataManager.Reset();
+			myOptionsDataManager.Reset();
 			LoadAudioSettings();
 		}
 
 		//-------------------------------------------------
 		public void OnMasterVolumeChanged(float aValue)
 		{
-			if (!myDataManager) return;
-			
-			myDataManager.MasterVolume = aValue;
-			myAudioMixer.SetFloat(name: "MasterVolume", value: myDataManager.MasterVolume);
-			myMasterVolumeLabelText.text = $"{myDataManager.MasterVolume + 80:F0}";
+			Debug.Assert(myOptionsDataManager != null, "myOptionsDataManager should not be null!");
+
+			myOptionsDataManager.MasterVolume = aValue;
+			myAudioMixer.SetFloat(name: "MasterVolume", value: myOptionsDataManager.MasterVolume);
+			myMasterVolumeLabelText.text = $"{myOptionsDataManager.MasterVolume + 80:F0}";
 		}
 	
 		//-------------------------------------------------
 		public void OnMusicVolumeChanged(float aValue)
 		{
-			if (!myDataManager) return;
-			
-			myDataManager.MusicVolume = aValue;
-			myAudioMixer.SetFloat(name: "MusicVolume", value: myDataManager.MusicVolume);
-			myMusicVolumeLabelText.text = $"{myDataManager.MusicVolume + 80:F0}";
+			Debug.Assert(myOptionsDataManager != null, "myOptionsDataManager should not be null!");
+
+			myOptionsDataManager.MusicVolume = aValue;
+			myAudioMixer.SetFloat(name: "MusicVolume", value: myOptionsDataManager.MusicVolume);
+			myMusicVolumeLabelText.text = $"{myOptionsDataManager.MusicVolume + 80:F0}";
 		}
 	
 		//-------------------------------------------------
 		public void OnSFXVolumeChanged(float aValue)
 		{
-			if (!myDataManager) return;
-			
-			myDataManager.SFXVolume = aValue;
-			myAudioMixer.SetFloat(name: "SFXVolume", value: myDataManager.SFXVolume);
-			mySFXVolumeLabelText.text = $"{myDataManager.SFXVolume + 80:F0}";
+			Debug.Assert(myOptionsDataManager != null, "myOptionsDataManager should not be null!");
+
+			myOptionsDataManager.SFXVolume = aValue;
+			myAudioMixer.SetFloat(name: "SFXVolume", value: myOptionsDataManager.SFXVolume);
+			mySFXVolumeLabelText.text = $"{myOptionsDataManager.SFXVolume + 80:F0}";
 		}
 	
 		//-------------------------------------------------
 		public void OnVoiceVolumeChanged(float aValue)
 		{
-			if (!myDataManager) return;
-			
-			myDataManager.VoiceVolume = aValue;
-			myAudioMixer.SetFloat(name: "VoiceVolume", value: myDataManager.VoiceVolume);
-			myVoiceVolumeLabelText.text = $"{myDataManager.VoiceVolume + 80:F0}";
+			Debug.Assert(myOptionsDataManager != null, "myOptionsDataManager should not be null!");
+
+			myOptionsDataManager.VoiceVolume = aValue;
+			myAudioMixer.SetFloat(name: "VoiceVolume", value: myOptionsDataManager.VoiceVolume);
+			myVoiceVolumeLabelText.text = $"{myOptionsDataManager.VoiceVolume + 80:F0}";
 		}
 
 		//--------------------- VIDEO ---------------------

@@ -1,10 +1,13 @@
 ﻿using System.Collections;
+using UI.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager ourInstance;
+
+    public OptionsDataManager myOptionsDataManager { get; private set; }
 
     private int myCurrentStageIndex = -1;
 
@@ -82,5 +85,7 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         ourInstance = this;
+
+        myOptionsDataManager = new OptionsDataManager();
     }
 }
