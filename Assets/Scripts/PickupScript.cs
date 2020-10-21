@@ -31,7 +31,7 @@ public class PickupScript : MonoBehaviour
         switch (scene.name)
         {
             case "Level_1":
-                myEmissionIntensity = 0.55f;
+                myEmissionIntensity = 0.4f;
                 break;
             case "Level_2":
                 myEmissionIntensity = 0.4f;
