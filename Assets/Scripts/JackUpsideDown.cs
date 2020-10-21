@@ -68,9 +68,10 @@ public class JackUpsideDown : JackInABox
             var scale = Vector3.Lerp(myStartScale, myEndScale, curveFactor);
             mySpringTransform.localScale = scale;
 
-            if (myForceJump && myFirstRun)
+            // Rotate my crank
+            if (myTimeCounter < myLerpTime)
             {
-                //myForceRigidbody.AddForce(myForce);
+                myCrank.transform.Rotate(new Vector3(0, 0, 1), 20 / myTimeCounter);
             }
 
             // Adjust head position
