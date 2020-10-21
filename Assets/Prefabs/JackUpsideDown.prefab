@@ -1,160 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &1963374351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4640032906294379681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27771db41e245394dbad59fd6475fb7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myAnimationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.04934082
-      value: 1.001564
-      inSlope: 0.55772823
-      outSlope: 0.55772823
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.09730835
-      value: 0.09688721
-      inSlope: 0.79692906
-      outSlope: 0.79692906
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.16257936
-      value: 0.9017151
-      inSlope: 1.1823182
-      outSlope: 1.1823182
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.20981446
-      value: 0.21098633
-      inSlope: 0.83015054
-      outSlope: 0.83015054
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.2758484
-      value: 0.8048431
-      inSlope: 1.4663702
-      outSlope: 1.4663702
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.32937014
-      value: 0.29564613
-      inSlope: 1.0469408
-      outSlope: 1.0469408
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.3872198
-      value: 0.704001
-      inSlope: 2.1524613
-      outSlope: 2.1524613
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.44072166
-      value: 0.3438784
-      inSlope: -0.3219511
-      outSlope: -0.3219511
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.49628398
-      value: 0.6130465
-      inSlope: -0.41782746
-      outSlope: -0.41782746
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.555029
-      value: 0.44094935
-      inSlope: -0.8888498
-      outSlope: -0.8888498
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.6083151
-      value: 0.5491668
-      inSlope: -0.8598448
-      outSlope: -0.8598448
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.6455027
-      value: 0.48205543
-      inSlope: 0.5106136
-      outSlope: 0.5106136
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.27741742
-    - serializedVersion: 3
-      time: 0.69911236
-      value: 0.50245523
-      inSlope: 0.34583947
-      outSlope: 0.34583947
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.63974154
-      outWeight: 0.6249318
-    m_PreInfinity: 1
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  myHead: {fileID: 2057250470976942813}
-  myBoxLidAnchorPoint: {fileID: 4640032906460022815}
-  repeatAnimation: 0
-  myCoolDownTime: 1
-  myAnimationPauseTime: 1
-  myForceJump: 1
-  myForceRigidbody: {fileID: 1963374352}
-  myForce: {x: 0, y: -5, z: 0}
-  mySpringMeshTransform: {fileID: 4640032906155566533}
-  mySpringTransform: {fileID: 4640032906868465724}
-  myAnchorTransform: {fileID: 4640032906868465724}
 --- !u!54 &1963374352
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -317,6 +162,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   myHead: {fileID: 2057250470976942813}
   myBoxLidAnchorPoint: {fileID: 4640032906460022815}
+  myCrank: {fileID: 5465779503123303648}
   repeatAnimation: 0
   myCoolDownTime: 1
   myAnimationPauseTime: 1
@@ -326,20 +172,6 @@ MonoBehaviour:
   mySpringMeshTransform: {fileID: 4640032906155566533}
   mySpringTransform: {fileID: 4640032906868465724}
   myAnchorTransform: {fileID: 4640032906868465724}
---- !u!136 &1743937913
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5925527875195320899}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.8811745
-  m_Height: 4.3355765
-  m_Direction: 1
-  m_Center: {x: -0.053677738, y: -0.33760452, z: 0.0000000015727057}
 --- !u!136 &1063388543
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -354,6 +186,20 @@ CapsuleCollider:
   m_Height: 4.3355765
   m_Direction: 1
   m_Center: {x: -0.053677738, y: -1.99, z: 0.0000000015727057}
+--- !u!136 &1743937913
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5925527875195320899}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.8811745
+  m_Height: 4.3355765
+  m_Direction: 1
+  m_Center: {x: -0.053677738, y: -0.33760452, z: 0.0000000015727057}
 --- !u!1001 &1267454607806082623
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -389,7 +235,7 @@ PrefabInstance:
     - target: {fileID: 5904872324585908894, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_Name
-      value: JackBox SFX
+      value: JackUpsideDown
       objectReference: {fileID: 0}
     - target: {fileID: 5904872324585908895, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
@@ -478,6 +324,12 @@ GameObject:
 --- !u!1 &5925527875195320899 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4876645733631497340, guid: ed71898b2f5e0344cbc695ead326a7e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1267454607806082623}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5465779503123303648 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6506784743385735903, guid: ed71898b2f5e0344cbc695ead326a7e1,
     type: 3}
   m_PrefabInstance: {fileID: 1267454607806082623}
   m_PrefabAsset: {fileID: 0}
