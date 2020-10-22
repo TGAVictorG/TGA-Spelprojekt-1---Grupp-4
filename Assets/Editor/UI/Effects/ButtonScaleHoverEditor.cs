@@ -6,12 +6,14 @@ public class ButtonScaleHoverEditor : Editor
 {
     private SerializedProperty myHoverScaleProperty;
     private SerializedProperty myScaleSpeedProperty;
+    private SerializedProperty myEnableSoundsProperty;
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
         EditorGUILayout.PropertyField(myHoverScaleProperty);
         EditorGUILayout.PropertyField(myScaleSpeedProperty);
+        EditorGUILayout.PropertyField(myEnableSoundsProperty);
         serializedObject.ApplyModifiedProperties();
     }
 
@@ -19,5 +21,6 @@ public class ButtonScaleHoverEditor : Editor
     {
         myHoverScaleProperty = serializedObject.FindProperty("myHoverScale");
         myScaleSpeedProperty = serializedObject.FindProperty("myScaleSpeed");
+        myEnableSoundsProperty = serializedObject.FindProperty("myEnableSounds");
     }
 }
