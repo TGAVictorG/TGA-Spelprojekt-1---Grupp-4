@@ -29,6 +29,23 @@ public class GameManager : MonoBehaviour
 
     #region Transitions
 
+    public bool HasNextStage()
+    {
+        return myCurrentStageIndex >= 0 && (myCurrentStageIndex + 1) < myStageInformationRegistry.myStageCount;
+    }
+
+    public void TransitionNextStage()
+    {
+        if (HasNextStage())
+        {
+            TransitionToStage(myCurrentStageIndex + 1);
+        }
+        else
+        {
+            TransitionToMainMenu();
+        }
+    }
+
     public void RestartCurrentStage()
     {
         if (myCurrentStageIndex >= 0)
