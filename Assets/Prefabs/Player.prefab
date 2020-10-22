@@ -199,7 +199,7 @@ MonoBehaviour:
   myUseOldPitchSystem: 1
   myUseNewPitchSystem: 1
   myEnableSpaceSpeedBoost: 1
-  myEnableUnlimitedFuel: 1
+  myEnableUnlimitedFuel: 0
   myPitchMultiplier: 1
   myPitchInvertState: 0
   myRollMultiplier: 4
@@ -396,6 +396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myFuelDepletionSpeed: 3
   myMaxFuel: 100
+  myLowFuelPercentThreshold: 0.2
 --- !u!33 &6132284430305466146
 MeshFilter:
   m_ObjectHideFlags: 0

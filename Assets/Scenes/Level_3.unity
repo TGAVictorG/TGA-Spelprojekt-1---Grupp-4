@@ -9934,12 +9934,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 664456749670281567, guid: 861fda76df0d14343a781ebd85b3bfee, type: 3}
---- !u!4 &443257241 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8339423465720421724, guid: 1626a49775be5654c971483e37cae09f,
-    type: 3}
-  m_PrefabInstance: {fileID: 557262640}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &446004531 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 195eebff7d729f343b609ce16017bda4,
@@ -11965,70 +11959,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 244223602, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myFuelDepletionSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myRollPitchMultiplier
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myVelocityPitchMultiplier
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myAutoPitchFactor
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myStartingVelocity
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myVelocityByAngleCurve.m_Curve.Array.data[0].time
-      value: -0.0083351135
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myVelocityByAngleCurve.m_Curve.Array.data[0].value
-      value: 0.15538788
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: mySpeedMultiplier
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myRollMultiplier
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myRollCorrectionFactor
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myDragFactor
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myVelocityCap
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: mySpeedBoostVelocityAdd
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myVelocityByAngleCurve.m_Curve.Array.data[1].time
-      value: 0.49791622
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myVelocityByAngleCurve.m_Curve.Array.data[1].value
-      value: 0.0003671736
-      objectReference: {fileID: 0}
-    - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
-      propertyPath: myEnableUnlimitedFuel
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5647666980536682985, guid: 1626a49775be5654c971483e37cae09f,
         type: 3}
       propertyPath: m_Name
@@ -20184,78 +20114,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6788383922943872000, guid: 861fda76df0d14343a781ebd85b3bfee, type: 3}
---- !u!1 &909116433 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2934858073253496024, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1039162262}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &909116434 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2285801910609191348, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1039162262}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &909116435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909116433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  volumeTrigger: {fileID: 909116434}
-  volumeLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  stopNaNPropagation: 1
-  finalBlitToCameraTarget: 0
-  antialiasingMode: 0
-  temporalAntialiasing:
-    jitterSpread: 0.75
-    sharpness: 0.25
-    stationaryBlending: 0.95
-    motionBlending: 0.85
-  subpixelMorphologicalAntialiasing:
-    quality: 2
-  fastApproximateAntialiasing:
-    fastMode: 0
-    keepAlpha: 0
-  fog:
-    enabled: 1
-    excludeSkybox: 1
-  debugLayer:
-    lightMeter:
-      width: 512
-      height: 256
-      showCurves: 1
-    histogram:
-      width: 512
-      height: 256
-      channel: 3
-    waveform:
-      exposure: 0.12
-      height: 256
-    vectorscope:
-      size: 256
-      exposure: 0.12
-    overlaySettings:
-      linearDepth: 0
-      motionColorIntensity: 4
-      motionGridSize: 64
-      colorBlindnessType: 0
-      colorBlindnessStrength: 1
-  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
-  m_ShowToolkit: 0
-  m_ShowCustomSorter: 0
-  breakBeforeColorGrading: 0
-  m_BeforeTransparentBundles: []
-  m_BeforeStackBundles: []
-  m_AfterStackBundles: []
 --- !u!4 &910727205 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 195eebff7d729f343b609ce16017bda4,
@@ -23124,11 +22982,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6054719197528049256, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: m_ClearFlags
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6742162267859361338, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23183,76 +23036,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myMoveSpeedCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myTarget
-      value: 
-      objectReference: {fileID: 443257241}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myMoveSpeedCurve.m_Curve.Array.data[2].value
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myMoveSpeedCurve.m_Curve.Array.data[0].value
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myMoveSpeedCurve.m_Curve.Array.data[1].time
-      value: 0.99645996
-      objectReference: {fileID: 0}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myMoveSpeedCurve.m_Curve.Array.data[1].value
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myMoveSpeedCurve.m_Curve.Array.data[1].inSlope
-      value: 0.21077457
-      objectReference: {fileID: 0}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myMoveSpeedCurve.m_Curve.Array.data[1].outSlope
-      value: 0.21077457
-      objectReference: {fileID: 0}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myMoveSpeedCurve.m_Curve.Array.data[1].inWeight
-      value: 0.17869826
-      objectReference: {fileID: 0}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myMoveSpeedCurve.m_Curve.Array.data[1].outWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myDistanceToTargetX
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myDistanceToTargetY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myDistanceToTargetBack
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
-        type: 3}
-      propertyPath: myDistanceToTargetUp
-      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6742162267859361343, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
         type: 3}
