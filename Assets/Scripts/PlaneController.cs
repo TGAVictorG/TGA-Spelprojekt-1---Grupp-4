@@ -28,6 +28,7 @@ public class PlaneController : MonoBehaviour
     [SerializeField] private float mySpeedMultiplier = 1f;
     [SerializeField] private float myVelocityCap = 5f;
     [SerializeField] private float myDragFactor = 0.2f;
+    [SerializeField] private float myMinimunVelocity = 1f;
 
     [SerializeField] private float mySpeedBoostVelocityAdd = 4f;
     [SerializeField] private AnimationCurve mySpeedBoostAccelerationCurve;
@@ -48,6 +49,7 @@ public class PlaneController : MonoBehaviour
     [SerializeField] private AnimationCurve myAutoPitchByRollCurve;
     [SerializeField] private float myVelocityPitchMultiplier;
     [SerializeField] private float myRollPitchMultiplier;
+    [SerializeField] private float myNoFuelWeightIncrease;
 
 
     [SerializeField] private float myNoFuelSteeringFactor = 0.2f;
@@ -59,6 +61,7 @@ public class PlaneController : MonoBehaviour
     private SpeedBoost mySpeedBoost;
     private float myCurrentVelocity;
     private float myCurrentAngleOfAttack;
+    private float myNoFuelTime = 0.0f;
 
     private float mySpeedBoostCounter = 0.0f;
 
@@ -76,7 +79,7 @@ public class PlaneController : MonoBehaviour
         {
             Debug.LogWarning("No SpeedLineController-component attached!");
         }
-        if(!(mySpeedBoost = GetComponent<SpeedBoost>()))
+        if (!(mySpeedBoost = GetComponent<SpeedBoost>()))
         {
             Debug.LogWarning("No SpeedBoost-component attached!");
         }
@@ -151,6 +154,10 @@ public class PlaneController : MonoBehaviour
         {
             myCurrentVelocity = myVelocityCap;
         }
+        else if (myCurrentVelocity < myMinimunVelocity && myFuel.myFuelIsEmpty)
+        {
+            myCurrentVelocity = myMinimunVelocity;
+        }
 
         myRigidbody.velocity = transform.forward * myCurrentVelocity;
     }
@@ -158,6 +165,16 @@ public class PlaneController : MonoBehaviour
     private void ApplyDrag()
     {
         float dragMultiplier = myFuel.myFuelIsEmpty ? myDragFactor * myNoFuelDragFactor : myDragFactor;
+
+        if (myFuel.myFuelIsEmpty)
+        {
+            myNoFuelTime += Time.deltaTime;
+            AddPitch(false, myNoFuelWeightIncrease * myNoFuelTime);
+        }
+        else
+        {
+            myNoFuelTime = 0f;
+        }
 
         myCurrentVelocity -= myDragByAngleCurve.Evaluate(myCurrentAngleOfAttack) * dragMultiplier * myCurrentVelocity * myCurrentVelocity;
         myCurrentVelocity = Mathf.Clamp(myCurrentVelocity, 0.1f, myVelocityCap);
@@ -182,12 +199,16 @@ public class PlaneController : MonoBehaviour
         transform.Rotate(Vector3.up, -currentRoll * myRollTurnMultiplier, Space.World);
     }
 
-    private void AddPitch()
+    private void AddPitch(bool anInputFromKeyboard = true, float aPitchInput = 0)
     {
         float transformXRotation = transform.eulerAngles.x;
         float currentAbsolutePitch = transform.eulerAngles.x > 180 ? 360 - transformXRotation : transformXRotation;
-        float pitchInput = Input.GetAxis("Pitch") * (myPitchInvertState ? -1 : 1);
 
+        float pitchInput = aPitchInput;
+        if (anInputFromKeyboard)
+        {
+            pitchInput = Input.GetAxis("Pitch") * (myPitchInvertState ? -1 : 1);
+        }
 
 
         if (currentAbsolutePitch > myMaxPitch)
@@ -229,6 +250,7 @@ public class PlaneController : MonoBehaviour
         float transformZRotation = transform.eulerAngles.z;
         float currentAbsoluteRoll = transformZRotation > 180 ? 360f - transformZRotation : transformZRotation;
         float rollInput = Input.GetAxis("Roll");
+
 
         if (currentAbsoluteRoll > myMaxRoll)
         {
