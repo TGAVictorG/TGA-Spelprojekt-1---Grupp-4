@@ -13,6 +13,7 @@ public class RouteFollower : MonoBehaviour
     public Transform[] myRoutes { get; set; }
     private int myCurrentRoute;
     private float myParam;
+    [SerializeField] public float myManualParamOffsetHack = 0f;
     public float myStartingParam { get; set; } = 0f;    
     public float mySpeedFactor { get; set; } = 1f;
 
@@ -27,7 +28,7 @@ public class RouteFollower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myParam = myStartingParam;
+        myParam = myStartingParam + myManualParamOffsetHack;
     }
 
     // Update is called once per frame
@@ -75,7 +76,7 @@ public class RouteFollower : MonoBehaviour
         myCurrentRoute++;
         if (myCurrentRoute >= myRoutes.Length)
         {
-            myCurrentRoute = 0;
+            myCurrentRoute = 0;            
         }
 
         myCoroutineAllowed = true;
