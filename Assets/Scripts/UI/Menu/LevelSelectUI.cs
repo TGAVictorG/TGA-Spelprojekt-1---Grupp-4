@@ -30,18 +30,18 @@ public class LevelSelectUI : MonoBehaviour
 
     private void Start()
     {
-        StageInformationRegistry.ourInstance.myOnStageDataUpdated += UpdateLevelSelectionGraphics;
+        GameManager.ourInstance.myStageInformationRegistry.myOnStageDataUpdated += UpdateLevelSelectionGraphics;
         UpdateLevelSelectionGraphics();
     }
 
     private void OnDestroy()
     {
-        StageInformationRegistry.ourInstance.myOnStageDataUpdated -= UpdateLevelSelectionGraphics;
+        GameManager.ourInstance.myStageInformationRegistry.myOnStageDataUpdated -= UpdateLevelSelectionGraphics;
     }
 
     public void UpdateLevelSelectionGraphics()
     {
-        StageInformationRegistry stageInformationRegistry = StageInformationRegistry.ourInstance;
+        StageInformationRegistry stageInformationRegistry = GameManager.ourInstance.myStageInformationRegistry;
 
         for (int i = 0; i < myLevelUIData.Length; ++i)
         {

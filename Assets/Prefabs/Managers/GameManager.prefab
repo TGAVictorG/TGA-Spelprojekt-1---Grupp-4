@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1180785064710122214
+--- !u!1 &3842947437580796654
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6433041868835653749}
-  - component: {fileID: 9088675814297769543}
+  - component: {fileID: 3842947437580796641}
+  - component: {fileID: 3842947437580796640}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6433041868835653749
+--- !u!4 &3842947437580796641
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180785064710122214}
+  m_GameObject: {fileID: 3842947437580796654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,26 +31,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9088675814297769543
+--- !u!114 &3842947437580796640
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180785064710122214}
+  m_GameObject: {fileID: 3842947437580796654}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5685c2541f904f4480da278dd70a72e, type: 3}
+  m_Script: {fileID: 11500000, guid: 37d64286a31e563408ec4a55364ca1c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMusicMixer: {fileID: -4119943827747823346, guid: 87285fa84faa6d14581bfc059ca63d5f,
-    type: 2}
-  mySFXMixer: {fileID: -2622711647385543119, guid: 87285fa84faa6d14581bfc059ca63d5f,
-    type: 2}
-  myVoiceMixer: {fileID: -1555929373386510732, guid: 87285fa84faa6d14581bfc059ca63d5f,
-    type: 2}
-  myAudio:
-  - myAudioName: button_click
-    myAudioClip: {fileID: 8300000, guid: f0e2b49b35e8e12458bb7fa999dfcc3c, type: 3}
-  - myAudioName: button_hover
-    myAudioClip: {fileID: 8300000, guid: 5aac1e28d5464864d80d28bfc13c0df9, type: 3}
+  myAudioManagerPrefab: {fileID: 1180785064710122214, guid: 7c5cc169dbf01e445b59e3c20f6f495d,
+    type: 3}
+  myStageInformationRegistryPrefab: {fileID: 3983607096050716345, guid: 33f68960cb4ca9447aa89da84ee35f5c,
+    type: 3}

@@ -8,8 +8,6 @@ public class StageInformationRegistry : MonoBehaviour
         public StageData[] myStageData;
     }
 
-    public static StageInformationRegistry ourInstance;
-
     public event UnityAction myOnStageDataUpdated;
 
     public int myStageCount => myStageInformation.Length;
@@ -114,14 +112,7 @@ public class StageInformationRegistry : MonoBehaviour
 
     private void Awake()
     {
-        if (ourInstance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        ourInstance = this;
-        DontDestroyOnLoad(gameObject);
+        Debug.Assert(GameManager.ourInstance.myStageInformationRegistry == null, "StageInformationRegistry spawned when GameManager already owns one!");
 
         ResetStageData();
         LoadStageData();

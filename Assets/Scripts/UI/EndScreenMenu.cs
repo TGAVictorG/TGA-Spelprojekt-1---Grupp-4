@@ -1,6 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI
 {
@@ -11,7 +10,13 @@ namespace UI
 
         #region Private Serializable Fields
 
-        [SerializeField] private Image myPopupImage;
+        [SerializeField] private GameObject myDefeatPopup;
+        [SerializeField] private GameObject myVictoryPopup;
+
+        [Header("Victory References")]
+        [SerializeField] private GameObject myContinueButton;
+        [SerializeField] private TMPro.TextMeshProUGUI myHomeworkText;
+        [SerializeField] private TMPro.TextMeshProUGUI myTimeText;
 
         [Header("Configuration")]
         [SerializeField] private Sprite myWinSprite;
@@ -30,11 +35,14 @@ namespace UI
             if (gameObject.scene.name != "EndScreenUI")
             {
                 Debug.LogWarning("EndScreenMenu in non EndScreenUI scene! Please remove EndScreenMenu UI from stage scenes!");
+                Destroy(gameObject);
             }
 #endif
 
             ourInstance = this;
 
+            myDefeatPopup.SetActive(false);
+            myVictoryPopup.SetActive(false);
             gameObject.SetActive(false);
         }
 
@@ -51,9 +59,28 @@ namespace UI
                 return;
             }
 
-            myPopupImage.sprite = anIsVictory ? myWinSprite : myLossSprite;
+            if (anIsVictory)
+            {
+                Debug.Assert(StageManager.ourInstance.myIsStageComplete);
+
+                myHomeworkText.text = StageManager.ourInstance.myHomeworkText;
+                myTimeText.text = StageManager.ourInstance.GetStageData().FormatDuration();
+
+                myContinueButton.SetActive(GameManager.ourInstance.HasNextStage());
+
+                myVictoryPopup.SetActive(true);
+            }
+            else
+            {
+                myDefeatPopup.SetActive(true);
+            }
 
             gameObject.SetActive(true);
+        }
+
+        public void OnContinueClicked()
+        {
+            GameManager.ourInstance.TransitionNextStage();
         }
 
         //-------------------------------------------------

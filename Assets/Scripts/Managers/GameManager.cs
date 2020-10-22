@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Managers;
+using System.Collections;
 using UI.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,15 +10,41 @@ public class GameManager : MonoBehaviour
 
     public OptionsDataManager myOptionsDataManager { get; private set; }
 
+    public AudioManager myAudioManager { get; private set; }
+    public StageInformationRegistry myStageInformationRegistry { get; private set; }
+
+    [SerializeField]
+    private GameObject myAudioManagerPrefab;
+
+    [SerializeField]
+    private GameObject myStageInformationRegistryPrefab;
+
     private int myCurrentStageIndex = -1;
 
     public void SaveStageData(StageData aStageData)
     {
         Debug.Assert(myCurrentStageIndex >= 0, "Trying to save stage data on invalid stage!");
-        StageInformationRegistry.ourInstance.UpdateStageData(myCurrentStageIndex, aStageData);
+        myStageInformationRegistry.UpdateStageData(myCurrentStageIndex, aStageData);
     }
 
     #region Transitions
+
+    public bool HasNextStage()
+    {
+        return myCurrentStageIndex >= 0 && (myCurrentStageIndex + 1) < myStageInformationRegistry.myStageCount;
+    }
+
+    public void TransitionNextStage()
+    {
+        if (HasNextStage())
+        {
+            TransitionToStage(myCurrentStageIndex + 1);
+        }
+        else
+        {
+            TransitionToMainMenu();
+        }
+    }
 
     public void RestartCurrentStage()
     {
@@ -33,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     public void TransitionToStage(int aStageIndex)
     {
-        if (!StageInformationRegistry.ourInstance.IsStageUnlocked(aStageIndex))
+        if (!myStageInformationRegistry.IsStageUnlocked(aStageIndex))
         {
             return;
         }
@@ -55,7 +82,7 @@ public class GameManager : MonoBehaviour
     {
         // TODO: Fade effect?
 
-        SceneManager.LoadScene(StageInformationRegistry.ourInstance.GetStageInformation(aStageIndex).myStageSceneName, LoadSceneMode.Single);
+        SceneManager.LoadScene(myStageInformationRegistry.GetStageInformation(aStageIndex).myStageSceneName, LoadSceneMode.Single);
 
         // Wait for next frame when the scene is fully loaded and active
         yield return null;
@@ -69,9 +96,9 @@ public class GameManager : MonoBehaviour
 
         Debug.Assert(StageManager.ourInstance != null, "StageManager not found in loaded stage!");
 
-        if (StageInformationRegistry.ourInstance.HasValidStageData(aStageIndex))
+        if (myStageInformationRegistry.HasValidStageData(aStageIndex))
         {
-            StageManager.ourInstance.SetHighscoreStageData(StageInformationRegistry.ourInstance.GetStageData(aStageIndex));
+            StageManager.ourInstance.SetHighscoreStageData(myStageInformationRegistry.GetStageData(aStageIndex));
         }
     }
 
@@ -87,5 +114,13 @@ public class GameManager : MonoBehaviour
         ourInstance = this;
 
         myOptionsDataManager = new OptionsDataManager();
+
+        myAudioManager = Instantiate(myAudioManagerPrefab).GetComponent<AudioManager>();
+        DontDestroyOnLoad(myAudioManager.gameObject);
+        Debug.Assert(myAudioManager != null, "myAudioManager not found on prefab!");
+
+        myStageInformationRegistry = Instantiate(myStageInformationRegistryPrefab).GetComponent<StageInformationRegistry>();
+        DontDestroyOnLoad(myStageInformationRegistry.gameObject);
+        Debug.Assert(myStageInformationRegistry != null, "myStageInformationRegistry not found on prefab!");
     }
 }

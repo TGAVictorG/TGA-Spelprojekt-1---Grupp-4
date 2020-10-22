@@ -1,203 +1,146 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Managers
 {
 	//-------------------------------------------------------------------------
     public class AudioManager : MonoBehaviour
     {
-	    #region Private Serializable Fields
-        
-		[Header("Follow Settings")]
-		[SerializeField] private bool _myIsFollowEnabled = false;
-		[SerializeField] private Transform _myPlayer = null;
-		
-		[Header("Audio Sources | UI")]
-		[SerializeField] private AudioSource[] _myUISources = null;
-		
-        [Header("Audio Sources | Music")]
-        [SerializeField] private AudioSource[] _myMusicSources = null;
-        
-        [Header("Audio Sources | SFX")]
-        [SerializeField] private AudioSource[] _mySFXSources = null;
-		
-		[Header("Audio Sources | Gameplay")]
-		[SerializeField] private AudioSource[] _myGameplaySources = null;
-		
-		[Header("Audio Sources | Voice")]
-		[SerializeField] private AudioSource[] _myVoiceSources = null;
-		
-		#endregion
-		
-		
-        #region Static Entities
-
-        private static AudioManager _ourInstance = null;
-        public static AudioManager Instance => _ourInstance;
-		
-		#endregion
-        
-		
-        #region Unity Methods
-        
-        //-------------------------------------------------
-        private void Awake()
+		public enum AudioType
         {
-	        _ourInstance = this;
-        }
-        
-        //-------------------------------------------------
-        private void Start()
-        {
-#if UNITY_EDITOR
-	        if (_myIsFollowEnabled && !_myPlayer)
-	        {
-		        Debug.LogError("Player Transform is NULL.");
-	        }
-#endif
+			Music,
+			SFX,
+			Voice,
         }
 
-        //-------------------------------------------------
-        private void Update()
+		[System.Serializable]
+		public struct Audio
         {
-	        // if game is paused => return
+			public string myAudioName;
 
-	        if (_myIsFollowEnabled)
-	        {
-		        FollowPlayer();
-	        }
+			public AudioClip myAudioClip;
         }
 
-        //-------------------------------------------------
-        private void OnEnable()
-        {
-	        // Subscribe to event when player dies to stop the music or all sounds, depending on need
-	        // e.g.
-	        // PlaneController.OnDeath += StopMusic;
-	        // or
-	        // PlaneController.OnDeath += StopAllSounds;
-        }
-        
-        //-------------------------------------------------
-        private void OnDisable()
-        {
-	        // e.g.
-	        // PlaneController.OnDeath -= StopMusic;
-	        // or
-	        // PlaneController.OnDeath -= StopAllSounds;
-        }
+		#region Private Serializable Fields
 
-        #endregion
+		[Header("Mixers")]
+		[SerializeField] private AudioMixerGroup myMusicMixer;
+		[SerializeField] private AudioMixerGroup mySFXMixer;
+		[SerializeField] private AudioMixerGroup myVoiceMixer;
 
-
-		#region Private Methods
-		
-		//-------------------------------------------------
-		private void FollowPlayer()
-		{
-			if (_myPlayer)
-			{
-				transform.position = _myPlayer.position;
-			}
-		}
-
-		//-------------------------------------------------
-		private void PlayClip(int aSourceIndex, AudioSource[] someSources)
-		{
-			// NOTE: Safeguard against out of range and null exceptions
-			if (aSourceIndex > someSources.Length - 1 || !someSources[aSourceIndex]) return;
-			
-			// NOTE: Only stop if already playing
-			if (someSources[aSourceIndex].isPlaying)
-			{
-				someSources[aSourceIndex].Stop();
-			}
-
-			someSources[aSourceIndex].Play();
-		}
-		
-		//-------------------------------------------------
-		private void StopClip(int aSourceIndex, AudioSource[] someSources)
-		{
-			if (someSources.Length > 0 && someSources[aSourceIndex])
-			{
-				someSources[aSourceIndex].Stop();
-			}
-		}
+		[SerializeField] private Audio[] myAudio;
 
 		#endregion
 
+		private static readonly int ourAudioCount = 16;
+
+		private GameObject myAudioRoot;
+
+		private Dictionary<string, AudioClip> myAudioStore = new Dictionary<string, AudioClip>();
+
+		private Queue<AudioSource> myFreeAudioSourceQueue = new Queue<AudioSource>(ourAudioCount);
+
+		private List<AudioSource> myPlayingSources = new List<AudioSource>(ourAudioCount);
 
 		#region Public Methods
-		
-		#region Play Clips
-		
-		//-------------------------------------------------
-		public void PlayMusicClip(int aSourceIndex)
-		{
-			PlayClip(aSourceIndex, _myMusicSources);
-		}
-		
-		//-------------------------------------------------
-		public void PlayUIClip(int aSourceIndex)
-		{
-			PlayClip(aSourceIndex, _myUISources);
-		}
-		
-		//-------------------------------------------------
-		public void PlaySFXClip(int aSourceIndex)
-		{
-			PlayClip(aSourceIndex, _mySFXSources);
-		}
-		
-		//-------------------------------------------------
-		public void PlayGameplayClip(int aSourceIndex)
-		{
-			PlayClip(aSourceIndex, _myGameplaySources);
-		}
-		
-		//-------------------------------------------------
-		public void PlayVoiceClip(int aSourceIndex)
-		{
-			PlayClip(aSourceIndex, _myVoiceSources);
-		}
-		
-		#endregion
 
-		#region Stop Clips
-		
-		//-------------------------------------------------
-		public void StopMusicClip(int aSourceIndex)
+		#region Play Clips
+
+		/// <summary>
+		/// The returned value can be stopped by passing it to <see cref="Stop(AudioSource)"/>.
+		/// Do not manually use <see cref="AudioSource.Stop"/> or <see cref="AudioSource.Pause"/> on the returned object!
+		/// </summary>
+		public AudioSource Play2D(AudioClip anAudioClip, AudioType anAudioType, float aPitch = 1.0f, float someVolume = 0.5f, bool aShouldLoop = false)
 		{
-			StopClip(aSourceIndex, _myMusicSources);
+			AudioMixerGroup mixer = GetMixerFromAudioType(anAudioType);
+
+			AudioSource audioSource = GetFreeAudioSource();
+			if (audioSource == null)
+			{
+				return null;
+			}
+
+			audioSource.gameObject.SetActive(true);
+			audioSource.transform.position = Vector3.zero;
+
+			audioSource.outputAudioMixerGroup = mixer;
+			audioSource.spatialBlend = 0.0f;
+			audioSource.clip = anAudioClip;
+			audioSource.loop = aShouldLoop;
+			audioSource.pitch = aPitch;
+			audioSource.volume = someVolume;
+			audioSource.Play();
+
+			myPlayingSources.Add(audioSource);
+
+			return audioSource;
 		}
-		
-		//-------------------------------------------------
-		public void StopUIClip(int aSourceIndex)
+
+		/// <summary>
+		/// The returned value can be stopped by passing it to <see cref="Stop(AudioSource)"/>.
+		/// Do not manually use <see cref="AudioSource.Stop"/> or <see cref="AudioSource.Pause"/> on the returned object!
+		/// </summary>
+		public AudioSource Play3D(AudioClip anAudioClip, AudioType anAudioType, Vector3 aWorldPosition, float aPitch = 1.0f, float someVolume = 0.5f, bool aShouldLoop = false)
 		{
-			StopClip(aSourceIndex, _myUISources);
+			AudioMixerGroup mixer = GetMixerFromAudioType(anAudioType);
+
+			AudioSource audioSource = GetFreeAudioSource();
+			if (audioSource == null)
+			{
+				return null;
+			}
+
+			audioSource.gameObject.SetActive(true);
+			audioSource.transform.position = aWorldPosition;
+
+			audioSource.outputAudioMixerGroup = mixer;
+			audioSource.spatialBlend = 1.0f;
+			audioSource.clip = anAudioClip;
+			audioSource.loop = aShouldLoop;
+			audioSource.pitch = aPitch;
+			audioSource.volume = someVolume;
+			audioSource.Play();
+
+			myPlayingSources.Add(audioSource);
+
+			return audioSource;
 		}
-		
 		//-------------------------------------------------
-		public void StopSFXClip(int aSourceIndex)
+		public AudioSource PlayMusicClip(string anAudioName, float aPitch = 1.0f, float someVolume = 0.5f, bool aShouldLoop = false)
 		{
-			StopClip(aSourceIndex, _mySFXSources);
+			return Play2D(GetAudioClip(anAudioName), AudioType.Music, aPitch, someVolume, aShouldLoop);
 		}
-		
+
 		//-------------------------------------------------
-		public void StopGameplayClip(int aSourceIndex)
+		public AudioSource PlaySFXClip(string anAudioName, float aPitch = 1.0f, float someVolume = 0.5f, bool aShouldLoop = false)
 		{
-			StopClip(aSourceIndex, _myGameplaySources);
+			return Play2D(GetAudioClip(anAudioName), AudioType.SFX, aPitch, someVolume, aShouldLoop);
 		}
-		
+
 		//-------------------------------------------------
-		public void StopVoiceClip(int aSourceIndex)
+		public AudioSource PlayVoiceClip(string anAudioName, float aPitch = 1.0f, float someVolume = 0.5f, bool aShouldLoop = false)
 		{
-			StopClip(aSourceIndex, _myVoiceSources);
+			return Play2D(GetAudioClip(anAudioName), AudioType.Voice, aPitch, someVolume, aShouldLoop);
 		}
-		
+
 		#endregion
 
 		#region General
+
+		public bool Stop(AudioSource anAudioSource)
+		{
+			int playingSourceIndex = myPlayingSources.IndexOf(anAudioSource);
+			if (playingSourceIndex >= 0)
+			{
+				myPlayingSources.RemoveAt(playingSourceIndex);
+				RecycleAudioSource(anAudioSource);
+
+				return true;
+			}
+
+			return false;
+		}
 
 		//-------------------------------------------------
 		/// <summary>
@@ -205,76 +148,168 @@ namespace Managers
 		/// </summary>
 		public void StopAllSounds()
 		{
-			if (_myMusicSources.Length > 0)
+			for (int i = 0; i < myPlayingSources.Count; ++i)
 			{
-				foreach (AudioSource source in _myMusicSources)
-				{
-					if (source && source.isPlaying)
-					{
-						source.Stop();
-					}
-				}
+				AudioSource audioSource = myPlayingSources[i];
+				RecycleAudioSource(audioSource);
 			}
-			
-			if (_myUISources.Length > 0)
-			{
-				foreach (AudioSource source in _myUISources)
-				{
-					if (source && source.isPlaying)
-					{
-						source.Stop();
-					}
-				}
-			}
-			
-			if (_mySFXSources.Length > 0)
-			{
-				foreach (AudioSource source in _mySFXSources)
-				{
-					if (source && source.isPlaying)
-					{
-						source.Stop();
-					}
-				}
-			}
-			
-			if (_myGameplaySources.Length > 0)
-			{
-				foreach (AudioSource source in _myGameplaySources)
-				{
-					if (source && source.isPlaying)
-					{
-						source.Stop();
-					}
-				}
-			}
-			
-			if (_myVoiceSources.Length > 0)
-			{
-				foreach (AudioSource source in _myVoiceSources)
-				{
-					if (source && source.isPlaying)
-					{
-						source.Stop();
-					}
-				}
-			}
+
+			myPlayingSources.Clear();
 		}
-		
+
 		//-------------------------------------------------
 		public void StopMusic()
 		{
-			for (int sourceIndex = 0; sourceIndex < _myMusicSources.Length; ++sourceIndex)
+			for (int i = 0; i < myPlayingSources.Count; ++i)
 			{
-				if (_myMusicSources.Length > 1 && _myMusicSources[sourceIndex])
+				AudioSource audioSource = myPlayingSources[i];
+
+				if (audioSource.outputAudioMixerGroup == myMusicMixer)
 				{
-					StopClip(sourceIndex, _myMusicSources);
+					myPlayingSources.RemoveAt(i);
+
+					RecycleAudioSource(audioSource);
+
+					--i;
 				}
 			}
 		}
 
+		public AudioClip GetAudioClip(string aAudioName)
+		{
+			Debug.Assert(myAudioStore.ContainsKey(aAudioName));
+
+			return myAudioStore[aAudioName];
+		}
+
 		#endregion
-		
+
 		#endregion
+
+		private AudioMixerGroup GetMixerFromAudioType(AudioType anAudioType)
+        {
+			switch(anAudioType)
+            {
+				case AudioType.Music:
+					return myMusicMixer;
+				case AudioType.SFX:
+					return mySFXMixer;
+				case AudioType.Voice:
+					return myVoiceMixer;
+            }
+
+#if UNITY_EDITOR
+
+			Debug.LogWarning("Invalid AudioType!");
+
+#endif
+
+			return mySFXMixer;
+        }
+
+		private AudioSource GetFreeAudioSource()
+        {
+			Debug.Assert(myFreeAudioSourceQueue.Count > 0, "No more audio sources free!");
+
+			return myFreeAudioSourceQueue.Count > 0 ? myFreeAudioSourceQueue.Dequeue() : null;
+        }
+
+		private void ResetAudioSource(AudioSource anAudioSource)
+        {
+			if (anAudioSource.isPlaying)
+            {
+				anAudioSource.Stop();
+            }
+
+			// Reset 3D settings
+			anAudioSource.dopplerLevel = 1.0f;
+			anAudioSource.spread = 0.0f;
+			anAudioSource.rolloffMode = AudioRolloffMode.Logarithmic;
+			anAudioSource.minDistance = 1.0f;
+			anAudioSource.maxDistance = 500.0f;
+
+			anAudioSource.loop = false;
+			anAudioSource.playOnAwake = false;
+
+			anAudioSource.clip = null;
+			anAudioSource.outputAudioMixerGroup = null;
+		}
+
+		private void RecycleAudioSource(AudioSource anAudioSource)
+        {
+			ResetAudioSource(anAudioSource);
+
+			anAudioSource.gameObject.SetActive(false);
+
+			myFreeAudioSourceQueue.Enqueue(anAudioSource);
+        }
+
+		private AudioSource GenerateSource(GameObject aParent)
+        {
+			GameObject audioSourceGo = new GameObject("PooledAudioSource");
+			audioSourceGo.transform.SetParent(aParent.transform);
+
+			AudioSource audioSource = audioSourceGo.AddComponent<AudioSource>();
+
+			ResetAudioSource(audioSource);
+
+			audioSourceGo.SetActive(false);
+
+			return audioSource;
+		}
+
+		private void GenerateAudioQueueBuffers()
+        {
+			myAudioRoot = new GameObject("Sources");
+			myAudioRoot.transform.SetParent(transform);
+
+			for (int i = 0; i < ourAudioCount; ++i)
+            {
+				myFreeAudioSourceQueue.Enqueue(GenerateSource(myAudioRoot));
+            }
+		}
+
+		private void FillAudioStore()
+        {
+			myAudioStore.Clear();
+
+			// Store audio clips in a more efficient container for near constant time indexing by key O(1)
+			for (int i = 0; i < myAudio.Length; ++i)
+            {
+				myAudioStore.Add(myAudio[i].myAudioName, myAudio[i].myAudioClip);
+            }
+        }
+
+        private void Update()
+        {
+            for (int i = 0; i < myPlayingSources.Count; ++i)
+            {
+				AudioSource audioSource = myPlayingSources[i];
+				if (!audioSource.isPlaying)
+                {
+					myPlayingSources.RemoveAt(i);
+
+					RecycleAudioSource(audioSource);
+
+					--i;
+                }
+            }
+        }
+
+        private void Awake()
+        {
+			FillAudioStore();
+			GenerateAudioQueueBuffers();
+		}
+
+#if UNITY_EDITOR
+		private void OnValidate()
+        {
+			if (Application.isPlaying)
+			{
+				FillAudioStore();
+			}
+        }
+#endif
     }
 }
