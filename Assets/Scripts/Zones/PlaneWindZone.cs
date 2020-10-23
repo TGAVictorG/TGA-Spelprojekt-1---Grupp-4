@@ -30,11 +30,17 @@ public class PlaneWindZone : MonoBehaviour
     public Vector3 myEndPosition = Vector3.zero;
     public Vector3 myEndRotation = Vector3.forward;
 
+    public bool myIsOneShot = false;
+
+    private bool myIsPlayerInZone = false;
+
     private Collider myCollider;
 
     private IEnumerator DoWindTraversal(Transform aPlayerTransform)
     {
         GameManager.ourInstance.myAudioManager.PlaySFXClip("fan_swoosh");
+
+        myIsPlayerInZone = true;
 
         PlaneController planeController = aPlayerTransform.GetComponent<PlaneController>();
         Rigidbody playerRigidbody = aPlayerTransform.GetComponent<Rigidbody>();
@@ -107,13 +113,18 @@ public class PlaneWindZone : MonoBehaviour
         playerRigidbody.velocity = playerVelocity;
 
         planeController.enabled = true;
+
+        myIsPlayerInZone = false;
     }
 
     private void OnTriggerEnter(Collider anOther)
     {
-        if (anOther.CompareTag("Player"))
+        if (anOther.CompareTag("Player") && !myIsPlayerInZone)
         {
-            myCollider.enabled = false;
+            if (myIsOneShot)
+            {
+                myCollider.enabled = false;
+            }
 
             StartCoroutine(DoWindTraversal(anOther.transform));
         }
