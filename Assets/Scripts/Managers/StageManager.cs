@@ -77,6 +77,8 @@ public class StageManager : MonoBehaviour
         {
             myIsPlayerDead = true;
             myOnPlayerDied?.Invoke();
+
+            GameManager.ourInstance.myAudioManager.PlaySFXClip("player_death");
         }
     }
 
@@ -102,6 +104,8 @@ public class StageManager : MonoBehaviour
         ++myPickedUpBlocksCount;
 
         myOnPickedUpBlock?.Invoke();
+
+        GameManager.ourInstance.myAudioManager.PlaySFXClip("picked_pickup");
     }
 
     public void OnPickedUpStar()
