@@ -209,7 +209,12 @@ namespace Managers
 
 		private AudioSource GetFreeAudioSource()
         {
-			Debug.Assert(myFreeAudioSourceQueue.Count > 0, "No more audio sources free!");
+			if (myFreeAudioSourceQueue.Count == 0)
+            {
+				Debug.LogWarning("AudioManager had to generate more audio sources!");
+
+				return GenerateSource(myAudioRoot);
+            }
 
 			return myFreeAudioSourceQueue.Count > 0 ? myFreeAudioSourceQueue.Dequeue() : null;
         }
