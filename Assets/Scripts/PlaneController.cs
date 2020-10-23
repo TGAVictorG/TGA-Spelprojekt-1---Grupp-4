@@ -50,10 +50,12 @@ public class PlaneController : MonoBehaviour
     [SerializeField] private float myVelocityPitchMultiplier;
     [SerializeField] private float myRollPitchMultiplier;
     [SerializeField] private float myNoFuelWeightIncrease;
+    [SerializeField] private bool myPerfectColitionBox;
 
 
     [SerializeField] private float myNoFuelSteeringFactor = 0.2f;
     [SerializeField] private float myNoFuelDragFactor = 10f;
+    [SerializeField] private float myNoFuelFallFactor = 1f;
 
     private Fuel myFuel;
     private Rigidbody myRigidbody;
@@ -86,6 +88,18 @@ public class PlaneController : MonoBehaviour
         else
         {
             mySpeedBoost.myOnSpeedBoost += SpeedBoost;
+        }
+
+        if (myPerfectColitionBox)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+            transform.GetChild(0).localScale = new Vector3(1f, 1f, 1f);
+        }
+        else
+        {
+            transform.localScale = new Vector3(0.65f, 1f, 1f);
+            transform.GetChild(0).localScale = new Vector3(1.4774f, 1.4774f, 1.4774f);
+
         }
 
         myCurrentVelocity = myStartingVelocity;
@@ -154,7 +168,7 @@ public class PlaneController : MonoBehaviour
         {
             myCurrentVelocity = myVelocityCap;
         }
-        else if (myCurrentVelocity < myMinimunVelocity && myFuel.myFuelIsEmpty)
+        else if (myCurrentVelocity < myMinimunVelocity && myFuel.myFuelIsEmpty == false)
         {
             myCurrentVelocity = myMinimunVelocity;
         }
@@ -169,7 +183,7 @@ public class PlaneController : MonoBehaviour
         if (myFuel.myFuelIsEmpty)
         {
             myNoFuelTime += Time.deltaTime;
-            AddPitch(false, myNoFuelWeightIncrease * myNoFuelTime);
+            AddPitch(false, myNoFuelWeightIncrease * myNoFuelTime * myNoFuelFallFactor);
         }
         else
         {
