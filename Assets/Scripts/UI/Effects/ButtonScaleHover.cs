@@ -9,7 +9,18 @@ public class ButtonScaleHover : EventTrigger
     [SerializeField]
     private float myScaleSpeed = 1.0f;
 
+    [SerializeField]
+    private bool myEnableSounds = true;
+
     private Vector3 myAnimationTarget = Vector3.one;
+
+    public override void OnPointerClick(PointerEventData eventData)
+    {
+        if (myEnableSounds)
+        {
+            GameManager.ourInstance.myAudioManager.PlaySFXClip("button_click");
+        }
+    }
 
     public override void OnPointerEnter(PointerEventData eventData)
     {
@@ -21,18 +32,34 @@ public class ButtonScaleHover : EventTrigger
         StopEffect();
     }
 
-    private void StartEffect()
+    private void StartEffect(bool anAllowAudio = true)
     {
         myAnimationTarget = Vector3.one * myHoverScale;
+
+        if (anAllowAudio && myEnableSounds)
+        {
+            GameManager.ourInstance.myAudioManager.PlaySFXClip("button_hover");
+        }
     }
 
-    private void StopEffect()
+    private void StopEffect(bool anAllowAudio = true)
     {
         myAnimationTarget = Vector3.one;
+
+        if (anAllowAudio && myEnableSounds)
+        {
+            GameManager.ourInstance.myAudioManager.PlaySFXClip("button_hover");
+        }
     }
 
     private void Update()
     {
         transform.localScale = Vector3.MoveTowards(transform.localScale, myAnimationTarget, myScaleSpeed * Time.unscaledDeltaTime);
+    }
+
+    private void OnDisable()
+    {
+        StopEffect(false);
+        transform.localScale = myAnimationTarget;
     }
 }
