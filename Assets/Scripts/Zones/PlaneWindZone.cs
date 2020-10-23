@@ -34,6 +34,8 @@ public class PlaneWindZone : MonoBehaviour
 
     private IEnumerator DoWindTraversal(Transform aPlayerTransform)
     {
+        GameManager.ourInstance.myAudioManager.PlaySFXClip("fan_swoosh");
+
         PlaneController planeController = aPlayerTransform.GetComponent<PlaneController>();
         Rigidbody playerRigidbody = aPlayerTransform.GetComponent<Rigidbody>();
         planeController.enabled = false;
