@@ -24,6 +24,7 @@ public class DiscoBall : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            GameManager.ourInstance.myAudioManager.PlaySFXClip("lazer_kill");
             other.GetComponent<PlayerDeathHandler>().Kill(PlayerDeathHandler.DeathReason.Laser, myLossScreenDelay);
         }
     }
