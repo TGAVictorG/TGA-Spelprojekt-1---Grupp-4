@@ -47,6 +47,7 @@ public class JackInABox : MonoBehaviour
             {
                 myFirstRun = false;
                 myBoxLidAnchorPoint.transform.Rotate(new Vector3(0f, 0f, -90f));
+                GameManager.ourInstance.myAudioManager.PlaySFXClip("jack_activate");
             }
 
             if (myTimeCounter < myLerpTime && !myAnimationIsPaused)
