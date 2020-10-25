@@ -12,6 +12,8 @@ public class JackUpsideDown : JackInABox
     [SerializeField] bool myForceJump = false;
     [SerializeField] Rigidbody myForceRigidbody;
     [SerializeField] Vector3 myForce;
+    [SerializeField] bool isDebugging = false;
+    [SerializeField] private bool useImpulseForceMode = true;
 
     private float myLerpTime = 3.0f;
     private Vector3 myStartScale = new Vector3(1f, 0f, 1f);
@@ -40,8 +42,9 @@ public class JackUpsideDown : JackInABox
 
     }
 
-    void Update()
-    {
+    void Update() {
+        DebugJump();
+
         if (myIsTriggered)
         {
             // Hack for opening lid manually... by doing so we are not relying solely on physics and hinge joint on their own... which I would have preferred.
@@ -82,13 +85,37 @@ public class JackUpsideDown : JackInABox
         }
     }
 
+    private void DebugJump() {
+        if (isDebugging && Input.GetKeyDown(KeyCode.Space)) {
+            if (myIsTriggered) {
+                myIsTriggered = false;
+
+                Trigger();
+            }
+        }
+    }
+
     override public void Trigger()
     {        
         if (myForceJump && !myIsTriggered)
         {
-            myForceRigidbody.AddForce(new Vector3(0, 0, 100f));
+            if (useImpulseForceMode) {
+                myForceRigidbody.AddForce(myForce * 10, ForceMode.Impulse);
+            }
+            else {
+                myForceRigidbody.AddForce(myForce * 10);
+            }
+
+            
         }
         myIsTriggered = true;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+            // Draws a blue line from this transform to the target
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(transform.position, transform.position+myForce*0.6f);
     }
 }
 
