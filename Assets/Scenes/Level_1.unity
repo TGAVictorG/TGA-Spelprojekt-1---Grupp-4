@@ -2110,7 +2110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad964b7cd37bce4790ad4071b8c6709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myLastCurvePoint: {fileID: 0}
 --- !u!54 &114534194
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2195,7 +2194,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114534192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.615, y: 9.979, z: 5.45}
+  m_LocalPosition: {x: -23.888, y: 9.979, z: 5.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -14213,7 +14212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad964b7cd37bce4790ad4071b8c6709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myLastCurvePoint: {fileID: 0}
 --- !u!54 &326317950
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15366,17 +15364,17 @@ PrefabInstance:
     - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0.8099999
+      value: 0.8099996
       objectReference: {fileID: 0}
     - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 1.4000008
+      value: 1.4000006
       objectReference: {fileID: 0}
     - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: 0
+      value: -0.00000011920929
       objectReference: {fileID: 0}
     - target: {fileID: 5904872324585908894, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
@@ -23885,7 +23883,17 @@ PrefabInstance:
     - target: {fileID: 2906731793655507094, guid: 962377e60e171d045a92bcedad66e201,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 1.4000003
+      value: 1.4000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906731793655507094, guid: 962377e60e171d045a92bcedad66e201,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0.81000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906731793655507094, guid: 962377e60e171d045a92bcedad66e201,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: -0.0000003141763
       objectReference: {fileID: 0}
     - target: {fileID: 2906731793655507176, guid: 962377e60e171d045a92bcedad66e201,
         type: 3}
@@ -24982,7 +24990,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad964b7cd37bce4790ad4071b8c6709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myLastCurvePoint: {fileID: 0}
 --- !u!54 &890540344
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -25600,7 +25607,7 @@ PrefabInstance:
     - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0.8099997
+      value: 0.81000024
       objectReference: {fileID: 0}
     - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
@@ -25610,7 +25617,7 @@ PrefabInstance:
     - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.00000005029142
+      value: -0.00000011920929
       objectReference: {fileID: 0}
     - target: {fileID: 5904872324585908894, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
@@ -25688,17 +25695,17 @@ PrefabInstance:
     - target: {fileID: 2906731793655507094, guid: 962377e60e171d045a92bcedad66e201,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 1.4000006
+      value: 1.4000001
       objectReference: {fileID: 0}
     - target: {fileID: 2906731793655507094, guid: 962377e60e171d045a92bcedad66e201,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: 0.0000011920929
+      value: 0.0000006556511
       objectReference: {fileID: 0}
     - target: {fileID: 2906731793655507094, guid: 962377e60e171d045a92bcedad66e201,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0.80999994
+      value: 0.81000006
       objectReference: {fileID: 0}
     - target: {fileID: 4640032906294379680, guid: 962377e60e171d045a92bcedad66e201,
         type: 3}
@@ -35033,6 +35040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mySpeed: 5
+  mySwimBackTime: 2
   myCurveRoot: {fileID: 1075152771}
   myAutoStart: 1
   myAnimation: 1
@@ -35686,6 +35694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mySpeed: 5
+  mySwimBackTime: 2
   myCurveRoot: {fileID: 1417882511}
   myAutoStart: 1
   myAnimation: 1
@@ -36946,7 +36955,7 @@ PrefabInstance:
     - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0.81000006
+      value: 0.8100003
       objectReference: {fileID: 0}
     - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
@@ -36956,7 +36965,7 @@ PrefabInstance:
     - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: 0.0000009536743
+      value: -0.0000005364418
       objectReference: {fileID: 0}
     - target: {fileID: 5904872324585908894, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
@@ -43313,17 +43322,17 @@ PrefabInstance:
     - target: {fileID: 2906731793655507094, guid: 962377e60e171d045a92bcedad66e201,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 1.4000005
+      value: 1.4000002
       objectReference: {fileID: 0}
     - target: {fileID: 2906731793655507094, guid: 962377e60e171d045a92bcedad66e201,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0.81000006
+      value: 0.8100004
       objectReference: {fileID: 0}
     - target: {fileID: 2906731793655507094, guid: 962377e60e171d045a92bcedad66e201,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.0000003141763
+      value: 0.00000044703484
       objectReference: {fileID: 0}
     - target: {fileID: 2906731793655507176, guid: 962377e60e171d045a92bcedad66e201,
         type: 3}
@@ -44175,6 +44184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mySpeed: 5
+  mySwimBackTime: 2
   myCurveRoot: {fileID: 1812432816}
   myAutoStart: 1
   myAnimation: 1
