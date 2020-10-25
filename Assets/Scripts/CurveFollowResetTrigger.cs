@@ -16,11 +16,7 @@ public class CurveFollowResetTrigger : MonoBehaviour
 
     private void Update()
     {
-<<<<<<< Updated upstream
-        if(myLastCurvePoint != null)
-        {
-            transform.position = myLastCurvePoint.position;
-=======
+        
         if(shouldMoveFishBack)
         {
 
@@ -40,7 +36,7 @@ public class CurveFollowResetTrigger : MonoBehaviour
                 
                 if(hasRotated == false)
                 {
-                    curveControllerToReset.transform.Rotate(new Vector3(transform.rotation.x, 180, transform.rotation.z));
+                    curveControllerToReset.transform.Rotate(new Vector3(transform.rotation.x, transform.eulerAngles.y + 180, transform.rotation.z));
                     hasRotated = true;
                 }
 
@@ -53,10 +49,9 @@ public class CurveFollowResetTrigger : MonoBehaviour
                 hasRotated = false;
                 curveControllerToReset.enabled = true;
                 curveControllerToReset.FollowCurve();
-                curveControllerToReset.transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
+                curveControllerToReset.transform.Rotate(new Vector3(transform.rotation.x, transform.eulerAngles.y + 180, transform.rotation.z));
 
             }
->>>>>>> Stashed changes
         }
     }
 
