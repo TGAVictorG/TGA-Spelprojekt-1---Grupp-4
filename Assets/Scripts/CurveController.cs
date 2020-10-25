@@ -7,6 +7,8 @@ public class CurveController : MonoBehaviour
 
     public float mySpeed = 1;
 
+    public float mySwimBackTime = 2f;
+
     public GameObject myCurveRoot;
 
     public bool myAutoStart = true;
@@ -77,6 +79,7 @@ public class CurveController : MonoBehaviour
             curveFly.GetCurveIndexAtTime(animationTime, out curveIndexAfter);
 
             transform.position = curveFly.GetPositionAtTime(animationTime);
+            transform.LookAt(curveFly.GetPositionAtTime(animationTime));
 
             if(curveIndexBefore != curveIndexAfter)
             {
