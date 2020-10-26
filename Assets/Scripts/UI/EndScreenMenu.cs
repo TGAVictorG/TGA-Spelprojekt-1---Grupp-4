@@ -36,6 +36,7 @@ namespace UI
             {
                 Debug.LogWarning("EndScreenMenu in non EndScreenUI scene! Please remove EndScreenMenu UI from stage scenes!");
                 Destroy(gameObject);
+                return;
             }
 #endif
 

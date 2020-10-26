@@ -25,10 +25,10 @@
         //-------------------------------------------------
         public void SetDefaultAudioSettings()
         {
-            myMasterVolume = 0.0f;
-            myMusicVolume = 0.0f;
-            mySFXVolume = 0.0f;
-            myVoiceVolume = 0.0f;
+            myMasterVolume = 100.0f;
+            myMusicVolume = 100.0f;
+            mySFXVolume = 100.0f;
+            myVoiceVolume = 100.0f;
         }
         
         //-------------------------------------------------
