@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
 
         StageManager.ourInstance.myOnPlayerDied.AddListener(StopMusic);
 
-        StopMusic();
+        PlayMusic($"music_lvl{aStageIndex + 1}");
     }
 
     private void PlayMusic(string anAudioName, bool aShouldRestart = false)
