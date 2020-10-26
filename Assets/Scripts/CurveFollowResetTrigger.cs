@@ -50,7 +50,7 @@ public class CurveFollowResetTrigger : MonoBehaviour
                 curveControllerToReset.enabled = true;
                 curveControllerToReset.FollowCurve();
                 curveControllerToReset.transform.Rotate(new Vector3(transform.rotation.x, transform.eulerAngles.y + 180, transform.rotation.z));
-
+                curveControllerToReset.PlayUpSound();
             }
         }
     }
@@ -61,6 +61,7 @@ public class CurveFollowResetTrigger : MonoBehaviour
         {
 
             curveControllerToReset = other.gameObject.GetComponent<CurveController>();
+            curveControllerToReset.PlayDownSound();
             targetRotation = new Vector3(curveControllerToReset.transform.rotation.x, 180, curveControllerToReset.transform.rotation.z);
             shouldMoveFishBack = true;
             timeElapsed = 0;
