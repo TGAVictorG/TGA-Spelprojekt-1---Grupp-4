@@ -32,10 +32,19 @@ public class PlayerDeathHandler : MonoBehaviour
             myCameraShake.ShakeCamera();
         }
 
-        if (aDeathReason == DeathReason.Collision)
+        switch(aDeathReason)
         {
-            myAnimator.Play("Dead");
+            case DeathReason.Collision:
+                myAnimator.Play("Dead");
+                GameManager.ourInstance.myAudioManager.PlaySFXClip("player_death");
+                break;
+            case DeathReason.Laser:
+                GameManager.ourInstance.myAudioManager.PlaySFXClip("lazer_kill");
+                break;
         }
+
+        GameManager.ourInstance.myAudioManager.PlaySFXClip("player_loss");
+        GameManager.ourInstance.myAudioManager.PlayVoiceClip("stage_defeat");
 
         StartCoroutine(DelayedDeath(aDelay));
     }

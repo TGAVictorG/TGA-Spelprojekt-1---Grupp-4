@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5685c2541f904f4480da278dd70a72e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myAudioMixer: {fileID: 24100000, guid: 87285fa84faa6d14581bfc059ca63d5f, type: 2}
   myMusicMixer: {fileID: -4119943827747823346, guid: 87285fa84faa6d14581bfc059ca63d5f,
     type: 2}
   mySFXMixer: {fileID: -2622711647385543119, guid: 87285fa84faa6d14581bfc059ca63d5f,
@@ -58,6 +59,10 @@ MonoBehaviour:
     myAudioClip: {fileID: 8300000, guid: 8f1964ae96b779a4db5ba936b5e7e68e, type: 3}
   - myAudioName: player_death
     myAudioClip: {fileID: 8300000, guid: f14e9b326927fa84db9aa2e4be26bf39, type: 3}
+  - myAudioName: player_loss
+    myAudioClip: {fileID: 8300000, guid: f87ee3552e9d9e740af7d0f66fd117ad, type: 3}
+  - myAudioName: lazer_kill
+    myAudioClip: {fileID: 8300000, guid: a156a8a17fb67d5448ef9afcb47f9b68, type: 3}
   - myAudioName: player_hit_wall
     myAudioClip: {fileID: 8300000, guid: d71eb7f5d1820394d82965a24f7f72e9, type: 3}
   - myAudioName: player_turn
@@ -72,5 +77,51 @@ MonoBehaviour:
     myAudioClip: {fileID: 8300000, guid: bb0b2c2cabf89b54ea6c4b1e5efaafcd, type: 3}
   - myAudioName: fish_down
     myAudioClip: {fileID: 8300000, guid: 82ca39a6e09f1124da42d11bcd8ee231, type: 3}
-  - myAudioName: lazer_kill
-    myAudioClip: {fileID: 8300000, guid: a156a8a17fb67d5448ef9afcb47f9b68, type: 3}
+  - myAudioName: button_play
+    myAudioClip: {fileID: 8300000, guid: 0816850fee8fb6348a4ca10147409f77, type: 3}
+  - myAudioName: button_options
+    myAudioClip: {fileID: 8300000, guid: f6fa2318383353848b1f38c150f0623f, type: 3}
+  - myAudioName: button_credits
+    myAudioClip: {fileID: 8300000, guid: 85e340a3b3871d947b560e4f56e7c258, type: 3}
+  - myAudioName: button_exit
+    myAudioClip: {fileID: 8300000, guid: 88ef18cab2e788245a0dc549fa426d7b, type: 3}
+  - myAudioName: button_back
+    myAudioClip: {fileID: 8300000, guid: 571abc353ee06d24db7e92c4fecb6887, type: 3}
+  - myAudioName: button_lvl1
+    myAudioClip: {fileID: 8300000, guid: 47b3b98d3b6961b45a6ccdc532eace42, type: 3}
+  - myAudioName: button_lvl2
+    myAudioClip: {fileID: 8300000, guid: 38c9040471f02474fb703a83609b22f7, type: 3}
+  - myAudioName: button_lvl3
+    myAudioClip: {fileID: 8300000, guid: 9a14c18a86517994b96c2fd9be4d034d, type: 3}
+  - myAudioName: button_main_menu
+    myAudioClip: {fileID: 8300000, guid: 7d561681c6cbc344eaf23563f84c6d77, type: 3}
+  - myAudioName: button_resume
+    myAudioClip: {fileID: 8300000, guid: a88f2ba24db74ea48abd7bf8f8e04848, type: 3}
+  - myAudioName: point1
+    myAudioClip: {fileID: 8300000, guid: 48a5c3d5dafd93143b4531391cc708c7, type: 3}
+  - myAudioName: point2
+    myAudioClip: {fileID: 8300000, guid: 6ab9a7e5b595faf4fb4353d8f19d7808, type: 3}
+  - myAudioName: point3
+    myAudioClip: {fileID: 8300000, guid: 19decd8de8da11f48881a5959c8617e5, type: 3}
+  - myAudioName: point4
+    myAudioClip: {fileID: 8300000, guid: 8d9609ef83f149c4b9d7506c2f400b7a, type: 3}
+  - myAudioName: point5
+    myAudioClip: {fileID: 8300000, guid: 1a889ddf1e01f2a4594e5f677dffe8c1, type: 3}
+  - myAudioName: point6
+    myAudioClip: {fileID: 8300000, guid: 0382954c5b13a9941a45b81dce088232, type: 3}
+  - myAudioName: point7
+    myAudioClip: {fileID: 8300000, guid: 0b1638cd56b6869478e0c0dd45262485, type: 3}
+  - myAudioName: point8
+    myAudioClip: {fileID: 8300000, guid: abb3f1e5ea7c38a4cb0c0bc3ba7519d4, type: 3}
+  - myAudioName: point9
+    myAudioClip: {fileID: 8300000, guid: 9047c461e67f8e44295e647932ae6ae4, type: 3}
+  - myAudioName: stage_victory
+    myAudioClip: {fileID: 8300000, guid: 961128a704e882c48b33b466feb19333, type: 3}
+  - myAudioName: stage_defeat
+    myAudioClip: {fileID: 8300000, guid: 829330e89e0439848b2180d365d76742, type: 3}
+  - myAudioName: music_lvl1
+    myAudioClip: {fileID: 8300000, guid: 24c2e86bbcdf3ef4db93b1620ec914ca, type: 3}
+  - myAudioName: music_lvl2
+    myAudioClip: {fileID: 8300000, guid: 22a56bda4e3bb36438f6274214e68c40, type: 3}
+  - myAudioName: music_lvl3
+    myAudioClip: {fileID: 8300000, guid: 4c451f520d80df840b53b2a4c672a4e1, type: 3}

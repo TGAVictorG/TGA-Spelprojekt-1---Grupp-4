@@ -1,28 +1,31 @@
 ﻿using System.Collections.Generic;
+using UI.Data;
 using UnityEngine;
 using UnityEngine.Audio;
 
 namespace Managers
 {
 	//-------------------------------------------------------------------------
-    public class AudioManager : MonoBehaviour
-    {
+	public class AudioManager : MonoBehaviour
+	{
 		public enum AudioType
-        {
+		{
 			Music,
 			SFX,
 			Voice,
-        }
+		}
 
 		[System.Serializable]
 		public struct Audio
-        {
+		{
 			public string myAudioName;
 
 			public AudioClip myAudioClip;
-        }
+		}
 
 		#region Private Serializable Fields
+
+		[SerializeField] private AudioMixer myAudioMixer;
 
 		[Header("Mixers")]
 		[SerializeField] private AudioMixerGroup myMusicMixer;
@@ -44,6 +47,47 @@ namespace Managers
 		private List<AudioSource> myPlayingSources = new List<AudioSource>(ourAudioCount);
 
 		#region Public Methods
+
+		public void SetMasterVolume(float aVolume)
+		{
+			myAudioMixer.SetFloat(name: "MasterVolume", value: MapVolumeToMixerVolume(aVolume));
+		}
+
+		public void SetMusicVolume(float aVolume)
+		{
+			myAudioMixer.SetFloat(name: "MusicVolume", value: MapVolumeToMixerVolume(aVolume));
+		}
+
+		public void SetSFXVolume(float aVolume)
+		{
+			myAudioMixer.SetFloat(name: "SFXVolume", value: MapVolumeToMixerVolume(aVolume));
+		}
+
+		public void SetVoiceVolume(float aVolume)
+		{
+			myAudioMixer.SetFloat(name: "VoiceVolume", value: MapVolumeToMixerVolume(aVolume));
+		}
+
+		public float MapVolumeToMixerVolume(float aVolume)
+		{
+			// aVolume 0 -> 100
+
+			// More accurate db scaling than linear with volume slider
+			float percentage = Mathf.Clamp01(aVolume / 100.0f);
+			float volume = Mathf.Log10(Mathf.Lerp(0.0001f, 1.0f, percentage)) * 20.0f;
+
+			return volume;
+		}
+
+		public void SetVolumesFromOptionsDataManager()
+		{
+			OptionsDataManager optionsDataManager = GameManager.ourInstance.myOptionsDataManager;
+
+			SetMasterVolume(optionsDataManager.MasterVolume);
+			SetMusicVolume(optionsDataManager.MusicVolume);
+			SetSFXVolume(optionsDataManager.SFXVolume);
+			SetVoiceVolume(optionsDataManager.VoiceVolume);
+		}
 
 		#region Play Clips
 
@@ -187,16 +231,16 @@ namespace Managers
 		#endregion
 
 		private AudioMixerGroup GetMixerFromAudioType(AudioType anAudioType)
-        {
-			switch(anAudioType)
-            {
+		{
+			switch (anAudioType)
+			{
 				case AudioType.Music:
 					return myMusicMixer;
 				case AudioType.SFX:
 					return mySFXMixer;
 				case AudioType.Voice:
 					return myVoiceMixer;
-            }
+			}
 
 #if UNITY_EDITOR
 
@@ -205,26 +249,26 @@ namespace Managers
 #endif
 
 			return mySFXMixer;
-        }
+		}
 
 		private AudioSource GetFreeAudioSource()
-        {
+		{
 			if (myFreeAudioSourceQueue.Count == 0)
-            {
+			{
 				Debug.LogWarning("AudioManager had to generate more audio sources!");
 
 				return GenerateSource(myAudioRoot);
-            }
+			}
 
 			return myFreeAudioSourceQueue.Count > 0 ? myFreeAudioSourceQueue.Dequeue() : null;
-        }
+		}
 
 		private void ResetAudioSource(AudioSource anAudioSource)
-        {
+		{
 			if (anAudioSource.isPlaying)
-            {
+			{
 				anAudioSource.Stop();
-            }
+			}
 
 			// Reset 3D settings
 			anAudioSource.dopplerLevel = 1.0f;
@@ -241,16 +285,16 @@ namespace Managers
 		}
 
 		private void RecycleAudioSource(AudioSource anAudioSource)
-        {
+		{
 			ResetAudioSource(anAudioSource);
 
 			anAudioSource.gameObject.SetActive(false);
 
 			myFreeAudioSourceQueue.Enqueue(anAudioSource);
-        }
+		}
 
 		private AudioSource GenerateSource(GameObject aParent)
-        {
+		{
 			GameObject audioSourceGo = new GameObject("PooledAudioSource");
 			audioSourceGo.transform.SetParent(aParent.transform);
 
@@ -264,57 +308,62 @@ namespace Managers
 		}
 
 		private void GenerateAudioQueueBuffers()
-        {
+		{
 			myAudioRoot = new GameObject("Sources");
 			myAudioRoot.transform.SetParent(transform);
 
 			for (int i = 0; i < ourAudioCount; ++i)
-            {
+			{
 				myFreeAudioSourceQueue.Enqueue(GenerateSource(myAudioRoot));
-            }
+			}
 		}
 
 		private void FillAudioStore()
-        {
+		{
 			myAudioStore.Clear();
 
 			// Store audio clips in a more efficient container for near constant time indexing by key O(1)
 			for (int i = 0; i < myAudio.Length; ++i)
-            {
+			{
 				myAudioStore.Add(myAudio[i].myAudioName, myAudio[i].myAudioClip);
-            }
-        }
+			}
+		}
 
-        private void Update()
-        {
-            for (int i = 0; i < myPlayingSources.Count; ++i)
-            {
+		private void Update()
+		{
+			for (int i = 0; i < myPlayingSources.Count; ++i)
+			{
 				AudioSource audioSource = myPlayingSources[i];
 				if (!audioSource.isPlaying)
-                {
+				{
 					myPlayingSources.RemoveAt(i);
 
 					RecycleAudioSource(audioSource);
 
 					--i;
-                }
-            }
-        }
+				}
+			}
+		}
 
-        private void Awake()
+        private void Start()
         {
+			SetVolumesFromOptionsDataManager();
+		}
+
+		private void Awake()
+		{
 			FillAudioStore();
 			GenerateAudioQueueBuffers();
 		}
 
 #if UNITY_EDITOR
 		private void OnValidate()
-        {
+		{
 			if (Application.isPlaying)
 			{
 				FillAudioStore();
 			}
-        }
+		}
 #endif
-    }
+	}
 }
