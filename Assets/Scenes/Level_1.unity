@@ -1802,6 +1802,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9055224582621756549, guid: fc7a2045cb2fac34aaee237c6af42633,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a2310f872910ac4ab1e77daaa67b04e, type: 2}
     - target: {fileID: -8679921383154817045, guid: fc7a2045cb2fac34aaee237c6af42633,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1872,6 +1877,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: -8600806122014052232, guid: fc7a2045cb2fac34aaee237c6af42633,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a62a3e07cbd81eb4e96597dac75db0f2, type: 2}
+    - target: {fileID: -4285487797669248958, guid: fc7a2045cb2fac34aaee237c6af42633,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: df39630b017591b44ab61cc0c9d2b0a7, type: 2}
+    - target: {fileID: -2654946009245671480, guid: fc7a2045cb2fac34aaee237c6af42633,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1768df50f00346b408719b9c9715852b, type: 2}
     - target: {fileID: 919132149155446097, guid: fc7a2045cb2fac34aaee237c6af42633,
         type: 3}
       propertyPath: m_Name
@@ -16169,7 +16189,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486152353}
   serializedVersion: 6
-  lengthInSec: 5
+  lengthInSec: 1.4
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -16244,7 +16264,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.41
+      scalar: 1.18
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -16297,7 +16317,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 186
+      scalar: 678.1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -23835,7 +23855,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 254d27b3406cf6c489d23cf3e9a54f87, type: 2}
+      objectReference: {fileID: 2100000, guid: 6cf142819a946f848a1295718fb4b829, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: affef43b36985f34d8fb4ff7782c5126, type: 3}
 --- !u!1001 &738078884
@@ -34414,6 +34434,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 4ce70d9b95eb53a4d917546a3c21b43a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6cf142819a946f848a1295718fb4b829, type: 2}
     - target: {fileID: 919132149155446097, guid: 4ce70d9b95eb53a4d917546a3c21b43a,
         type: 3}
       propertyPath: m_Name
