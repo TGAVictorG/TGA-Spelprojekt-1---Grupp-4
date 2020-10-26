@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour
         ourInstance = this;
 
         myOptionsDataManager = new OptionsDataManager();
+        myOptionsDataManager.Load();
 
         myAudioManager = Instantiate(myAudioManagerPrefab).GetComponent<AudioManager>();
         DontDestroyOnLoad(myAudioManager.gameObject);
