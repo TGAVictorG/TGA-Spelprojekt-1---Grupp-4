@@ -42,14 +42,9 @@ public class ButtonScaleHover : EventTrigger
         }
     }
 
-    private void StopEffect(bool anAllowAudio = true)
+    private void StopEffect()
     {
         myAnimationTarget = Vector3.one;
-
-        if (anAllowAudio && myEnableSounds)
-        {
-            GameManager.ourInstance.myAudioManager.PlaySFXClip("button_hover");
-        }
     }
 
     private void Update()
@@ -59,7 +54,7 @@ public class ButtonScaleHover : EventTrigger
 
     private void OnDisable()
     {
-        StopEffect(false);
+        StopEffect();
         transform.localScale = myAnimationTarget;
     }
 }

@@ -98,7 +98,7 @@ public class PlaneController : MonoBehaviour
         else
         {
             transform.localScale = new Vector3(0.65f, 1f, 1f);
-            transform.GetChild(0).localScale = new Vector3(1.4774f, 1.4774f, 1.4774f);
+            transform.GetChild(0).localScale = new Vector3(2.43f, 1.4774f, 1.4774f);
 
         }
 
