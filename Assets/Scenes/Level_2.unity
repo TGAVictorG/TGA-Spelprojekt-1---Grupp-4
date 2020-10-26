@@ -31366,7 +31366,8 @@ AudioSource:
   m_GameObject: {fileID: 1260103306}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2622711647385543119, guid: 87285fa84faa6d14581bfc059ca63d5f,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.185
@@ -41535,6 +41536,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BigFan
       objectReference: {fileID: 0}
+    - target: {fileID: 4833397618804165703, guid: 51567cd868ad53f49bb513995264d4a7,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -2622711647385543119, guid: 87285fa84faa6d14581bfc059ca63d5f,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51567cd868ad53f49bb513995264d4a7, type: 3}
 --- !u!1 &1762612056 stripped
