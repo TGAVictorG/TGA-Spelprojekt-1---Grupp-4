@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
 
         StageManager.ourInstance.myOnPlayerDied.AddListener(StopMusic);
 
-        PlayMusic($"music_lvl{aStageIndex + 1}");
+        StopMusic();
     }
 
     private void PlayMusic(string anAudioName, bool aShouldRestart = false)
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
             myCurrentMusicSource = null;
         }
 
-        myCurrentMusicSource = myAudioManager.PlayMusicClip(anAudioName, aShouldLoop: true);
+        myCurrentMusicSource = myAudioManager.PlayMusicClip(anAudioName, someVolume: 0.165f, aShouldLoop: true);
     }
 
     private void StopMusic()
