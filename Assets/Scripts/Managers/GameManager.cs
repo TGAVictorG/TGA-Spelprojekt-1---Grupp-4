@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject myStageInformationRegistryPrefab;
 
+    private AudioSource myCurrentMusicSource;
+
     private int myCurrentStageIndex = -1;
 
     public void SaveStageData(StageData aStageData)
@@ -74,6 +76,8 @@ public class GameManager : MonoBehaviour
 
         // TODO: Fade effect?
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+
+        PlayMusic("music_lvl1");
     }
 
     #endregion
@@ -100,6 +104,40 @@ public class GameManager : MonoBehaviour
         {
             StageManager.ourInstance.SetHighscoreStageData(myStageInformationRegistry.GetStageData(aStageIndex));
         }
+
+        StageManager.ourInstance.myOnPlayerDied.AddListener(StopMusic);
+
+        PlayMusic($"music_lvl{aStageIndex + 1}");
+    }
+
+    private void PlayMusic(string anAudioName, bool aShouldRestart = false)
+    {
+        if (myCurrentMusicSource != null)
+        {
+            if (myCurrentMusicSource.clip == myAudioManager.GetAudioClip(anAudioName) && !aShouldRestart)
+            {
+                return;
+            }
+
+            myAudioManager.Stop(myCurrentMusicSource);
+            myCurrentMusicSource = null;
+        }
+
+        myCurrentMusicSource = myAudioManager.PlayMusicClip(anAudioName, someVolume: 0.165f, aShouldLoop: true);
+    }
+
+    private void StopMusic()
+    {
+        if (myCurrentMusicSource != null)
+        {
+            myAudioManager.Stop(myCurrentMusicSource);
+            myCurrentMusicSource = null;
+        }
+    }
+
+    private void Start()
+    {
+        PlayMusic("music_lvl1");
     }
 
     private void Awake()

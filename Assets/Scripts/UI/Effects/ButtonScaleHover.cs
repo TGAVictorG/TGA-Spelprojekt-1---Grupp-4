@@ -1,8 +1,15 @@
-﻿using UnityEngine;
+﻿using Managers;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class ButtonScaleHover : EventTrigger
 {
+    [SerializeField]
+    private AudioManager.AudioType myAudioType = AudioManager.AudioType.SFX;
+
+    [SerializeField]
+    private string myClickAudioName = "button_click";
+
     [SerializeField]
     private float myHoverScale = 1.1f;
 
@@ -18,7 +25,7 @@ public class ButtonScaleHover : EventTrigger
     {
         if (myEnableSounds)
         {
-            GameManager.ourInstance.myAudioManager.PlaySFXClip("button_click");
+            GameManager.ourInstance.myAudioManager.Play2D(GameManager.ourInstance.myAudioManager.GetAudioClip(myClickAudioName), myAudioType);
         }
     }
 

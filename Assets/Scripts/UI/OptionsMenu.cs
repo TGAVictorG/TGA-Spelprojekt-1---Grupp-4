@@ -2,7 +2,6 @@
 using UI.Data;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -238,6 +237,11 @@ namespace UI
 		//-------------------------------------------------
 		public void OnMasterVolumeChanged(float aValue)
 		{
+			if (!gameObject.activeInHierarchy)
+            {
+				return;
+            }
+
 			Debug.Assert(myOptionsDataManager != null, "myOptionsDataManager should not be null!");
 
 			myOptionsDataManager.MasterVolume = aValue;
@@ -250,6 +254,11 @@ namespace UI
 		//-------------------------------------------------
 		public void OnMusicVolumeChanged(float aValue)
 		{
+			if (!gameObject.activeInHierarchy)
+			{
+				return;
+			}
+
 			Debug.Assert(myOptionsDataManager != null, "myOptionsDataManager should not be null!");
 
 			myOptionsDataManager.MusicVolume = aValue;
@@ -262,6 +271,11 @@ namespace UI
 		//-------------------------------------------------
 		public void OnSFXVolumeChanged(float aValue)
 		{
+			if (!gameObject.activeInHierarchy)
+			{
+				return;
+			}
+
 			Debug.Assert(myOptionsDataManager != null, "myOptionsDataManager should not be null!");
 
 			myOptionsDataManager.SFXVolume = aValue;
@@ -274,6 +288,11 @@ namespace UI
 		//-------------------------------------------------
 		public void OnVoiceVolumeChanged(float aValue)
 		{
+			if (!gameObject.activeInHierarchy)
+			{
+				return;
+			}
+
 			Debug.Assert(myOptionsDataManager != null, "myOptionsDataManager should not be null!");
 
 			myOptionsDataManager.VoiceVolume = aValue;

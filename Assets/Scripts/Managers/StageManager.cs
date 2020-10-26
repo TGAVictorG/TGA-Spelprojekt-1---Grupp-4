@@ -77,8 +77,6 @@ public class StageManager : MonoBehaviour
         {
             myIsPlayerDead = true;
             myOnPlayerDied?.Invoke();
-
-            GameManager.ourInstance.myAudioManager.PlaySFXClip("player_death");
         }
     }
 
@@ -95,6 +93,8 @@ public class StageManager : MonoBehaviour
 
         GameManager.ourInstance.SaveStageData(myStageData);
 
+        GameManager.ourInstance.myAudioManager.PlayVoiceClip("stage_victory");
+
         UI.EndScreenMenu.ourInstance.DisplayEndScreen(true);
         FreezePlayer();
     }
@@ -106,6 +106,7 @@ public class StageManager : MonoBehaviour
         myOnPickedUpBlock?.Invoke();
 
         GameManager.ourInstance.myAudioManager.PlaySFXClip("picked_pickup");
+        GameManager.ourInstance.myAudioManager.PlayVoiceClip("point" + Random.Range(1, 10));
     }
 
     public void OnPickedUpStar()
