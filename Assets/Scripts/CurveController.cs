@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(AudioSource))]
 public class CurveController : MonoBehaviour
 {
+    [SerializeField]
+    private AudioClip myUpSound;
+    [SerializeField]
+    private AudioClip myDownSound;
+
+    private AudioSource myAudioSource;
 
     public float mySpeed = 1;
 
@@ -51,15 +59,36 @@ public class CurveController : MonoBehaviour
         }
     }
 
+    public void PlayUpSound()
+    {
+        if (myAudioSource != null)
+        {
+            myAudioSource.PlayOneShot(myUpSound);
+        }
+    }
+
+    public void PlayDownSound()
+    {
+        if (myAudioSource != null)
+        {
+            myAudioSource.PlayOneShot(myDownSound);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        myAudioSource = GetComponent<AudioSource>();
+
         curveFly = new CurveFly(myCurveRoot.transform);
         
         if(myAutoStart)
         {
             RefreshTransforms(mySpeed);
             FollowCurve();
+            
+            PlayUpSound();
+            
         }
     }
 
