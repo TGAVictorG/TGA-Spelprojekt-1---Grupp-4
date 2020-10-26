@@ -5,6 +5,8 @@ using UnityEditorInternal;
 [CustomEditor(typeof(Managers.AudioManager))]
 public class AudioManagerEditor : Editor
 {
+    private SerializedProperty myAudioMixer;
+
     private SerializedProperty myMusicMixer;
     private SerializedProperty mySFXMixer;
     private SerializedProperty myVoiceMixer;
@@ -15,6 +17,8 @@ public class AudioManagerEditor : Editor
 
     private void OnEnable()
     {
+        myAudioMixer = serializedObject.FindProperty("myAudioMixer");
+
         myMusicMixer = serializedObject.FindProperty("myMusicMixer");
         mySFXMixer = serializedObject.FindProperty("mySFXMixer");
         myVoiceMixer = serializedObject.FindProperty("myVoiceMixer");
@@ -50,6 +54,8 @@ public class AudioManagerEditor : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
+
+        EditorGUILayout.PropertyField(myAudioMixer);
 
         EditorGUILayout.PropertyField(myMusicMixer);
         EditorGUILayout.PropertyField(mySFXMixer);
