@@ -4,6 +4,9 @@
 [CanEditMultipleObjects]
 public class ButtonScaleHoverEditor : Editor
 {
+    private SerializedProperty myAudioTypeProperty;
+    private SerializedProperty myClickAudioNameProperty;
+
     private SerializedProperty myHoverScaleProperty;
     private SerializedProperty myScaleSpeedProperty;
     private SerializedProperty myEnableSoundsProperty;
@@ -11,6 +14,9 @@ public class ButtonScaleHoverEditor : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
+        EditorGUILayout.PropertyField(myAudioTypeProperty);
+        EditorGUILayout.PropertyField(myClickAudioNameProperty);
+
         EditorGUILayout.PropertyField(myHoverScaleProperty);
         EditorGUILayout.PropertyField(myScaleSpeedProperty);
         EditorGUILayout.PropertyField(myEnableSoundsProperty);
@@ -19,6 +25,9 @@ public class ButtonScaleHoverEditor : Editor
 
     private void OnEnable()
     {
+        myAudioTypeProperty = serializedObject.FindProperty("myAudioType");
+        myClickAudioNameProperty = serializedObject.FindProperty("myClickAudioName");
+
         myHoverScaleProperty = serializedObject.FindProperty("myHoverScale");
         myScaleSpeedProperty = serializedObject.FindProperty("myScaleSpeed");
         myEnableSoundsProperty = serializedObject.FindProperty("myEnableSounds");

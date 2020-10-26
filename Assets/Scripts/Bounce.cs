@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bounce : MonoBehaviour
@@ -10,11 +9,12 @@ public class Bounce : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        StartCoroutine(Foo(transform.forward, Vector3.Reflect(transform.forward, collision.contacts[0].normal), collision.collider));
+        StartCoroutine(DoBounce(transform.forward, Vector3.Reflect(transform.forward, collision.contacts[0].normal), collision.collider));
     }
 
-    IEnumerator Foo(Vector3 start, Vector3 end, Collider aCollider)
+    IEnumerator DoBounce(Vector3 start, Vector3 end, Collider aCollider)
     {
+        bool didPlayAudio = false;
         float t = 0;
 
         Physics.IgnoreCollision(myCollider, aCollider, true);
@@ -22,6 +22,16 @@ public class Bounce : MonoBehaviour
 
         while (t < 1)
         {
+            if (t > 0.0f && !didPlayAudio)
+            {
+                if (!StageManager.ourInstance.myIsPlayerDead)
+                {
+                    GameManager.ourInstance.myAudioManager.PlaySFXClip("player_hit_wall");
+                }
+
+                didPlayAudio = true;
+            }
+
             t += Time.deltaTime / rotateTime;
 
             if (t > 1)
