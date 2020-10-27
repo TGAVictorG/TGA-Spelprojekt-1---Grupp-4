@@ -6,6 +6,7 @@ public class FuelUI : MonoBehaviour
     public Image myFuelBar;
     public Image myLowFuelBar;
     [SerializeField]private float myLowFuelOscilationPeriod;
+    [SerializeField]private float myFuelBarSpeed = 3.0f;
     private Fuel myPlayerFuel;
     private float myTimeSinceStart;
 
@@ -36,7 +37,7 @@ public class FuelUI : MonoBehaviour
 
     private void Update()
     {
-        myFuelBar.fillAmount = myPlayerFuel.GetCurrentFuelPercentage();
+        myFuelBar.fillAmount = Mathf.Lerp(myFuelBar.fillAmount, myPlayerFuel.GetCurrentFuelPercentage(), Time.deltaTime * myFuelBarSpeed);
 
         if(myPlayerFuel.IsLowOnFuel())
         {
