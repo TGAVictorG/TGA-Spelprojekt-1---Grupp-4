@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516272612244959319}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.52, z: 0}
   m_LocalScale: {x: 3, y: 0.1, z: 1.8}
   m_Children:
   - {fileID: 1400625534328611402}
@@ -76,11 +76,11 @@ ParticleSystemRenderer:
   m_SortingOrder: 0
   m_RenderMode: 1
   m_SortMode: 0
-  m_MinParticleSize: 0.001
-  m_MaxParticleSize: 0.015
+  m_MinParticleSize: 0.01
+  m_MaxParticleSize: 0.025
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
-  m_LengthScale: 0.1
+  m_LengthScale: 0.05
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_ShadowBias: 0
@@ -180,7 +180,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.075
+      scalar: 0.3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -233,7 +233,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.001
+      scalar: 0.005
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -349,8 +349,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.1
-      minScalar: 0.5
+      scalar: 1
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -402,8 +402,8 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 2.5
+      scalar: 2
+      minScalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4798,7 +4798,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.5411765, g: 1, b: 0.67058825, a: 1}
-  m_Intensity: 4
+  m_Intensity: 3
   m_Range: 3
   m_SpotAngle: 38.632557
   m_InnerSpotAngle: 1
