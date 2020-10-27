@@ -26,13 +26,9 @@ public class PlaneController : MonoBehaviour
     [Header("SPEED & DRAG SETTINGS")]
     [SerializeField] private float myStartingVelocity = 3;
     [SerializeField] private float mySpeedMultiplier = 1f;
-    [SerializeField] private float myVelocityCap = 5f;
+    [SerializeField] private float myMaximumVelocity = 5f;
     [SerializeField] private float myDragFactor = 0.2f;
     [SerializeField] private float myMinimunVelocity = 1f;
-
-    [SerializeField] private float mySpeedBoostVelocityAdd = 4f;
-    [SerializeField] private AnimationCurve mySpeedBoostAccelerationCurve;
-    [SerializeField] private AnimationCurve mySpeedBoostFalloffCurve;
 
     [SerializeField] private AnimationCurve myVelocityByAngleCurve;
     [SerializeField] private AnimationCurve myDragByAngleCurve;
@@ -44,11 +40,6 @@ public class PlaneController : MonoBehaviour
     [Header("AUTO CORRECTION")]
     [SerializeField] [Tooltip("How much the plane automatically pitches towards the ground")] private float myAutoPitchFactor = 1;
     [SerializeField] [Tooltip("How hard the plane corrects the roll of the plane")] private float myRollCorrectionFactor = 1;
-    [SerializeField] private AnimationCurve myRollCorrectionByVelocityCurve;
-    [SerializeField] private AnimationCurve myAutoPitchByVelocityCurve;
-    [SerializeField] private AnimationCurve myAutoPitchByRollCurve;
-    [SerializeField] private float myVelocityPitchMultiplier;
-    [SerializeField] private float myRollPitchMultiplier;
     [SerializeField] private float myNoFuelWeightIncrease;
     [SerializeField] private bool myPerfectColitionBox;
 
@@ -109,7 +100,7 @@ public class PlaneController : MonoBehaviour
     {
         if (myEnableSpaceSpeedBoost && Input.GetButtonDown("Jump"))
         {
-            SpeedBoost(mySpeedBoostVelocityAdd);
+            SpeedBoost(4.0f, 5.0f);
         }
 
         myFuel.myAllowFuelDepletion = !myEnableUnlimitedFuel;
@@ -146,27 +137,19 @@ public class PlaneController : MonoBehaviour
             Vector3 targetRotation = currentRotation;
             targetRotation.z = currentRotation.z > 180 ? 360f : 0f;
 
-            float t = myRollCorrectionFactor * myRollCorrectionByVelocityCurve.Evaluate(myCurrentVelocity / myVelocityCap);
+            float t = myRollCorrectionFactor;
 
             transform.eulerAngles = Vector3.Lerp(currentRotation, targetRotation, t);
-
         }
-
-        //Auto pitch 
-        float currentRoll = transform.eulerAngles.z > 180 ? 360f - transform.eulerAngles.z : transform.eulerAngles.z;
-
-        float pitchValue = myAutoPitchByVelocityCurve.Evaluate(myCurrentVelocity / myVelocityCap) * myVelocityPitchMultiplier;
-        pitchValue += myAutoPitchByRollCurve.Evaluate(currentRoll) * (myCurrentVelocity / myVelocityCap) * myRollPitchMultiplier;
-        transform.Rotate(transform.right, -pitchValue, Space.World);
     }
 
     private void SetVelocity()
     {
         myCurrentVelocity += mySpeedMultiplier * myVelocityByAngleCurve.Evaluate(myCurrentAngleOfAttack);
 
-        if (myCurrentVelocity > myVelocityCap)
+        if (myCurrentVelocity > myMaximumVelocity)
         {
-            myCurrentVelocity = myVelocityCap;
+            myCurrentVelocity = myMaximumVelocity;
         }
         else if (myCurrentVelocity < myMinimunVelocity && myFuel.myFuelIsEmpty == false)
         {
@@ -191,7 +174,7 @@ public class PlaneController : MonoBehaviour
         }
 
         myCurrentVelocity -= myDragByAngleCurve.Evaluate(myCurrentAngleOfAttack) * dragMultiplier * myCurrentVelocity * myCurrentVelocity;
-        myCurrentVelocity = Mathf.Clamp(myCurrentVelocity, 0.1f, myVelocityCap);
+        myCurrentVelocity = Mathf.Clamp(myCurrentVelocity, 0.1f, myMaximumVelocity);
     }
 
     private void CalculateAngleOfAttack()
@@ -280,10 +263,11 @@ public class PlaneController : MonoBehaviour
         transform.Rotate(transform.forward, (rollInput * rollFactor * invertValue), Space.World);
     }
 
-    public void SpeedBoost(float aBoostAmount)
+    public void SpeedBoost(float aBoostAmount, float aMinimumSpeed)
     {
         mySpeedBoostCounter = 0f;
         myCurrentVelocity += aBoostAmount;
+        myCurrentVelocity = Mathf.Clamp(myCurrentVelocity, aMinimumSpeed, myMaximumVelocity);
 
         mySpeedLineController.Activate();
     }

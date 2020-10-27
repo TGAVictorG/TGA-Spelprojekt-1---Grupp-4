@@ -10,6 +10,8 @@ public class PickupScript : MonoBehaviour
     [SerializeField] private PickupScript myNextTarget = null;
     [SerializeField] private float myFuelToAdd = 2.0f;
     [SerializeField] private float mySpeedBoost = 2.0f;
+    [Header("Will boost player to a minimum speed")]
+    [SerializeField] private float myBoostMinimumSpeed = 4.0f;
 
     private GameObject myHalo;
     private Material myMaterial;
@@ -91,7 +93,7 @@ public class PickupScript : MonoBehaviour
             }
 
             aPlayer.gameObject.GetComponent<Fuel>().AddFuel(myFuelToAdd);
-            aPlayer.gameObject.GetComponent<SpeedBoost>().ActivateSpeedBoost(mySpeedBoost);
+            aPlayer.gameObject.GetComponent<SpeedBoost>().ActivateSpeedBoost(mySpeedBoost, myBoostMinimumSpeed);
 
            // aPlayer.gameObject.GetComponent<FOVAnimator>().ZoomFov(75);
 
