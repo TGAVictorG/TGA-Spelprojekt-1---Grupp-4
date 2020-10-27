@@ -1,22 +1,12 @@
 ﻿using TMPro;
 using UI.Data;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace UI
 {
-	//-------------------------------------------------------------------------
-	/// <summary>
-	/// This allows for anyone to set custom resolutions through the Inspector
-	/// </summary>
-	[System.Serializable]
-	public class Resolution
-	{
-		public int myWidth;
-		public int myHeight;
-	}
+
 
 	//-------------------------------------------------------------------------
 	public class OptionsMenu : MonoBehaviour
@@ -39,7 +29,6 @@ namespace UI
 		[SerializeField] private Toggle myFullScreenToggle = null;
 		[SerializeField] private Toggle myVsyncToggle = null;
 		[SerializeField] private TextMeshProUGUI myResolutionLabelText = null;
-		[SerializeField] private Resolution[] myResolutions = null;
 
 		#endregion
 
@@ -53,7 +42,7 @@ namespace UI
 
 		#region Private Fields
 
-		private OptionsDataManager myOptionsDataManager => GameManager.ourInstance.myOptionsDataManager;
+		private OptionsDataManager myOptionsDataManager => OptionsDataManager.ourInstance;
 
 		private int mySelectedResolution = 0;
 
@@ -126,14 +115,16 @@ namespace UI
 		//-------------------------------------------------
 		private void LoadVideoSettings()
 		{
+			Resolution[] resolutions = GraphicsManager.ourInstance.mySupportedResolutions;
+
 			myFullScreenToggle.isOn = myOptionsDataManager.FullScreenMode;
 			myVsyncToggle.isOn = myOptionsDataManager.VSync;
 
 			bool foundResolution = false;
-			for (int index = 0; index < myResolutions.Length; ++index)
+			for (int index = 0; index < resolutions.Length; ++index)
 			{
-				if (myOptionsDataManager.Resolution.myWidth == myResolutions[index].myWidth &&
-					myOptionsDataManager.Resolution.myHeight == myResolutions[index].myHeight)
+				if (myOptionsDataManager.Resolution.myWidth == resolutions[index].myWidth &&
+					myOptionsDataManager.Resolution.myHeight == resolutions[index].myHeight)
 				{
 					foundResolution = true;
 					mySelectedResolution = index;
@@ -146,8 +137,6 @@ namespace UI
 			{
 				myResolutionLabelText.text = $"{Screen.width} x {Screen.height}";
 			}
-
-			SetVideoSettings();
 		}
 
 		//-------------------------------------------------
@@ -184,31 +173,22 @@ namespace UI
 		//-------------------------------------------------
 		private void UpdateResolutionLabel()
 		{
+			Resolution resolution = GraphicsManager.ourInstance.mySupportedResolutions[mySelectedResolution];
+
 			myResolutionLabelText.text =
-				$"{myResolutions[mySelectedResolution].myWidth} x {myResolutions[mySelectedResolution].myHeight}";
+				$"{resolution.myWidth} x {resolution.myHeight}";
 		}
 
 		//-------------------------------------------------
-		private void SetVideoSettings()
+		private void StoreAndApplyVideoSettings()
 		{
-			Screen.SetResolution(
-				width: myResolutions[mySelectedResolution].myWidth,
-				height: myResolutions[mySelectedResolution].myHeight,
-				fullscreen: myFullScreenToggle.isOn);
-
-			QualitySettings.vSyncCount = myVsyncToggle.isOn ? 1 : 0;
-
-			myOptionsDataManager.Resolution = myResolutions[mySelectedResolution];
+			myOptionsDataManager.Resolution = GraphicsManager.ourInstance.mySupportedResolutions[mySelectedResolution];
 			myOptionsDataManager.FullScreenMode = myFullScreenToggle.isOn;
-			myOptionsDataManager.VSync = QualitySettings.vSyncCount != 0;
+			myOptionsDataManager.VSync = myVsyncToggle.isOn;
+
+			GraphicsManager.ourInstance.ApplyGraphicSettings();
 
 			SaveSettings();
-
-			//  Simulates fullscreen toggling during development
-#if UNITY_EDITOR
-			EditorWindow window = EditorWindow.focusedWindow;
-			window.maximized = myOptionsDataManager.FullScreenMode;
-#endif
 		}
 
 		#endregion
@@ -230,7 +210,8 @@ namespace UI
 		//-------------------------------------------------
 		public void OnAudioResetButtonClicked()
 		{
-			myOptionsDataManager.Reset();
+			myOptionsDataManager.ResetAndSave();
+
 			LoadAudioSettings();
 		}
 
@@ -306,7 +287,7 @@ namespace UI
 		//-------------------------------------------------
 		public void OnApplyVideoChangesButtonClicked()
 		{
-			SetVideoSettings();
+			StoreAndApplyVideoSettings();
 		}
 
 		//-------------------------------------------------
@@ -322,7 +303,7 @@ namespace UI
 		//-------------------------------------------------
 		public void OnResolutionMoveRightClicked()
 		{
-			if (mySelectedResolution < myResolutions.Length - 1)
+			if (mySelectedResolution < GraphicsManager.ourInstance.mySupportedResolutions.Length - 1)
 			{
 				++mySelectedResolution;
 				UpdateResolutionLabel();

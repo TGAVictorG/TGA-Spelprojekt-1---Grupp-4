@@ -81,7 +81,7 @@ namespace Managers
 
 		public void SetVolumesFromOptionsDataManager()
 		{
-			OptionsDataManager optionsDataManager = GameManager.ourInstance.myOptionsDataManager;
+			OptionsDataManager optionsDataManager = OptionsDataManager.ourInstance;
 
 			SetMasterVolume(optionsDataManager.MasterVolume);
 			SetMusicVolume(optionsDataManager.MusicVolume);
