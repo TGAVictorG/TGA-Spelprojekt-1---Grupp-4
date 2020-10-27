@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_UIBlurDefault
-  m_Shader: {fileID: 4800000, guid: d5b52ab673bf80b428e7446ea2325bcd, type: 3}
+  m_Name: M_UISoftMaskable
+  m_Shader: {fileID: 4800000, guid: 7f70f71c616093242bd15b3afa5836f6, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -60,7 +60,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BlurExtent: 4
     - _BumpScale: 1
     - _ColorMask: 15
     - _Cutoff: 0.5

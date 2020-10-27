@@ -21,6 +21,9 @@ public class LevelSelectUI : MonoBehaviour
     private Material myBlurMaterial;
 
     [SerializeField]
+    private Material myDefaultMaterial;
+
+    [SerializeField]
     private LevelUIData[] myLevelUIData;
 
     public void LoadLevel(int aStageIndex)
@@ -66,11 +69,7 @@ public class LevelSelectUI : MonoBehaviour
             bool isUnlocked = stageInformationRegistry.IsStageUnlocked(i);
 
             levelUIData.myLevelImage.sprite = stageInformationRegistry.GetStageInformation(i).myStageThumbnail;
-            levelUIData.myLevelImage.material = isUnlocked ? null : myBlurMaterial;
-
-            AspectRatioFitter aspectRatioFitter = levelUIData.myLevelImage.GetComponent<AspectRatioFitter>();
-            aspectRatioFitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
-            aspectRatioFitter.aspectRatio = levelUIData.myLevelImage.sprite.rect.width / levelUIData.myLevelImage.sprite.rect.height;
+            levelUIData.myLevelImage.material = isUnlocked ? myDefaultMaterial : myBlurMaterial;
 
             levelUIData.myButton.enabled = isUnlocked;
             levelUIData.myLockImage.enabled = !isUnlocked;

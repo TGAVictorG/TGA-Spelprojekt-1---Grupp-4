@@ -1,4 +1,4 @@
-﻿Shader "UI/UIBlurDefault"
+﻿Shader "UI/UISoftMaskable"
 {
     Properties
     {
@@ -15,8 +15,6 @@
         _ColorMask("Color Mask", Float) = 15
 
         [Toggle(UNITY_UI_ALPHACLIP)] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
-
-        _BlurExtent("Blur Extent", Int) = 3
     }
 
         SubShader
@@ -86,8 +84,6 @@
                 float4 _MainTex_ST;
                 float4 _MainTex_TexelSize;
 
-                uint _BlurExtent;
-
                 v2f vert(appdata_t v)
                 {
                     v2f OUT;
@@ -104,21 +100,7 @@
 
                 fixed4 frag(v2f IN) : SV_Target
                 {
-                    half4 texColor = half4(0.0, 0.0, 0.0, 0.0);
-
-                    half blurExtent = _BlurExtent;
-
-                    for (half x = -blurExtent; x <= blurExtent; x += 1.0)
-                    {
-                        for (half y = -blurExtent; y <= blurExtent; y += 1.0)
-                        {
-                            texColor += tex2D(_MainTex, IN.texcoord + float2(_MainTex_TexelSize.x * x, _MainTex_TexelSize.y * y));
-                        }
-                    }
-
-                    texColor /= pow(blurExtent * 2 + 1, 2);
-
-                    half4 color = (texColor + _TextureSampleAdd) * IN.color;
+                    half4 color = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color;
                     color.a *= tex2D(_MaskTexture, IN.texcoord).a;
 
                     #ifdef UNITY_UI_CLIP_RECT
