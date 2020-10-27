@@ -19,6 +19,8 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float myBeforeStartMoveSpeed = 3.0f;
     [SerializeField] private float myBeforeStartRotationSpeedMultiplyerWhenTargetIsFound = 1.001f;
 
+    [SerializeField] private float myMaxDistanceToPlayer = 5.0f;
+
     [SerializeField] private float myObjectFadeSpeed = 5.0f;
 
     [SerializeField] private float myObjectRayDistanceBias = 0.02f;
@@ -160,7 +162,15 @@ public class CameraFollow : MonoBehaviour
     {
         Vector3 target = CalculateCameraTargetAndFade();
 
+
         transform.position = Vector3.MoveTowards(transform.position, target, myCurrentMoveSpeed * Time.deltaTime);
+
+
+        Vector3 playerToMe = transform.position - myTarget.position;
+        if (playerToMe.sqrMagnitude > myMaxDistanceToPlayer * myMaxDistanceToPlayer)
+        {
+            transform.position = myTarget.position + playerToMe.normalized * myMaxDistanceToPlayer;
+        }
     }
 
     private void UpdateRotation()

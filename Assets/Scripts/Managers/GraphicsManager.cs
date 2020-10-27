@@ -59,7 +59,7 @@ public class GraphicsManager
 
     private Resolution[] myResolutions;
 
-    private float[] mySupportedAspects = new float[] { 16.0f / 9.0f, 16.0f / 10.0f };
+    private float[] mySupportedAspects = new float[] { 16.0f / 9.0f };
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
     public static void OnGameStart()
