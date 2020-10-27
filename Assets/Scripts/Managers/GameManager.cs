@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager ourInstance;
 
-    public OptionsDataManager myOptionsDataManager { get; private set; }
-
     public AudioManager myAudioManager { get; private set; }
     public StageInformationRegistry myStageInformationRegistry { get; private set; }
 
@@ -151,15 +149,12 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         ourInstance = this;
 
-        myOptionsDataManager = new OptionsDataManager();
-        myOptionsDataManager.Load();
-
         myAudioManager = Instantiate(myAudioManagerPrefab).GetComponent<AudioManager>();
         DontDestroyOnLoad(myAudioManager.gameObject);
-        Debug.Assert(myAudioManager != null, "myAudioManager not found on prefab!");
+        Debug.Assert(myAudioManager != null, "AudioManager not found on prefab!");
 
         myStageInformationRegistry = Instantiate(myStageInformationRegistryPrefab).GetComponent<StageInformationRegistry>();
         DontDestroyOnLoad(myStageInformationRegistry.gameObject);
-        Debug.Assert(myStageInformationRegistry != null, "myStageInformationRegistry not found on prefab!");
+        Debug.Assert(myStageInformationRegistry != null, "StageInformationRegistry not found on prefab!");
     }
 }
