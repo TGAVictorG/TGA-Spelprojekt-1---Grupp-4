@@ -5,13 +5,28 @@ namespace UI.Data
     //-------------------------------------------------------------------------
     public class OptionsDataManager
     {
+        public static OptionsDataManager ourInstance
+        {
+            get
+            {
+                if (ourUniqueInstance == null)
+                {
+                    ourUniqueInstance = new OptionsDataManager();
+                    ourUniqueInstance.Load();
+                }
+
+                return ourUniqueInstance;
+            }
+        }
+
         #region Private Fields
-        
+
+        private static OptionsDataManager ourUniqueInstance;
+
         private SaveData _mySaveData = new SaveData();
         private JsonConverter _myJsonConverter = new JsonConverter();
 
         #endregion
-
 
         #region Properties
         
@@ -93,11 +108,11 @@ namespace UI.Data
         }
         
         //-------------------------------------------------
-        public void Reset()
+        public void ResetAndSave()
         {
             _mySaveData.SetDefaultAudioSettings();
+
             Save();
-            Load();
         }
 
         #endregion

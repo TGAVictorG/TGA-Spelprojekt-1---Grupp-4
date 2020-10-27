@@ -3,6 +3,7 @@
     Properties
     {
         [PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
+        _MaskTexture("Mask Texture", 2D) = "white" {}
         _Color("Tint", Color) = (1,1,1,1)
 
         _StencilComp("Stencil Comparison", Float) = 8
@@ -77,6 +78,8 @@
                 };
 
                 sampler2D _MainTex;
+                sampler2D _MaskTexture;
+
                 fixed4 _Color;
                 fixed4 _TextureSampleAdd;
                 float4 _ClipRect;
@@ -116,6 +119,7 @@
                     texColor /= pow(blurExtent * 2 + 1, 2);
 
                     half4 color = (texColor + _TextureSampleAdd) * IN.color;
+                    color.a *= tex2D(_MaskTexture, IN.texcoord).a;
 
                     #ifdef UNITY_UI_CLIP_RECT
                     color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);

@@ -81,7 +81,7 @@ namespace Managers
 
 		public void SetVolumesFromOptionsDataManager()
 		{
-			OptionsDataManager optionsDataManager = GameManager.ourInstance.myOptionsDataManager;
+			OptionsDataManager optionsDataManager = OptionsDataManager.ourInstance;
 
 			SetMasterVolume(optionsDataManager.MasterVolume);
 			SetMusicVolume(optionsDataManager.MusicVolume);
@@ -95,7 +95,7 @@ namespace Managers
 		/// The returned value can be stopped by passing it to <see cref="Stop(AudioSource)"/>.
 		/// Do not manually use <see cref="AudioSource.Stop"/> or <see cref="AudioSource.Pause"/> on the returned object!
 		/// </summary>
-		public AudioSource Play2D(AudioClip anAudioClip, AudioType anAudioType, float aPitch = 1.0f, float someVolume = 0.5f, bool aShouldLoop = false)
+		public AudioSource Play2D(AudioClip anAudioClip, AudioType anAudioType, float aPitch = 1.0f, float someVolume = 1.0f, bool aShouldLoop = false)
 		{
 			AudioMixerGroup mixer = GetMixerFromAudioType(anAudioType);
 
@@ -125,7 +125,7 @@ namespace Managers
 		/// The returned value can be stopped by passing it to <see cref="Stop(AudioSource)"/>.
 		/// Do not manually use <see cref="AudioSource.Stop"/> or <see cref="AudioSource.Pause"/> on the returned object!
 		/// </summary>
-		public AudioSource Play3D(AudioClip anAudioClip, AudioType anAudioType, Vector3 aWorldPosition, float aPitch = 1.0f, float someVolume = 0.5f, bool aShouldLoop = false)
+		public AudioSource Play3D(AudioClip anAudioClip, AudioType anAudioType, Vector3 aWorldPosition, float aPitch = 1.0f, float someVolume = 1.0f, bool aShouldLoop = false)
 		{
 			AudioMixerGroup mixer = GetMixerFromAudioType(anAudioType);
 
@@ -151,19 +151,19 @@ namespace Managers
 			return audioSource;
 		}
 		//-------------------------------------------------
-		public AudioSource PlayMusicClip(string anAudioName, float aPitch = 1.0f, float someVolume = 0.5f, bool aShouldLoop = false)
+		public AudioSource PlayMusicClip(string anAudioName, float aPitch = 1.0f, float someVolume = 1.0f, bool aShouldLoop = false)
 		{
 			return Play2D(GetAudioClip(anAudioName), AudioType.Music, aPitch, someVolume, aShouldLoop);
 		}
 
 		//-------------------------------------------------
-		public AudioSource PlaySFXClip(string anAudioName, float aPitch = 1.0f, float someVolume = 0.5f, bool aShouldLoop = false)
+		public AudioSource PlaySFXClip(string anAudioName, float aPitch = 1.0f, float someVolume = 1.0f, bool aShouldLoop = false)
 		{
 			return Play2D(GetAudioClip(anAudioName), AudioType.SFX, aPitch, someVolume, aShouldLoop);
 		}
 
 		//-------------------------------------------------
-		public AudioSource PlayVoiceClip(string anAudioName, float aPitch = 1.0f, float someVolume = 0.5f, bool aShouldLoop = false)
+		public AudioSource PlayVoiceClip(string anAudioName, float aPitch = 1.0f, float someVolume = 1.0f, bool aShouldLoop = false)
 		{
 			return Play2D(GetAudioClip(anAudioName), AudioType.Voice, aPitch, someVolume, aShouldLoop);
 		}
