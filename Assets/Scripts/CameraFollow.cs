@@ -15,6 +15,9 @@ public class CameraFollow : MonoBehaviour
 
     public float myMoveSpeed = 6.5f;
     public float myRotationSpeed = 180.0f;
+    [SerializeField] private float myBeforeStartRotationSpeed = 40.0f;
+    [SerializeField] private float myBeforeStartMoveSpeed = 3.0f;
+    [SerializeField] private float myBeforeStartRotationSpeedMultiplyerWhenTargetIsFound = 1.001f;
 
     [SerializeField] private float myMaxDistanceToPlayer = 5.0f;
 
@@ -22,9 +25,9 @@ public class CameraFollow : MonoBehaviour
 
     [SerializeField] private float myObjectRayDistanceBias = 0.02f;
 
-    [Header("Legacy (unused)")]
-    [SerializeField] private AnimationCurve myLookAtSpeedCurve;
-    [SerializeField] private AnimationCurve myMoveSpeedCurve;
+    //[Header("Legacy (unused)")]
+    //[SerializeField] private AnimationCurve myLookAtSpeedCurve;
+    //[SerializeField] private AnimationCurve myMoveSpeedCurve;
 
     private Transform myTarget;
 
@@ -35,6 +38,12 @@ public class CameraFollow : MonoBehaviour
 
     private Shader myTransparentShader;
     private int myIgnoreCameraFadeLayer;
+
+    private Vector3 myTargetPosition;
+    private bool myIsBeforeStart = true;
+    private float myCurrentRotationSpeed;
+    private float myCurrentMoveSpeed;
+    GameObject myTimer;
 
     private void PopulateHitBuffer(Vector3 anOrigin, Vector3 aDirection, float someMaxDistance)
     {
@@ -59,8 +68,8 @@ public class CameraFollow : MonoBehaviour
         playerForward.y = 0.0f;
         playerForward.Normalize();
 
-        Vector3 targetPosition = myTarget.position - playerForward * myDistanceToTargetBack + Vector3.up * myDistanceToTargetUp;
-        Vector3 playerToTarget = targetPosition - myTarget.position;
+        myTargetPosition = myTarget.position - playerForward * myDistanceToTargetBack + Vector3.up * myDistanceToTargetUp;
+        Vector3 playerToTarget = myTargetPosition - myTarget.position;
         float playerToTargetMagnitude = playerToTarget.magnitude;
         playerToTarget /= playerToTargetMagnitude;
 
@@ -153,7 +162,9 @@ public class CameraFollow : MonoBehaviour
     {
         Vector3 target = CalculateCameraTargetAndFade();
 
-        transform.position = Vector3.MoveTowards(transform.position, target, myMoveSpeed * Time.deltaTime);
+
+        transform.position = Vector3.MoveTowards(transform.position, target, myCurrentMoveSpeed * Time.deltaTime);
+
 
         Vector3 playerToMe = transform.position - myTarget.position;
         if (playerToMe.sqrMagnitude > myMaxDistanceToPlayer * myMaxDistanceToPlayer)
@@ -164,7 +175,35 @@ public class CameraFollow : MonoBehaviour
 
     private void UpdateRotation()
     {
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(myTarget.position - transform.position), myRotationSpeed * Time.deltaTime);
+        if (myIsBeforeStart)
+        {
+            if (Vector3.Dot((myTarget.position - transform.position).normalized, transform.forward) >= 0.9f)
+            {
+                myCurrentRotationSpeed *= myBeforeStartRotationSpeedMultiplyerWhenTargetIsFound;
+            }
+
+        }
+
+
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(myTarget.position - transform.position), myCurrentRotationSpeed * Time.deltaTime);
+
+    }
+
+    private void CameraBeforeStart()
+    {
+
+
+
+        if (myTargetPosition == transform.position && myIsBeforeStart)
+        {
+            myCurrentMoveSpeed = myMoveSpeed;
+            myIsBeforeStart = false;
+            myCurrentRotationSpeed = myRotationSpeed;
+            StageManager.ourInstance.ResetStageTime();
+            myTarget.GetComponent<PlaneController>().enabled = true; 
+            myTimer.GetComponent<TimerUI>().enabled = true;
+
+        }
     }
 
     private void Awake()
@@ -180,12 +219,23 @@ public class CameraFollow : MonoBehaviour
 
         myTarget = playerGo.transform;
 
-        transform.position = CalculateCameraTargetAndFade();
-        transform.LookAt(myTarget.position);
+        myCurrentRotationSpeed = myBeforeStartRotationSpeed;
+        myCurrentMoveSpeed = myBeforeStartMoveSpeed;
+
+        myTarget.GetComponent<PlaneController>().enabled = false;
+
+        myTimer = GameObject.FindGameObjectWithTag("Timer");
+
+        myTimer.GetComponent<TimerUI>().enabled = false;
+
+        //transform.position = CalculateCameraTargetAndFade();
+        //transform.LookAt(myTarget.position);
     }
 
     private void Update()
     {
+        CameraBeforeStart();
+
         if(!StageManager.ourInstance.myIsPlayerDead)
         {
             UpdatePosition();

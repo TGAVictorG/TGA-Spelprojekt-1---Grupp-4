@@ -7,9 +7,14 @@ public class TimerUI : MonoBehaviour
 
     private int myPrevDisplayTime = -1;
 
+    private void Awake()
+    {
+            myTimerText.text = "00:00";
+    }
+
     void Update()
     {
-        if (Mathf.FloorToInt(Time.time) != myPrevDisplayTime)
+        if (Mathf.FloorToInt(Time.time) != myPrevDisplayTime && StageManager.ourInstance.myTimerEnabled)
         {
             myPrevDisplayTime = Mathf.FloorToInt(Time.time);
 
