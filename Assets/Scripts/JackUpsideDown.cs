@@ -4,27 +4,16 @@ using UnityEngine;
 
 public class JackUpsideDown : JackInABox
 {    
-    private float myTimeCounter = 0f;
-    private bool myFirstRun = true;
-    private bool myAnimationIsPaused = false;
-    private bool myIsTriggered = false;
-        
     [SerializeField] bool myForceJump = false;
     [SerializeField] Rigidbody myForceRigidbody;
     [SerializeField] Vector3 myForce;
     [SerializeField] bool isDebugging = false;
     [SerializeField] private bool useImpulseForceMode = true;
 
-    private float myLerpTime = 3.0f;
-    private Vector3 myStartScale = new Vector3(1f, 0f, 1f);
-    private Vector3 myEndScale = new Vector3(1f, 3f, 1f);
-    private Vector3 myHeadStartPosition;
     private Vector3 mySpringMeshStartPos;
     private Vector3 myRelHeadStartPos;
-    private Vector3 myLidStartPosition;
     private Vector3 myAnchorPosition;
     [SerializeField] private Transform mySpringMeshTransform;
-    private Transform myLidTransform;
 
     [SerializeField ] private Transform mySpringTransform;
     [SerializeField] private Transform myAnchorTransform; // Actually the same as mySpringTransform
