@@ -41,6 +41,8 @@ public class StageManager : MonoBehaviour
     private StageData myStageData = StageData.ourInvalid;
     private StageData myHighscoreStageData = StageData.ourInvalid;
 
+    private int myLastPickupAudioIndex = 0;
+
     public static void TogglePause()
     {
         if (ourIsPaused)
@@ -105,8 +107,28 @@ public class StageManager : MonoBehaviour
 
         myOnPickedUpBlock?.Invoke();
 
+        int pickupAudioIndex;
+
+        if (myLastPickupAudioIndex == 0)
+        {
+            pickupAudioIndex = Random.Range(1, 10);
+        }
+        else
+        {
+            pickupAudioIndex = Random.Range(1, 9);
+
+            if (pickupAudioIndex >= myLastPickupAudioIndex)
+            {
+                ++pickupAudioIndex;
+            }
+
+            Debug.Assert(pickupAudioIndex != myLastPickupAudioIndex, "Same pickup sound should not be played back-to-back!");
+        }
+
+        myLastPickupAudioIndex = pickupAudioIndex;
+
         GameManager.ourInstance.myAudioManager.PlaySFXClip("picked_pickup");
-        GameManager.ourInstance.myAudioManager.PlayVoiceClip("point" + Random.Range(1, 10));
+        GameManager.ourInstance.myAudioManager.PlayVoiceClip($"point{pickupAudioIndex}");
     }
 
     public void OnPickedUpStar()
