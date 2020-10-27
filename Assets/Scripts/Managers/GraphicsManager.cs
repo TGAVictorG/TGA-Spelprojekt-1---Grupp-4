@@ -71,10 +71,14 @@ public class GraphicsManager
 
         QualitySettings.vSyncCount = optionsDataManager.VSync ? 1 : 0;
 
-        //  Simulates fullscreen toggling during development
 #if UNITY_EDITOR
+        //  Simulates fullscreen toggling during development
         EditorWindow window = EditorWindow.focusedWindow;
-        window.maximized = optionsDataManager.FullScreenMode;
+
+        if (window != null)
+        {
+            window.maximized = optionsDataManager.FullScreenMode;
+        }
 #endif
     }
 
