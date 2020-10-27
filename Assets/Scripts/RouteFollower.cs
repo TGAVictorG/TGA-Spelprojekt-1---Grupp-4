@@ -42,6 +42,10 @@ public class RouteFollower : MonoBehaviour
 
     private IEnumerator TravelRoute(int aRouteNumber)
     {
+        while (myRoutes == null)
+        {
+            yield return null;
+        }
         myCoroutineAllowed = false;
         Vector3 p0 = myRoutes[myCurrentRoute].GetChild(0).position;
         Vector3 p1 = myRoutes[myCurrentRoute].GetChild(1).position;
