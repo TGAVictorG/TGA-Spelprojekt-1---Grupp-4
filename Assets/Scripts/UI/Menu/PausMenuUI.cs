@@ -14,6 +14,12 @@ public class PausMenuUI : MonoBehaviour
         StageManager.ResumeGame();
     }
 
+    public void OnRestartClicked()
+    {
+        StageManager.ResumeGame();
+        GameManager.ourInstance.RestartCurrentStage();
+    }
+
     public void OnOptionsClicked()
     {
         myPopup.SetActive(false);
