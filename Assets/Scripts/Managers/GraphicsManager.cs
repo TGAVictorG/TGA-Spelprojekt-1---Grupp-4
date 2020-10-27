@@ -107,7 +107,7 @@ public class GraphicsManager
     {
         if (mySupportedResolutions.Length == 0)
         {
-            return new Resolution { myWidth = 1920, myHeight = 1080 };
+            return new Resolution { myWidth = Screen.width, myHeight = Screen.height };
         }
 
         Resolution savedResolution = OptionsDataManager.ourInstance.Resolution;
@@ -120,6 +120,6 @@ public class GraphicsManager
             }
         }
 
-        return mySupportedResolutions[0];
+        return mySupportedResolutions[mySupportedResolutions.Length - 1];
     }
 }
