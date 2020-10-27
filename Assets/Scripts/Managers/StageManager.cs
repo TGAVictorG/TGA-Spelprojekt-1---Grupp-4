@@ -16,6 +16,7 @@ public class StageManager : MonoBehaviour
     public bool myIsPlayerDead { get; private set; } = false;
     public int myPickedUpBlocksCount { get; private set; } = 0;
     public float myStageStartTime { get; private set; } = 0.0f;
+    public bool myTimerEnabled { get; private set; } = false;
 
     public PickupScript myFirstBlock;
     public string myHomeworkText;
@@ -40,6 +41,13 @@ public class StageManager : MonoBehaviour
 
     private StageData myStageData = StageData.ourInvalid;
     private StageData myHighscoreStageData = StageData.ourInvalid;
+
+
+    public void ResetStageTime()
+    {
+        myStageStartTime = Time.time;
+        myTimerEnabled = true;
+    }
 
     public static void TogglePause()
     {
