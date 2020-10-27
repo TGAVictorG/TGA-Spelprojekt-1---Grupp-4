@@ -26,7 +26,7 @@ public class PlaneController : MonoBehaviour
     [Header("SPEED & DRAG SETTINGS")]
     [SerializeField] private float myStartingVelocity = 3;
     [SerializeField] private float mySpeedMultiplier = 1f;
-    [SerializeField] private float myVelocityCap = 5f;
+    [SerializeField] private float myMaximumVelocity = 5f;
     [SerializeField] private float myDragFactor = 0.2f;
     [SerializeField] private float myMinimunVelocity = 1f;
 
@@ -109,7 +109,7 @@ public class PlaneController : MonoBehaviour
     {
         if (myEnableSpaceSpeedBoost && Input.GetButtonDown("Jump"))
         {
-            SpeedBoost(mySpeedBoostVelocityAdd);
+            SpeedBoost(mySpeedBoostVelocityAdd, 5);
         }
 
         myFuel.myAllowFuelDepletion = !myEnableUnlimitedFuel;
@@ -146,7 +146,7 @@ public class PlaneController : MonoBehaviour
             Vector3 targetRotation = currentRotation;
             targetRotation.z = currentRotation.z > 180 ? 360f : 0f;
 
-            float t = myRollCorrectionFactor * myRollCorrectionByVelocityCurve.Evaluate(myCurrentVelocity / myVelocityCap);
+            float t = myRollCorrectionFactor * myRollCorrectionByVelocityCurve.Evaluate(myCurrentVelocity / myMaximumVelocity);
 
             transform.eulerAngles = Vector3.Lerp(currentRotation, targetRotation, t);
 
@@ -155,8 +155,8 @@ public class PlaneController : MonoBehaviour
         //Auto pitch 
         float currentRoll = transform.eulerAngles.z > 180 ? 360f - transform.eulerAngles.z : transform.eulerAngles.z;
 
-        float pitchValue = myAutoPitchByVelocityCurve.Evaluate(myCurrentVelocity / myVelocityCap) * myVelocityPitchMultiplier;
-        pitchValue += myAutoPitchByRollCurve.Evaluate(currentRoll) * (myCurrentVelocity / myVelocityCap) * myRollPitchMultiplier;
+        float pitchValue = myAutoPitchByVelocityCurve.Evaluate(myCurrentVelocity / myMaximumVelocity) * myVelocityPitchMultiplier;
+        pitchValue += myAutoPitchByRollCurve.Evaluate(currentRoll) * (myCurrentVelocity / myMaximumVelocity) * myRollPitchMultiplier;
         transform.Rotate(transform.right, -pitchValue, Space.World);
     }
 
@@ -164,9 +164,9 @@ public class PlaneController : MonoBehaviour
     {
         myCurrentVelocity += mySpeedMultiplier * myVelocityByAngleCurve.Evaluate(myCurrentAngleOfAttack);
 
-        if (myCurrentVelocity > myVelocityCap)
+        if (myCurrentVelocity > myMaximumVelocity)
         {
-            myCurrentVelocity = myVelocityCap;
+            myCurrentVelocity = myMaximumVelocity;
         }
         else if (myCurrentVelocity < myMinimunVelocity && myFuel.myFuelIsEmpty == false)
         {
@@ -191,7 +191,7 @@ public class PlaneController : MonoBehaviour
         }
 
         myCurrentVelocity -= myDragByAngleCurve.Evaluate(myCurrentAngleOfAttack) * dragMultiplier * myCurrentVelocity * myCurrentVelocity;
-        myCurrentVelocity = Mathf.Clamp(myCurrentVelocity, 0.1f, myVelocityCap);
+        myCurrentVelocity = Mathf.Clamp(myCurrentVelocity, 0.1f, myMaximumVelocity);
     }
 
     private void CalculateAngleOfAttack()
@@ -280,10 +280,11 @@ public class PlaneController : MonoBehaviour
         transform.Rotate(transform.forward, (rollInput * rollFactor * invertValue), Space.World);
     }
 
-    public void SpeedBoost(float aBoostAmount)
+    public void SpeedBoost(float aBoostAmount, float aMinimumSpeed)
     {
         mySpeedBoostCounter = 0f;
         myCurrentVelocity += aBoostAmount;
+        myCurrentVelocity = Mathf.Clamp(myCurrentVelocity, aMinimumSpeed, myMaximumVelocity);
 
         mySpeedLineController.Activate();
     }

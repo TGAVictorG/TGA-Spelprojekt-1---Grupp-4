@@ -70,16 +70,6 @@ public class GraphicsManager
             fullscreen: optionsDataManager.FullScreenMode);
 
         QualitySettings.vSyncCount = optionsDataManager.VSync ? 1 : 0;
-
-#if UNITY_EDITOR
-        //  Simulates fullscreen toggling during development
-        EditorWindow window = EditorWindow.focusedWindow;
-
-        if (window != null)
-        {
-            window.maximized = optionsDataManager.FullScreenMode;
-        }
-#endif
     }
 
     private Resolution[] GetSupportedResolutions()
