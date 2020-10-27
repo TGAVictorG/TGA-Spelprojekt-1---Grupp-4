@@ -15,14 +15,16 @@ public class CameraFollow : MonoBehaviour
 
     public float myMoveSpeed = 6.5f;
     public float myRotationSpeed = 180.0f;
+    [SerializeField] private float myBeforeStartRotationSpeed = 40.0f;
 
     [SerializeField] private float myObjectFadeSpeed = 5.0f;
 
     [SerializeField] private float myObjectRayDistanceBias = 0.02f;
+    //[SerializeField] private float myTimeBeforeStart = 3f;
 
-    [Header("Legacy (unused)")]
-    [SerializeField] private AnimationCurve myLookAtSpeedCurve;
-    [SerializeField] private AnimationCurve myMoveSpeedCurve;
+    //[Header("Legacy (unused)")]
+    //[SerializeField] private AnimationCurve myLookAtSpeedCurve;
+    //[SerializeField] private AnimationCurve myMoveSpeedCurve;
 
     private Transform myTarget;
 
@@ -33,6 +35,10 @@ public class CameraFollow : MonoBehaviour
 
     private Shader myTransparentShader;
     private int myIgnoreCameraFadeLayer;
+
+    private Vector3 myTargetPosition;
+    private bool myIsBeforeStart = true;
+    private float myCurrentRotationSpeed;
 
     private void PopulateHitBuffer(Vector3 anOrigin, Vector3 aDirection, float someMaxDistance)
     {
@@ -57,8 +63,8 @@ public class CameraFollow : MonoBehaviour
         playerForward.y = 0.0f;
         playerForward.Normalize();
 
-        Vector3 targetPosition = myTarget.position - playerForward * myDistanceToTargetBack + Vector3.up * myDistanceToTargetUp;
-        Vector3 playerToTarget = targetPosition - myTarget.position;
+        myTargetPosition = myTarget.position - playerForward * myDistanceToTargetBack + Vector3.up * myDistanceToTargetUp;
+        Vector3 playerToTarget = myTargetPosition - myTarget.position;
         float playerToTargetMagnitude = playerToTarget.magnitude;
         playerToTarget /= playerToTargetMagnitude;
 
@@ -156,7 +162,7 @@ public class CameraFollow : MonoBehaviour
 
     private void UpdateRotation()
     {
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(myTarget.position - transform.position), myRotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(myTarget.position - transform.position), myCurrentRotationSpeed * Time.deltaTime);
     }
 
     private void Awake()
@@ -172,12 +178,21 @@ public class CameraFollow : MonoBehaviour
 
         myTarget = playerGo.transform;
 
-        transform.position = CalculateCameraTargetAndFade();
-        transform.LookAt(myTarget.position);
+        myCurrentRotationSpeed = myBeforeStartRotationSpeed;
+
+        //transform.position = CalculateCameraTargetAndFade();
+        //transform.LookAt(myTarget.position);
     }
 
     private void Update()
     {
+        if (myTargetPosition == transform.position && myIsBeforeStart)
+        {
+            myIsBeforeStart = false;
+            myCurrentRotationSpeed = myRotationSpeed;
+            myTarget.GetComponent<CharacterController>().enabled = true;
+        }
+
         if(!StageManager.ourInstance.myIsPlayerDead)
         {
             UpdatePosition();
