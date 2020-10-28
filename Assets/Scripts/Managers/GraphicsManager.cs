@@ -8,7 +8,7 @@ using UnityEngine;
 /// This allows for anyone to set custom resolutions through the Inspector
 /// </summary>
 [System.Serializable]
-public class Resolution
+public struct Resolution
 {
 	public int myWidth;
 	public int myHeight;
