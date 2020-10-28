@@ -16,8 +16,9 @@ public struct StageData
     public string FormatDuration()
     {
         int minutes = Mathf.FloorToInt(myStageDuration / 60.0f);
-        int seconds = Mathf.FloorToInt(myStageDuration) % 60;
+        int holeSeconds = Mathf.FloorToInt(myStageDuration % 60.0f);
+        int fracSeconds = Mathf.FloorToInt((myStageDuration % 1.0f) * 100.0f);
 
-        return $"{minutes:D2}:{seconds:D2}";
+        return $"{minutes:D2}:{holeSeconds:D2}.{fracSeconds:D2}";
     }
 }
