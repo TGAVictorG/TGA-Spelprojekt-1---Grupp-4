@@ -64,11 +64,7 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 CalculateCameraTargetAndFade()
     {
-        Vector3 playerForward = myTarget.forward;
-        playerForward.y = 0.0f;
-        playerForward.Normalize();
-
-        myTargetPosition = myTarget.position - playerForward * myDistanceToTargetBack + Vector3.up * myDistanceToTargetUp;
+        CalculateMyTargetPosition();
         Vector3 playerToTarget = myTargetPosition - myTarget.position;
         float playerToTargetMagnitude = playerToTarget.magnitude;
         playerToTarget /= playerToTargetMagnitude;
@@ -158,6 +154,15 @@ public class CameraFollow : MonoBehaviour
         return myTarget.position + playerToTarget * playerToTargetMagnitude;
     }
 
+    private void CalculateMyTargetPosition()
+    {
+        Vector3 playerForward = myTarget.forward;
+        playerForward.y = 0.0f;
+        playerForward.Normalize();
+
+        myTargetPosition = myTarget.position - playerForward * myDistanceToTargetBack + Vector3.up * myDistanceToTargetUp;
+    }
+
     private void UpdatePosition(bool aClampMaxDistance)
     {
         Vector3 target = CalculateCameraTargetAndFade();
@@ -189,7 +194,7 @@ public class CameraFollow : MonoBehaviour
     }
 
     private void CameraBeforeStart()
-    {
+    {        
         if (myTargetPosition == transform.position && myIsBeforeStart)
         {
             myCurrentMoveSpeed = myMoveSpeed;
@@ -199,19 +204,17 @@ public class CameraFollow : MonoBehaviour
             myTarget.GetComponent<PlaneController>().enabled = true; 
             myTarget.GetComponent<Fuel>().enabled = true;
             myTimer.GetComponent<TimerUI>().enabled = true;
-
-
         }
     }
 
     private void Awake()
     {
         myTransparentShader = Shader.Find("Transparent/Diffuse");
-        myIgnoreCameraFadeLayer = LayerMask.NameToLayer("IgnoreCameraFade");
+        myIgnoreCameraFadeLayer = LayerMask.NameToLayer("IgnoreCameraFade");            
     }
 
     private void Start()
-    {
+    {        
         GameObject playerGo = GameObject.FindGameObjectWithTag("Player");
         Debug.Assert(playerGo != null, "Could not find GameObject with Player tag, ensure the player is in the scene and is tagged Player!");
 
@@ -227,6 +230,14 @@ public class CameraFollow : MonoBehaviour
         myTimer = GameObject.FindGameObjectWithTag("Timer");
 
         myTimer.GetComponent<TimerUI>().enabled = false;
+
+        if (GameManager.ourInstance.myIsRestart)
+        {
+            CalculateMyTargetPosition();
+            transform.position = myTargetPosition;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(myTarget.position - transform.position), 360f);
+            CameraBeforeStart();
+        }
 
         //transform.position = CalculateCameraTargetAndFade();
         //transform.LookAt(myTarget.position);
