@@ -12,11 +12,13 @@ public class Countdown : MonoBehaviour
     [SerializeField] private Image myBorder;
     [SerializeField] private TextMeshProUGUI myCountdownText;
     [SerializeField] private float myCountdownLength;
+    [SerializeField] private float myFadeTime;
 
     public bool start = false;
+
     private void Update()
     {
-        if(start)
+        if (start)
         {
             StartCountdown();
             start = false;
@@ -24,7 +26,8 @@ public class Countdown : MonoBehaviour
     }
 
     public void StartCountdown()
-    {        
+    {
+        StopAllCoroutines();
         StartCoroutine(StartCountdownCoroutine());
     }
 
@@ -48,13 +51,14 @@ public class Countdown : MonoBehaviour
 
         StartCoroutine(FadeUICoroutine());
     }
+
     public IEnumerator FadeUICoroutine()
     {
         float t = 1;
 
-        while (t >= 0)
+        while (t > 0)
         {
-            t -= Time.deltaTime / 0.2f;
+            t = Mathf.Clamp(t - Time.deltaTime / myFadeTime, 0, 1);
 
             Color current = myCountdownText.color;
             current.a = t;
