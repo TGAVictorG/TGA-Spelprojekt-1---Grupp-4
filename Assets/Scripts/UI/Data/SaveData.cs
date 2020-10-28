@@ -13,7 +13,7 @@
         // Video Data
         public bool myIsFullScreenOn;
         public bool myIsVsyncOn;
-        public Resolution myResolution = null;
+        public Resolution myResolution;
 
         //-------------------------------------------------
         public SaveData()
