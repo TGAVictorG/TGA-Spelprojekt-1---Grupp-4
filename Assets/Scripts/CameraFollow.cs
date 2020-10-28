@@ -158,18 +158,19 @@ public class CameraFollow : MonoBehaviour
         return myTarget.position + playerToTarget * playerToTargetMagnitude;
     }
 
-    private void UpdatePosition()
+    private void UpdatePosition(bool aClampMaxDistance)
     {
         Vector3 target = CalculateCameraTargetAndFade();
 
-
         transform.position = Vector3.MoveTowards(transform.position, target, myCurrentMoveSpeed * Time.deltaTime);
 
-
-        Vector3 playerToMe = transform.position - myTarget.position;
-        if (playerToMe.sqrMagnitude > myMaxDistanceToPlayer * myMaxDistanceToPlayer)
+        if (aClampMaxDistance)
         {
-            transform.position = myTarget.position + playerToMe.normalized * myMaxDistanceToPlayer;
+            Vector3 playerToMe = transform.position - myTarget.position;
+            if (playerToMe.sqrMagnitude > myMaxDistanceToPlayer * myMaxDistanceToPlayer)
+            {
+                transform.position = myTarget.position + playerToMe.normalized * myMaxDistanceToPlayer;
+            }
         }
     }
 
@@ -184,16 +185,11 @@ public class CameraFollow : MonoBehaviour
 
         }
 
-
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(myTarget.position - transform.position), myCurrentRotationSpeed * Time.deltaTime);
-
     }
 
     private void CameraBeforeStart()
     {
-
-
-
         if (myTargetPosition == transform.position && myIsBeforeStart)
         {
             myCurrentMoveSpeed = myMoveSpeed;
@@ -203,6 +199,7 @@ public class CameraFollow : MonoBehaviour
             myTarget.GetComponent<PlaneController>().enabled = true; 
             myTarget.GetComponent<Fuel>().enabled = true;
             myTimer.GetComponent<TimerUI>().enabled = true;
+
 
         }
     }
@@ -241,7 +238,7 @@ public class CameraFollow : MonoBehaviour
 
         if(!StageManager.ourInstance.myIsPlayerDead)
         {
-            UpdatePosition();
+            UpdatePosition(!myIsBeforeStart);
         }
 
         UpdateRotation();
