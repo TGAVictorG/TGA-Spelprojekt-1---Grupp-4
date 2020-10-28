@@ -230,7 +230,7 @@ namespace Managers
 
 		#endregion
 
-		private AudioMixerGroup GetMixerFromAudioType(AudioType anAudioType)
+		public AudioMixerGroup GetMixerFromAudioType(AudioType anAudioType)
 		{
 			switch (anAudioType)
 			{

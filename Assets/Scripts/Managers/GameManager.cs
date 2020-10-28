@@ -1,6 +1,5 @@
 ﻿using Managers;
 using System.Collections;
-using UI.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -105,15 +104,16 @@ public class GameManager : MonoBehaviour
 
         StageManager.ourInstance.myOnPlayerDied.AddListener(StopMusic);
 
-        PlayMusic($"music_lvl{aStageIndex + 1}");
+        PlayMusic($"music_lvl{aStageIndex + 1}", 0.25f);
     }
 
-    private void PlayMusic(string anAudioName, bool aShouldRestart = false)
+    private void PlayMusic(string anAudioName, float someVolume = 0.165f, bool aShouldRestart = false)
     {
         if (myCurrentMusicSource != null)
         {
             if (myCurrentMusicSource.clip == myAudioManager.GetAudioClip(anAudioName) && !aShouldRestart)
             {
+                myCurrentMusicSource.volume = someVolume;
                 return;
             }
 
@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
             myCurrentMusicSource = null;
         }
 
-        myCurrentMusicSource = myAudioManager.PlayMusicClip(anAudioName, someVolume: 0.165f, aShouldLoop: true);
+        myCurrentMusicSource = myAudioManager.PlayMusicClip(anAudioName, someVolume: someVolume, aShouldLoop: true);
     }
 
     private void StopMusic()
