@@ -10,24 +10,24 @@ public class JackInABox : MonoBehaviour
     [SerializeField] public GameObject myCrank;
     [SerializeField] public bool repeatAnimation = false;
 
-    protected float myTimeCounter = 0f;
-    protected bool myFirstRun = true;
-    protected bool myAnimationIsPaused = false;
-    protected bool myIsTriggered = false;
+    private float myTimeCounter = 0f;
+    private bool myFirstRun = true;
+    private bool myAnimationIsPaused = false;
+    private bool myIsTriggered = false;
 
-    [SerializeField] protected float myCoolDownTime = 1f;
-    [SerializeField] protected float myAnimationPauseTime = 1f;
-    protected float myCoolDownCounter = 0f;
-    protected float myAnimationPauseCounter = 0f;
+    [SerializeField] private float myCoolDownTime = 1f;
+    [SerializeField] private float myAnimationPauseTime = 1f;
+    private float myCoolDownCounter = 0f;
+    private float myAnimationPauseCounter = 0f;
 
-    protected float myLerpTime = 2.0f;
-    protected Vector3 myStartScale = new Vector3(1f, 0f, 1f);
-    protected Vector3 myEndScale = new Vector3(1f, 3f, 1f);
-    protected Vector3 myHeadStartPosition;
-    protected Vector3 myChildStartPosition;
-    protected Vector3 myLidStartPosition;
-    protected Transform myChildTransform;
-    protected Transform myLidTransform;
+    private float myLerpTime = 2.0f;
+    private Vector3 myStartScale = new Vector3(1f, 0f, 1f);
+    private Vector3 myEndScale = new Vector3(1f, 3f, 1f);
+    private Vector3 myHeadStartPosition;
+    private Vector3 myChildStartPosition;
+    private Vector3 myLidStartPosition;
+    private Transform myChildTransform;
+    private Transform myLidTransform;
 
     private void Start()
     {

@@ -110,6 +110,7 @@ public class Roomba : MonoBehaviour
 
     void FoundNewPath()
     {
+        Debug.Log("Found new path");
         ToggleMoveBackwards();
         ResetCurrentSpeed();
         myHasToggledMoveBackwards = false;
