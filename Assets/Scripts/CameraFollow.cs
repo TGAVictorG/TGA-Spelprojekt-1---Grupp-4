@@ -197,6 +197,10 @@ public class CameraFollow : MonoBehaviour
             myCurrentRotationSpeed = myRotationSpeed;
             StageManager.ourInstance.ResetStageTime();
             myTarget.GetComponent<PlaneController>().enabled = true; 
+            myTarget.GetComponent<Fuel>().enabled = true;
+            myTimer.GetComponent<TimerUI>().enabled = true;
+
+
         }
     }
 
@@ -217,6 +221,15 @@ public class CameraFollow : MonoBehaviour
         myCurrentMoveSpeed = myBeforeStartMoveSpeed;
 
         myTarget.GetComponent<PlaneController>().enabled = false;
+        myTarget.GetComponent<Fuel>().enabled = false;
+
+
+        myTimer = GameObject.FindGameObjectWithTag("Timer");
+
+        myTimer.GetComponent<TimerUI>().enabled = false;
+
+        //transform.position = CalculateCameraTargetAndFade();
+        //transform.LookAt(myTarget.position);
     }
 
     private void Update()
