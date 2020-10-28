@@ -25,6 +25,8 @@ public class CameraFollow : MonoBehaviour
 
     [SerializeField] private float myObjectRayDistanceBias = 0.02f;
 
+    [SerializeField] private Countdown myCountdown;
+
     //[Header("Legacy (unused)")]
     //[SerializeField] private AnimationCurve myLookAtSpeedCurve;
     //[SerializeField] private AnimationCurve myMoveSpeedCurve;
@@ -194,27 +196,33 @@ public class CameraFollow : MonoBehaviour
     }
 
     private void CameraBeforeStart()
-    {        
+    {
         if (myTargetPosition == transform.position && myIsBeforeStart)
         {
-            myCurrentMoveSpeed = myMoveSpeed;
             myIsBeforeStart = false;
-            myCurrentRotationSpeed = myRotationSpeed;
-            StageManager.ourInstance.ResetStageTime();
-            myTarget.GetComponent<PlaneController>().enabled = true; 
-            myTarget.GetComponent<Fuel>().enabled = true;
-            myTimer.GetComponent<TimerUI>().enabled = true;
+            myCountdown.StartCountdown();
+            myCountdown.gameObject.SetActive(true);
         }
+    }
+
+    private void EnablePlayerMovement()
+    {
+        myCurrentMoveSpeed = myMoveSpeed;
+        myCurrentRotationSpeed = myRotationSpeed;
+        StageManager.ourInstance.ResetStageTime();
+        myTarget.GetComponent<PlaneController>().enabled = true;
+        myTarget.GetComponent<Fuel>().enabled = true;
+        myTimer.GetComponent<TimerUI>().enabled = true;
     }
 
     private void Awake()
     {
         myTransparentShader = Shader.Find("Transparent/Diffuse");
-        myIgnoreCameraFadeLayer = LayerMask.NameToLayer("IgnoreCameraFade");            
+        myIgnoreCameraFadeLayer = LayerMask.NameToLayer("IgnoreCameraFade");
     }
 
     private void Start()
-    {        
+    {
         GameObject playerGo = GameObject.FindGameObjectWithTag("Player");
         Debug.Assert(playerGo != null, "Could not find GameObject with Player tag, ensure the player is in the scene and is tagged Player!");
 
@@ -231,13 +239,12 @@ public class CameraFollow : MonoBehaviour
 
         myTimer.GetComponent<TimerUI>().enabled = false;
 
-        if (GameManager.ourInstance.myIsRestart)
-        {
-            CalculateMyTargetPosition();
-            transform.position = myTargetPosition;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(myTarget.position - transform.position), 360f);
-            CameraBeforeStart();
-        }
+        CalculateMyTargetPosition();
+        transform.position = myTargetPosition;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(myTarget.position - transform.position), 360f);
+        CameraBeforeStart();
+
+        myCountdown.OnCountdownFinished += EnablePlayerMovement;
 
         //transform.position = CalculateCameraTargetAndFade();
         //transform.LookAt(myTarget.position);
@@ -247,7 +254,7 @@ public class CameraFollow : MonoBehaviour
     {
         CameraBeforeStart();
 
-        if(!StageManager.ourInstance.myIsPlayerDead)
+        if (!StageManager.ourInstance.myIsPlayerDead)
         {
             UpdatePosition(!myIsBeforeStart);
         }
