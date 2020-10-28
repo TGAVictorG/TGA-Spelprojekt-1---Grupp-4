@@ -93,7 +93,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.6, y: 1.6, z: 1.6}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &-6239014964038551771
 MonoBehaviour:
@@ -111,8 +111,9 @@ MonoBehaviour:
   myNextTarget: {fileID: 0}
   myFuelToAdd: 20
   mySpeedBoost: 2
+  myBoostMinimumSpeed: 4
   myDebugLineIsVisable: 0
-  myDebugIsCollectible: 1
+  myDebugIsCollectible: 0
 --- !u!1 &3876510366810043505
 GameObject:
   m_ObjectHideFlags: 0

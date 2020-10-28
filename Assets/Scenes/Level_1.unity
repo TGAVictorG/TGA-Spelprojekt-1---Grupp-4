@@ -14846,7 +14846,7 @@ PrefabInstance:
     - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
       propertyPath: myFuelToAdd
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
@@ -14868,6 +14868,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 14ed7677b26578449ba508ff84800428, type: 2}
+    - target: {fileID: 1630686787261022625, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022626, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
       propertyPath: m_Name
@@ -39570,7 +39575,7 @@ PrefabInstance:
     - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
       propertyPath: myFuelToAdd
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
@@ -47320,7 +47325,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 244223602, guid: 1626a49775be5654c971483e37cae09f, type: 3}
       propertyPath: myFuelDepletionSpeed
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
       propertyPath: myStartingVelocity
@@ -47332,7 +47337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
       propertyPath: myRollMultiplier
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 314365890, guid: 1626a49775be5654c971483e37cae09f, type: 3}
       propertyPath: myMaximumVelocity
