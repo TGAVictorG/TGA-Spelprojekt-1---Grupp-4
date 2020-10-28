@@ -8,9 +8,7 @@ public class RouteMaster : MonoBehaviour
     [SerializeField] private Transform[] myRoutes;
     [SerializeField] public float mySpeedFactor = 1f;
     [SerializeField] private float myFollowerStartSpacing = 0.12f; // Changing this later in run-time after Route has begun will have no effect.
-    [SerializeField] bool myIsDebuggingSpeed = false;
 
-    // Start is called before the first frame update
     private void Awake()
     {
         UpdateFollowerData();
@@ -39,14 +37,5 @@ public class RouteMaster : MonoBehaviour
             RouteFollower rf = myRouteFollowers[i];
             rf.mySpeedFactor = mySpeedFactor;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (myIsDebuggingSpeed)
-        {
-            UpdateFollowerSpeed();
-        }
-    }
+    }    
 }

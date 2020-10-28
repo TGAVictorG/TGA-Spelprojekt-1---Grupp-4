@@ -36,7 +36,7 @@ public class RouteFollower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (myCoroutineAllowed)
+        if (myCoroutineAllowed && myRoutes != null)
         {
             StartCoroutine(TravelRoute(myCurrentRoute));
         }
