@@ -85,6 +85,16 @@ public class GraphicsManager
         QualitySettings.vSyncCount = optionsDataManager.VSync ? 1 : 0;
     }
 
+    public Resolution GetBestResolution()
+    {
+        if (mySupportedResolutions.Length == 0)
+        {
+            return new Resolution { myWidth = Screen.width, myHeight = Screen.height };
+        }
+
+        return mySupportedResolutions[mySupportedResolutions.Length - 1];
+    }
+
     private Resolution[] GetSupportedResolutions()
     {
         return Screen.resolutions
