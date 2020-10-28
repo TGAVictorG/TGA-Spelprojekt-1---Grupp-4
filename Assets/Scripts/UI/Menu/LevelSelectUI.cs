@@ -54,12 +54,7 @@ public class LevelSelectUI : MonoBehaviour
 
             if (stageInformationRegistry.HasValidStageData(i))
             {
-                float duration = stageInformationRegistry.GetStageData(i).myStageDuration;
-
-                int minutes = Mathf.FloorToInt(duration / 60.0f);
-                int seconds = Mathf.FloorToInt(duration) % 60;
-
-                levelUIData.myLevelRecordText.text = $"{minutes:D2}:{seconds:D2}";
+                levelUIData.myLevelRecordText.text = stageInformationRegistry.GetStageData(i).FormatDuration();
             }
             else
             {

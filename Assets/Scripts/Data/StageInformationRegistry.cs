@@ -23,7 +23,12 @@ public class StageInformationRegistry : MonoBehaviour
         bool shouldReplace;
         if (myStageDataWrapper.myStageData[aStageIndex].myIsValid)
         {
-            shouldReplace = myStageDataWrapper.myStageData[aStageIndex].myFinalScore < aStageData.myFinalScore;
+            // Old, used final score, although nothing but the time actually contributes to the score in the final version,
+            // and the final score could become the same int value for fractional changes in duration that we want to capture
+            // therefore we will only compare the stage durations
+            // shouldReplace = myStageDataWrapper.myStageData[aStageIndex].myFinalScore < aStageData.myFinalScore;
+
+            shouldReplace = aStageData.myStageDuration < myStageDataWrapper.myStageData[aStageIndex].myStageDuration;
         }
         else
         {
