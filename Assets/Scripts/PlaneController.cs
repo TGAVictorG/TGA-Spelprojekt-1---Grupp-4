@@ -47,6 +47,7 @@ public class PlaneController : MonoBehaviour
     [SerializeField] private float myNoFuelSteeringFactor = 0.2f;
     [SerializeField] private float myNoFuelDragFactor = 10f;
     [SerializeField] private float myNoFuelFallFactor = 1f;
+    [SerializeField] private float myNoFuelPitchFactor = 1f;
 
     private Fuel myFuel;
     private Rigidbody myRigidbody;
@@ -166,7 +167,9 @@ public class PlaneController : MonoBehaviour
         if (myFuel.myFuelIsEmpty)
         {
             myNoFuelTime += Time.deltaTime;
-            AddPitch(false, myNoFuelWeightIncrease * myNoFuelTime * myNoFuelFallFactor);
+            AddPitch(false, myNoFuelWeightIncrease * myNoFuelTime * myNoFuelPitchFactor);
+            transform.Translate(0f,  -myNoFuelFallFactor * myNoFuelTime * Time.deltaTime, 0, Space.World);
+            //transform.position = new Vector3(transform.position.x, transform.position.y -myNoFuelFallFactor * myNoFuelTime * Time.deltaTime, transform.position.z);
         }
         else
         {
