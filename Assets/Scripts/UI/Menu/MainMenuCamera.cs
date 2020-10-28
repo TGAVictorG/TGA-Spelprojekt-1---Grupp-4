@@ -5,10 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuCamera : MonoBehaviour
 {
+    private static bool myHasStarted = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        SceneManager.LoadScene(10, LoadSceneMode.Additive);
+        if (myHasStarted == false)
+        {
+            myHasStarted = true;
+            SceneManager.LoadScene(10, LoadSceneMode.Additive);
+        }
     }
 
     // Update is called once per frame
