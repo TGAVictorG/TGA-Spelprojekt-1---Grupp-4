@@ -273,6 +273,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myRoomba: {fileID: 3839019717810655355}
+--- !u!64 &1044781512
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4145451058370829330}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8321685774571456786, guid: 82f29e3b7e852ae42b2c2aad792da2a0, type: 3}
 --- !u!1001 &3839019717242708291
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -335,6 +349,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 82f29e3b7e852ae42b2c2aad792da2a0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8e304ff64a9feb84f9c704685143ff30, type: 2}
     - target: {fileID: 919132149155446097, guid: 82f29e3b7e852ae42b2c2aad792da2a0,
         type: 3}
       propertyPath: m_Name
@@ -342,6 +361,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82f29e3b7e852ae42b2c2aad792da2a0, type: 3}
+--- !u!1 &4145451058370829330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 82f29e3b7e852ae42b2c2aad792da2a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 3839019717242708291}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3660381319936181928 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 82f29e3b7e852ae42b2c2aad792da2a0,
