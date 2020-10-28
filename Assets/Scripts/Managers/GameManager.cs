@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     private int myCurrentStageIndex = -1;
 
+    public bool myIsRestart { get; private set; }
+
     public void SaveStageData(StageData aStageData)
     {
         Debug.Assert(myCurrentStageIndex >= 0, "Trying to save stage data on invalid stage!");
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     public void TransitionNextStage()
     {
+        myIsRestart = false;
         if (HasNextStage())
         {
             TransitionToStage(myCurrentStageIndex + 1);
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour
     {
         if (myCurrentStageIndex >= 0)
         {
+            myIsRestart = true;
             TransitionToStage(myCurrentStageIndex);
         }
         else
@@ -70,6 +74,7 @@ public class GameManager : MonoBehaviour
     public void TransitionToMainMenu()
     {
         myCurrentStageIndex = -1;
+        myIsRestart = false;
 
         // TODO: Fade effect?
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);

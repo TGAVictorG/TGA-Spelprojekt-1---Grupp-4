@@ -12,6 +12,7 @@ public class Route : MonoBehaviour
     [SerializeField] private Transform[] myControlPoints;
     private Vector3 myGizmoPosition;
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         // A cubic Bezier curve
@@ -35,16 +36,5 @@ public class Route : MonoBehaviour
         var to3 = new Vector3(points[3].position.x, points[3].position.y, points[3].position.z);
         Gizmos.DrawLine(from2, to3);
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+#endif
 }
