@@ -8,7 +8,10 @@ public class GoalZone : MonoBehaviour
     [SerializeField] GameObject myPointLight;
     void Start()
     {
-        StageManager.ourInstance.myOnPickedUpBlock.AddListener(OnPickedUpBlock); 
+        if (StageManager.ourInstance != null)
+        {
+            StageManager.ourInstance.myOnPickedUpBlock.AddListener(OnPickedUpBlock);
+        }
     }
 
     private void OnPickedUpBlock()
