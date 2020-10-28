@@ -15,7 +15,7 @@ public class Fuel : MonoBehaviour
     [SerializeField] private float myMaxFuel = 100.0f;
     [SerializeField] private float myLowFuelPercentThreshold = .20f;
 
-    private void Start()
+    private void Awake()
     {
         SetFuel(myMaxFuel);
     }
