@@ -16885,6 +16885,7 @@ GameObject:
   - component: {fileID: 573593681}
   - component: {fileID: 573593680}
   - component: {fileID: 573593679}
+  - component: {fileID: 573593682}
   - component: {fileID: 573593678}
   m_Layer: 0
   m_Name: Floor
@@ -16904,8 +16905,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.5, y: 100, z: 1.5}
+  m_Center: {x: 0, y: -50, z: 0}
 --- !u!23 &573593679
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16967,6 +16968,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 44
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &573593682
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573593677}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &574064873 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7074681897062545621, guid: 861fda76df0d14343a781ebd85b3bfee,
