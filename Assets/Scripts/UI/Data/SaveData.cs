@@ -13,7 +13,7 @@
         // Video Data
         public bool myIsFullScreenOn;
         public bool myIsVsyncOn;
-        public Resolution myResolution = null;
+        public Resolution myResolution;
 
         //-------------------------------------------------
         public SaveData()
@@ -36,7 +36,8 @@
         {
             myIsFullScreenOn = true;
             myIsVsyncOn = false;
-            myResolution = new Resolution {myWidth = 1920, myHeight = 1080};
+
+            myResolution = GraphicsManager.ourInstance.GetBestResolution();
         }
     }
 }

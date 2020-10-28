@@ -8,7 +8,7 @@ using UnityEngine;
 /// This allows for anyone to set custom resolutions through the Inspector
 /// </summary>
 [System.Serializable]
-public class Resolution
+public struct Resolution
 {
 	public int myWidth;
 	public int myHeight;
@@ -83,6 +83,16 @@ public class GraphicsManager
             fullscreen: optionsDataManager.FullScreenMode);
 
         QualitySettings.vSyncCount = optionsDataManager.VSync ? 1 : 0;
+    }
+
+    public Resolution GetBestResolution()
+    {
+        if (mySupportedResolutions.Length == 0)
+        {
+            return new Resolution { myWidth = Screen.width, myHeight = Screen.height };
+        }
+
+        return mySupportedResolutions[mySupportedResolutions.Length - 1];
     }
 
     private Resolution[] GetSupportedResolutions()
