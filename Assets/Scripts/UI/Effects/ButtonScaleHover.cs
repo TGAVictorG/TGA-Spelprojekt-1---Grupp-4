@@ -25,6 +25,11 @@ public class ButtonScaleHover : EventTrigger
     {
         if (myEnableSounds)
         {
+            if (myClickAudioName != "button_click")
+            {
+                GameManager.ourInstance.myAudioManager.PlaySFXClip("button_click");
+            }
+
             GameManager.ourInstance.myAudioManager.Play2D(GameManager.ourInstance.myAudioManager.GetAudioClip(myClickAudioName), myAudioType);
         }
     }
