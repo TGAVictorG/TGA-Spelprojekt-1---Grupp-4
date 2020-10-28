@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UI.Data;
-using UnityEditor;
 using UnityEngine;
 
 //-------------------------------------------------------------------------
@@ -16,6 +16,19 @@ public class Resolution
 
 public class GraphicsManager
 {
+    private class DistinctResolutionComparer : IEqualityComparer<Resolution>
+    {
+        public bool Equals(Resolution x, Resolution y)
+        {
+            return x.myWidth == y.myWidth && x.myHeight == y.myHeight;
+        }
+
+        public int GetHashCode(Resolution obj)
+        {
+            return obj.myWidth.GetHashCode() ^ obj.myHeight.GetHashCode();
+        }
+    }
+
     public static GraphicsManager ourInstance
     {
         get
@@ -46,7 +59,7 @@ public class GraphicsManager
 
     private Resolution[] myResolutions;
 
-    private float[] mySupportedAspects = new float[] { 16.0f / 9.0f, 16.0f / 10.0f };
+    private float[] mySupportedAspects = new float[] { 16.0f / 9.0f };
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
     public static void OnGameStart()
@@ -77,6 +90,7 @@ public class GraphicsManager
         return Screen.resolutions
             .Select(r => new Resolution { myWidth = r.width, myHeight = r.height })
             .Where(r => IsSupported(r.myWidth, r.myHeight))
+            .Distinct(new DistinctResolutionComparer())
             .OrderBy(r => r.myWidth * r.myHeight)
             .ToArray();
     }

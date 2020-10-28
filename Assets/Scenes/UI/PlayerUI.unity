@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 2412107}
   m_Layer: 5
   m_Name: TimerUI
-  m_TagString: Untagged
+  m_TagString: Timer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,95 +256,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 689c377f7fdd4104a8d26eb45660e389, type: 3}
   - {fileID: 21300000, guid: 8eb18af4d4f8ec44dbf88d51601f23e3, type: 3}
   - {fileID: 21300000, guid: 8378f591a3657774dbcd66deb32bf199, type: 3}
---- !u!1 &203803936
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 203803937}
-  - component: {fileID: 203803940}
-  - component: {fileID: 203803939}
-  - component: {fileID: 203803938}
-  m_Layer: 5
-  m_Name: FuelPickupEffect
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &203803937
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203803936}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4066592, y: 0.42692572, z: 0.38208}
-  m_Children: []
-  m_Father: {fileID: 1753313321}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.39, y: 5}
-  m_SizeDelta: {x: 1735.9717, y: 148.33743}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &203803938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203803936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AspectMode: 1
-  m_AspectRatio: 11.702857
---- !u!114 &203803939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203803936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.8867924, g: 0.30535775, b: 0.3613999, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1f04f887769d1654baa504a5257ffcc8, type: 3}
-  m_Type: 3
-  m_PreserveAspect: 1
-  m_FillCenter: 1
-  m_FillMethod: 0
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &203803940
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203803936}
-  m_CullTransparentMesh: 0
 --- !u!1 &277528339
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,10 +608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myFuelBar: {fileID: 1470831267}
   myLowFuelBar: {fileID: 1564720125}
-  myFuelPickupEffectBar: {fileID: 203803939}
   myLowFuelOscilationPeriod: 0.5
-  myFuelPickupEffectTime: 0.75
-  myFuelBarSpeed: 3
 --- !u!1 &1389204871
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,15 +674,15 @@ RectTransform:
   m_GameObject: {fileID: 1470831264}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4014801, y: 0.38786745, z: 0.38208}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1753313321}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.39, y: 5}
-  m_SizeDelta: {x: 1735.9717, y: 0}
+  m_AnchoredPosition: {x: -9.4, y: 6}
+  m_SizeDelta: {x: 1710.1909, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1470831266
 MonoBehaviour:
@@ -809,7 +717,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1f04f887769d1654baa504a5257ffcc8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0781156071c6cd644a1ecc927d08929b, type: 3}
   m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -855,15 +763,15 @@ RectTransform:
   m_GameObject: {fileID: 1564720122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4014801, y: 0.38786745, z: 0.38208}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1753313321}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.39, y: 4.9999695}
-  m_SizeDelta: {x: 1735.9717, y: 148.33743}
+  m_AnchoredPosition: {x: -9.4, y: 6}
+  m_SizeDelta: {x: 1710.1909, y: 146.13448}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1564720124
 MonoBehaviour:
@@ -898,7 +806,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1f04f887769d1654baa504a5257ffcc8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0781156071c6cd644a1ecc927d08929b, type: 3}
   m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -946,7 +854,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 203803937}
   - {fileID: 1470831265}
   - {fileID: 1564720123}
   m_Father: {fileID: 1383480706}
@@ -990,7 +897,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f8efee30a9b6470438372c8bffc340c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e938fb3969a8674d95788db2a183a71, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

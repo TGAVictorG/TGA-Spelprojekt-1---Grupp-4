@@ -24,7 +24,7 @@ public class Fuel : MonoBehaviour
     {
         if (myAllowFuelDepletion)
         {
-            SetFuel(myCurrentFuel + (-myFuelDepletionSpeed * Time.deltaTime));
+            AddFuel(-myFuelDepletionSpeed * Time.deltaTime);
         }
     }
 
@@ -36,7 +36,7 @@ public class Fuel : MonoBehaviour
 
     public void AddFuel(float anAmount)
     {
-        if (OnFuelPickup != null)
+        if(OnFuelPickup != null)
         {
             OnFuelPickup.Invoke(anAmount);
         }
