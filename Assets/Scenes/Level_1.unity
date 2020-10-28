@@ -1690,6 +1690,11 @@ PrefabInstance:
       propertyPath: myDistanceToTargetBack
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6742162267859361339, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
+        type: 3}
+      propertyPath: myMoveSpeed
+      value: 6.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6742162267859361343, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
         type: 3}
       propertyPath: m_Name
@@ -9152,6 +9157,11 @@ PrefabInstance:
         type: 3}
       propertyPath: mySpeedBoost
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: myBoostMinimumSpeed
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022624, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
@@ -34964,7 +34974,7 @@ PrefabInstance:
     - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
       propertyPath: mySpeedBoost
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022624, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
@@ -35534,7 +35544,7 @@ PrefabInstance:
     - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
       propertyPath: mySpeedBoost
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022624, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
@@ -35559,7 +35569,7 @@ PrefabInstance:
     - target: {fileID: 1630686787261022654, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.05
+      value: 9.2
       objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022654, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
@@ -40105,6 +40115,16 @@ PrefabInstance:
         type: 3}
       propertyPath: myDebugIsCollectible
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: mySpeedBoost
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: myBoostMinimumSpeed
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022624, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
