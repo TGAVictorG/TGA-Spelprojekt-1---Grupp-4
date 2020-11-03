@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlaneController : MonoBehaviour
 {
@@ -16,7 +15,6 @@ public class PlaneController : MonoBehaviour
     [Header("--------------------------------------------------------------------------------------------------------")]
     //[Space()]
     [SerializeField] private float myPitchMultiplier = 1f;
-    [SerializeField] private bool myPitchInvertState = false;
     [SerializeField] private float myRollMultiplier = 1f;
     [SerializeField] [Tooltip("How hard the plane turns when rotating with A/D")] private float myRollTurnMultiplier = 0.01f;
     [SerializeField] private bool myRollInvertState = false;
@@ -48,6 +46,8 @@ public class PlaneController : MonoBehaviour
     [SerializeField] private float myNoFuelDragFactor = 10f;
     [SerializeField] private float myNoFuelFallFactor = 1f;
     [SerializeField] private float myNoFuelPitchFactor = 1f;
+
+    private bool myPitchInvertState => !UI.Data.OptionsDataManager.ourInstance.UseInvertedFlightControls;
 
     private Fuel myFuel;
     private Rigidbody myRigidbody;
@@ -223,10 +223,9 @@ public class PlaneController : MonoBehaviour
 
         if (myUseOldPitchSystem)
         {
-            int invertValue = myPitchInvertState ? -1 : 1;
             float pitchFactor = myFuel.myFuelIsEmpty ? myPitchMultiplier * myNoFuelSteeringFactor : myPitchMultiplier;
 
-            transform.Rotate(transform.right, pitchInput * pitchFactor * invertValue, Space.World);
+            transform.Rotate(transform.right, pitchInput * pitchFactor, Space.World);
         }
         if (myUseNewPitchSystem)
         {

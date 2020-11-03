@@ -30,6 +30,9 @@ namespace UI
 		[SerializeField] private Toggle myVsyncToggle = null;
 		[SerializeField] private TextMeshProUGUI myResolutionLabelText = null;
 
+		[Header("Game Options")]
+		[SerializeField] private Toggle myUseInvertedFlightControlsToggle = null;
+
 		#endregion
 
 		#region Public Fields
@@ -57,8 +60,13 @@ namespace UI
 #if UNITY_EDITOR
 			ValidateComponents();
 #endif
+		}
+
+		private void OnEnable()
+		{
 			LoadVideoSettings();
 			LoadAudioSettings();
+			LoadGameSettings();
 		}
 
 		#endregion
@@ -110,6 +118,11 @@ namespace UI
 			{
 				Debug.LogError("VoiceVolume Text is NULL.");
 			}
+		}
+
+		private void LoadGameSettings()
+		{
+			myUseInvertedFlightControlsToggle.isOn = myOptionsDataManager.UseInvertedFlightControls;
 		}
 
 		//-------------------------------------------------
@@ -180,11 +193,13 @@ namespace UI
 		}
 
 		//-------------------------------------------------
-		private void StoreAndApplyVideoSettings()
+		private void StoreAndApplyVideoAndGameSettings()
 		{
 			myOptionsDataManager.Resolution = GraphicsManager.ourInstance.mySupportedResolutions[mySelectedResolution];
 			myOptionsDataManager.FullScreenMode = myFullScreenToggle.isOn;
 			myOptionsDataManager.VSync = myVsyncToggle.isOn;
+
+			myOptionsDataManager.UseInvertedFlightControls = myUseInvertedFlightControlsToggle.isOn;
 
 			GraphicsManager.ourInstance.ApplyGraphicSettings();
 
@@ -219,9 +234,9 @@ namespace UI
 		public void OnMasterVolumeChanged(float aValue)
 		{
 			if (!gameObject.activeInHierarchy)
-            {
+			{
 				return;
-            }
+			}
 
 			Debug.Assert(myOptionsDataManager != null, "myOptionsDataManager should not be null!");
 
@@ -285,9 +300,9 @@ namespace UI
 
 		//--------------------- VIDEO ---------------------
 		//-------------------------------------------------
-		public void OnApplyVideoChangesButtonClicked()
+		public void OnApplyChangesButtonClicked()
 		{
-			StoreAndApplyVideoSettings();
+			StoreAndApplyVideoAndGameSettings();
 		}
 
 		//-------------------------------------------------
