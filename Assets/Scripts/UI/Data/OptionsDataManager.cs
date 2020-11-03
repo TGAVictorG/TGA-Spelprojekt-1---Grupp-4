@@ -58,7 +58,6 @@ namespace UI.Data
 
         #endregion
 
-
         #region Video
 
         public bool FullScreenMode
@@ -80,9 +79,19 @@ namespace UI.Data
         }
 
         #endregion
-        
+
+        #region Game
+
+        public bool UseInvertedFlightControls
+        {
+            get => _mySaveData.myUseInvertedFlightControls;
+            set => _mySaveData.myUseInvertedFlightControls = value;
+        }
+
         #endregion
-        
+
+        #endregion
+
         #region Public Methods
 
         //-------------------------------------------------

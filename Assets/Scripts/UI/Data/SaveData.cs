@@ -15,11 +15,15 @@
         public bool myIsVsyncOn;
         public Resolution myResolution;
 
+        // Game Data
+        public bool myUseInvertedFlightControls;
+
         //-------------------------------------------------
         public SaveData()
         {
             SetDefaultAudioSettings();
             SetDefaultVideoSettings();
+            SetDefaultGameSettings();
         }
 
         //-------------------------------------------------
@@ -38,6 +42,11 @@
             myIsVsyncOn = false;
 
             myResolution = GraphicsManager.ourInstance.GetBestResolution();
+        }
+
+        public void SetDefaultGameSettings()
+        {
+            myUseInvertedFlightControls = true;
         }
     }
 }
