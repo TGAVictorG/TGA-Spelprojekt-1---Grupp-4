@@ -97,7 +97,7 @@ public class PickupScript : MonoBehaviour
 
            // aPlayer.gameObject.GetComponent<FOVAnimator>().ZoomFov(75);
 
-            StageManager.ourInstance.OnPickedUpBlock();
+            StageManager.ourInstance.OnPickedUpBlock(myNextTarget.transform);
             Destroy(gameObject);
         }
     }

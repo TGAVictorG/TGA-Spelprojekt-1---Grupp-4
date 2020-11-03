@@ -9,6 +9,9 @@ public class StageManager : MonoBehaviour
     public static bool ourIsPaused => Mathf.Approximately(Time.timeScale, 0.0f);
     public static bool ourCanPause => !ourInstance.myIsPlayerDead && !ourInstance.myIsStageComplete;
 
+    public delegate void Pickup(Transform newTarget);
+    public event Pickup OnPickup;
+
     public bool myIsGoalEnabled => myPickedUpBlocksCount >= myBlockCount;
 
     public bool myIsStageComplete => !myStageData.myIsInvalid;
@@ -109,7 +112,7 @@ public class StageManager : MonoBehaviour
         FreezePlayer();
     }
 
-    public void OnPickedUpBlock()
+    public void OnPickedUpBlock(Transform newTarget)
     {
         ++myPickedUpBlocksCount;
 
@@ -137,6 +140,11 @@ public class StageManager : MonoBehaviour
 
         GameManager.ourInstance.myAudioManager.PlaySFXClip("picked_pickup");
         GameManager.ourInstance.myAudioManager.PlayVoiceClip($"point{pickupAudioIndex}");
+        
+        if(OnPickup != null)
+        {
+            OnPickup.Invoke(newTarget);
+        }
     }
 
     public void OnPickedUpStar()
