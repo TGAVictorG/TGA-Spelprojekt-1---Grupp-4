@@ -7,27 +7,30 @@ public class PickupScript : MonoBehaviour
 {
 
     [SerializeField] private float myRotatingSpeed = 50;
-    [SerializeField] private PickupScript myNextTarget = null;
+    [SerializeField] public PickupScript myNextTarget = null;
     [SerializeField] private float myFuelToAdd = 2.0f;
     [SerializeField] private float mySpeedBoost = 2.0f;
     [Header("Will boost player to a minimum speed")]
     [SerializeField] private float myBoostMinimumSpeed = 4.0f;
+    [SerializeField] public bool myIsCheckpoint = false;
 
     private GameObject myHalo;
     private Material myMaterial;
+    private Color myOriginalColor;
     private float myEmissionIntensity = 1.0f;
 
     //Visar en cylinder till nästa pickup. Endast i Runtime.
     GameObject myDebugLine = null;
     [SerializeField] private bool myDebugLineIsVisable;
     [Tooltip("Can collect this pickup in any order.")]
-    [SerializeField] private bool myDebugIsCollectible = true;
+    [SerializeField] private bool myDebugIsCollectible = true;    
 
     void Awake()
     {
         myHalo = transform.GetChild(0).gameObject;
         myMaterial = gameObject.GetComponent<Renderer>().material;
         SetMaterialTransparent(myMaterial);
+        myOriginalColor = myMaterial.color;
 
         Scene scene = SceneManager.GetActiveScene();
         switch (scene.name)
@@ -90,15 +93,32 @@ public class PickupScript : MonoBehaviour
             {
                 myNextTarget.ActivateMeAsTarget();
                 Destroy(myDebugLine);
+
+                if (myIsCheckpoint)
+                {
+                    StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.RemoveAllListeners();
+                    Debug.Log("Clearing all listeners on myOnResetBlocksAfterCheckpoint");
+                }
+                else if (StageManager.ourInstance.myCurrentCheckpoint != null)
+                {
+                    StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.AddListener(DeactivateMeAsTarget);
+                    Debug.Log("Adding a listener to myOnResetBlocksAfterCheckpoint");
+                }
             }
 
             aPlayer.gameObject.GetComponent<Fuel>().AddFuel(myFuelToAdd);
             aPlayer.gameObject.GetComponent<SpeedBoost>().ActivateSpeedBoost(mySpeedBoost, myBoostMinimumSpeed);
 
-           // aPlayer.gameObject.GetComponent<FOVAnimator>().ZoomFov(75);
+            // aPlayer.gameObject.GetComponent<FOVAnimator>().ZoomFov(75);
 
+            if (myIsCheckpoint)
+            {
+                StageManager.ourInstance.myCurrentCheckpoint = transform;
+                Debug.Log("New checkpoint reached");
+            }
             StageManager.ourInstance.OnPickedUpBlock(myNextTarget.transform);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
     }
 
@@ -111,7 +131,7 @@ public class PickupScript : MonoBehaviour
         // Activate emission on material
                 
         // Set alpha to 1
-        Color color = myMaterial.color;
+        Color color = myOriginalColor;
         color.a = 1f;
         myMaterial.color = color;
         myMaterial.SetColor("_EmissionColor", color * myEmissionIntensity); //new Color(0.06372549f, 0.25f, 0.40784314f, 1f)
@@ -121,6 +141,29 @@ public class PickupScript : MonoBehaviour
         Behaviour halo = (Behaviour)myHalo.GetComponent("Halo");
         halo.enabled = true;
     }
+
+    private void DeactivateMeAsTarget()
+    {
+        StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.RemoveListener(DeactivateMeAsTarget);
+        StageManager.ourInstance.OnResetBlock(); // Handle counter and UI
+
+
+        // Make me not collectible
+        GetComponent<Collider>().enabled = false;
+
+        // Make me unglow:
+        // Deactivate emission on material
+
+        // Set alpha to original
+        myMaterial.color = myOriginalColor;
+        //myMaterial.SetColor("_EmissionColor", color * myEmissionIntensity); //new Color(0.06372549f, 0.25f, 0.40784314f, 1f)
+
+        myMaterial.DisableKeyword("_EMISSION");
+
+        Behaviour halo = (Behaviour)myHalo.GetComponent("Halo");
+        halo.enabled = false;
+    }
+
 
     private void SetMaterialTransparent(Material aMaterial)
     {

@@ -53,7 +53,20 @@ public class PlayerDeathHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(aDelay);
 
-        UI.EndScreenMenu.ourInstance.DisplayEndScreen(false);
+        if (StageManager.ourInstance.myCurrentCheckpoint != null)
+        {
+            // TODO: start from checkpoint
+            // GuideArrow must have its currentTarget reset to checkpoints next
+            //
+            // Pause player and camera movement
+            // Move player and camera to checkpoint position
+            // Invoke countdown
+            // Resume movement
+        }
+        else
+        {
+            UI.EndScreenMenu.ourInstance.DisplayEndScreen(false);
+        }
     }
 
     private void Awake()

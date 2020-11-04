@@ -21,6 +21,11 @@ public class LetterLayout : LayoutGroup
         SetCurrentLetterIndex(myCurrentLetterIndex + 1, true);
     }
 
+    public void DecrementCurrentLetter()
+    {
+        SetCurrentLetterIndex(myCurrentLetterIndex - 1, true);
+    }
+
     public override void CalculateLayoutInputVertical()
     {
         base.CalculateLayoutInputHorizontal();

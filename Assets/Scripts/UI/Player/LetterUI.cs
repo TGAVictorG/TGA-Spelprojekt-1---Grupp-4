@@ -9,9 +9,15 @@ public class LetterUI : MonoBehaviour
         myLetterLayout.IncrementCurrentLetter();
     }
 
+    private void OnResetBlock()
+    {
+        myLetterLayout.DecrementCurrentLetter();
+    }
+
     void Start()
     {
         StageManager.ourInstance.myOnPickedUpBlock.AddListener(OnPickedUpBlock);
+        StageManager.ourInstance.myOnResetBlock.AddListener(OnResetBlock);
     }
 
     private void OnDestroy()

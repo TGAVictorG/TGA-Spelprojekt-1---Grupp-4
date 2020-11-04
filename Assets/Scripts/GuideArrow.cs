@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class GuideArrow : MonoBehaviour
 {
@@ -14,12 +15,13 @@ public class GuideArrow : MonoBehaviour
     [SerializeField] LineRenderer myGuideLine;
 
     Transform myCurrentTarget;
-
-    private void Start()
+    
+private void Start()
     {
         myStageManager = StageManager.ourInstance;
         myCurrentTarget = myStageManager.myFirstBlock.transform;
         myStageManager.OnPickup += OnPickup;
+        myStageManager.myOnPlayerRestartCheckpoint.AddListener(OnRestartFromCheckpoint);
         transform.parent = null;
     }
 
@@ -37,5 +39,10 @@ public class GuideArrow : MonoBehaviour
     void OnPickup(Transform newTarget)
     {
         myCurrentTarget = newTarget;
+    }
+    void OnRestartFromCheckpoint()
+    {
+        Debug.Assert(myStageManager.myCurrentCheckpoint != null, "Current checkpoint is null in StageManager!");
+        myCurrentTarget = myStageManager.myCurrentCheckpoint.GetComponent<PickupScript>().myNextTarget.transform;
     }
 }

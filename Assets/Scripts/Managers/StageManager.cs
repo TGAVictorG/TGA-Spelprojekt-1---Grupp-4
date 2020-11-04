@@ -29,9 +29,12 @@ public class StageManager : MonoBehaviour
 
     [Header("Events")]
     public UnityEvent myOnPickedUpBlock = new UnityEvent();
+    public UnityEvent myOnResetBlock = new UnityEvent();
     public UnityEvent myOnPickedUpStar = new UnityEvent();
     public UnityEvent myOnPauseStateChanged = new UnityEvent();
     public UnityEvent myOnPlayerDied = new UnityEvent();
+    public UnityEvent myOnPlayerRestartCheckpoint = new UnityEvent();
+    public UnityEvent myOnResetBlocksAfterCheckpoint = new UnityEvent();
 
     private int myBlockCount
     {
@@ -46,7 +49,7 @@ public class StageManager : MonoBehaviour
     private StageData myHighscoreStageData = StageData.ourInvalid;
 
     private int myLastPickupAudioIndex = 0;
-
+    public Transform myCurrentCheckpoint { get; set; }
 
     public void ResetStageTime()
     {
@@ -89,7 +92,16 @@ public class StageManager : MonoBehaviour
         if (!myIsPlayerDead)
         {
             myIsPlayerDead = true;
-            myOnPlayerDied?.Invoke();
+            if (myCurrentCheckpoint == null)
+            {
+                myOnPlayerDied?.Invoke();
+            }
+            else
+            {
+                // Maybe myIsPlayerDead = false;
+                myOnPlayerRestartCheckpoint?.Invoke();
+                myOnResetBlocksAfterCheckpoint?.Invoke();
+            }
         }
     }
 
@@ -145,6 +157,13 @@ public class StageManager : MonoBehaviour
         {
             OnPickup.Invoke(newTarget);
         }
+    }
+
+    public void OnResetBlock()
+    {
+        --myPickedUpBlocksCount;
+        myOnResetBlock?.Invoke();
+        Debug.Log("Resetting a block");
     }
 
     public void OnPickedUpStar()
