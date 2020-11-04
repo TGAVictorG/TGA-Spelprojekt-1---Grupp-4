@@ -55,6 +55,9 @@ public class PlayerDeathHandler : MonoBehaviour
 
         if (StageManager.ourInstance.myCurrentCheckpoint != null)
         {
+            myPlaneController.enabled = true;
+            myRigidbody.useGravity = false;
+            StageManager.ourInstance.RestartFromCheckpoint();
             // TODO: start from checkpoint
             // GuideArrow must have its currentTarget reset to checkpoints next
             //

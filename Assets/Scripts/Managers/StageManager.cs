@@ -99,10 +99,23 @@ public class StageManager : MonoBehaviour
             else
             {
                 // Maybe myIsPlayerDead = false;
-                myOnPlayerRestartCheckpoint?.Invoke();
-                myOnResetBlocksAfterCheckpoint?.Invoke();
+                //RestartFromCheckpoint();
+                // Handled by PlayerDeathHandler
             }
         }
+    }
+
+    public void RestartFromCheckpoint()
+    {
+        myIsPlayerDead = false;
+        myOnPlayerRestartCheckpoint?.Invoke();
+        myOnResetBlocksAfterCheckpoint?.Invoke();
+
+        // Reset player position to my current checkpoints
+        GameObject playerGameObject = GameObject.FindGameObjectWithTag("Player");
+        playerGameObject.transform.position = myCurrentCheckpoint.position;
+        playerGameObject.transform.LookAt(myCurrentCheckpoint.GetComponent<PickupScript>().myNextTarget.transform.position);
+        playerGameObject.GetComponent<Fuel>().SetFuelToMax();
     }
 
     public void OnStageComplete()

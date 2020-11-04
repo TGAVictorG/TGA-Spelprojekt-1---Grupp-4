@@ -34,6 +34,11 @@ public class Fuel : MonoBehaviour
         myFuelIsEmpty = myCurrentFuel <= 0 ? true : false;
     }
 
+    public void SetFuelToMax()
+    {
+        SetFuel(myMaxFuel);
+    }
+
     public void AddFuel(float anAmount)
     {
         if (OnFuelPickup != null)
