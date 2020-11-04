@@ -35,7 +35,7 @@ public class PlayerDeathHandler : MonoBehaviour
         switch(aDeathReason)
         {
             case DeathReason.Collision:
-                myAnimator.Play("Dead");
+                myAnimator.Play("Dead");                
                 GameManager.ourInstance.myAudioManager.PlaySFXClip("player_death");
                 break;
             case DeathReason.Laser:
@@ -55,16 +55,17 @@ public class PlayerDeathHandler : MonoBehaviour
 
         if (StageManager.ourInstance.myCurrentCheckpoint != null)
         {
-            myPlaneController.enabled = true;
+            // Restore plane controls
             myRigidbody.useGravity = false;
+            
+            // Restore model
+            myAnimator.Play("Flying");
+            
             StageManager.ourInstance.RestartFromCheckpoint();
-            // TODO: start from checkpoint
-            // GuideArrow must have its currentTarget reset to checkpoints next
-            //
-            // Pause player and camera movement
-            // Move player and camera to checkpoint position
-            // Invoke countdown
-            // Resume movement
+            
+            // Invoke countdown again
+            Camera.main.transform.parent.gameObject.GetComponentInChildren<Countdown>().restart = true; // Resume movement is handled by Countdown callback
+
         }
         else
         {

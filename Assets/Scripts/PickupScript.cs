@@ -101,7 +101,7 @@ public class PickupScript : MonoBehaviour
                 }
                 else if (StageManager.ourInstance.myCurrentCheckpoint != null)
                 {
-                    StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.AddListener(DeactivateMeAsTarget);
+                    StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.AddListener(RestoreAsNotPickedUp);
                     Debug.Log("Adding a listener to myOnResetBlocksAfterCheckpoint");
                 }
             }
@@ -111,18 +111,22 @@ public class PickupScript : MonoBehaviour
 
             // aPlayer.gameObject.GetComponent<FOVAnimator>().ZoomFov(75);
 
+            // Update current checkpoint
             if (myIsCheckpoint)
             {
-                StageManager.ourInstance.myCurrentCheckpoint = transform;
-                Debug.Log("New checkpoint reached");
+                StageManager.ourInstance.myCurrentCheckpoint = transform;            
             }
             StageManager.ourInstance.OnPickedUpBlock(myNextTarget.transform);
-            gameObject.SetActive(false);
-            //Destroy(gameObject);
+            
+            // Hide current pickup
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<Collider>().enabled = false;
+            Behaviour halo = (Behaviour)myHalo.GetComponent("Halo");
+            halo.enabled = false;            
         }
     }
 
-    private void ActivateMeAsTarget()
+    public void ActivateMeAsTarget()
     {
         // Make me collectible
         GetComponent<Collider>().enabled = true;
@@ -142,28 +146,33 @@ public class PickupScript : MonoBehaviour
         halo.enabled = true;
     }
 
-    private void DeactivateMeAsTarget()
+    private void RestoreAsNotPickedUp()
     {
-        StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.RemoveListener(DeactivateMeAsTarget);
+        StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.RemoveListener(RestoreAsNotPickedUp);
         StageManager.ourInstance.OnResetBlock(); // Handle counter and UI
+        gameObject.GetComponent<MeshRenderer>().enabled = true;
 
+        // Tempfix. Actually only needs to be executed once, loops the linked list for disabling the next highlighted.
+        var currentTarget = myNextTarget;
+        while (currentTarget != null)
+        {
+            currentTarget.DisableHighlight();
+            currentTarget = currentTarget?.myNextTarget;
+        }
+        DisableHighlight(); // Disable self
+    }
 
+    private void DisableHighlight()
+    {
         // Make me not collectible
         GetComponent<Collider>().enabled = false;
 
-        // Make me unglow:
-        // Deactivate emission on material
-
-        // Set alpha to original
-        myMaterial.color = myOriginalColor;
-        //myMaterial.SetColor("_EmissionColor", color * myEmissionIntensity); //new Color(0.06372549f, 0.25f, 0.40784314f, 1f)
-
+        // Make me unglow:        
+        myMaterial.color = myOriginalColor; // Set alpha to original
         myMaterial.DisableKeyword("_EMISSION");
-
         Behaviour halo = (Behaviour)myHalo.GetComponent("Halo");
         halo.enabled = false;
     }
-
 
     private void SetMaterialTransparent(Material aMaterial)
     {

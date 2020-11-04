@@ -96,12 +96,7 @@ public class StageManager : MonoBehaviour
             {
                 myOnPlayerDied?.Invoke();
             }
-            else
-            {
-                // Maybe myIsPlayerDead = false;
-                //RestartFromCheckpoint();
-                // Handled by PlayerDeathHandler
-            }
+            // else is Handled by PlayerDeathHandler
         }
     }
 
@@ -110,11 +105,13 @@ public class StageManager : MonoBehaviour
         myIsPlayerDead = false;
         myOnPlayerRestartCheckpoint?.Invoke();
         myOnResetBlocksAfterCheckpoint?.Invoke();
+        PickupScript pickup = myCurrentCheckpoint.GetComponent<PickupScript>();
 
-        // Reset player position to my current checkpoints
+        // Reset player position to my current checkpoint's
         GameObject playerGameObject = GameObject.FindGameObjectWithTag("Player");
         playerGameObject.transform.position = myCurrentCheckpoint.position;
-        playerGameObject.transform.LookAt(myCurrentCheckpoint.GetComponent<PickupScript>().myNextTarget.transform.position);
+        playerGameObject.transform.LookAt(pickup.myNextTarget.transform.position);
+        pickup.myNextTarget.ActivateMeAsTarget();
         playerGameObject.GetComponent<Fuel>().SetFuelToMax();
     }
 

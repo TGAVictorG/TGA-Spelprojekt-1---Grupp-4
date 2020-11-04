@@ -12,9 +12,18 @@ public class Countdown : MonoBehaviour
     [SerializeField] private Image myBorder;
     [SerializeField] private TextMeshProUGUI myCountdownText;
     [SerializeField] private float myCountdownLength;
+    [SerializeField] private float myShorterCountdownLength;
     [SerializeField] private float myFadeTime;
 
+    private Color myInitialColor;
+
     public bool start = false;
+    public bool restart = false;
+
+    private void Awake()
+    {
+        myInitialColor = myCountdownText.color;
+    }
 
     private void Update()
     {
@@ -23,21 +32,34 @@ public class Countdown : MonoBehaviour
             StartCountdown();
             start = false;
         }
+        else if (restart)
+        {
+            StartShortCountdown();
+            myCountdownText.color = myInitialColor;
+            restart = false;
+        }
     }
 
     public void StartCountdown()
     {
         StopAllCoroutines();
-        StartCoroutine(StartCountdownCoroutine());
+        StartCoroutine(StartCountdownCoroutine(myCountdownLength));
     }
 
-    public IEnumerator StartCountdownCoroutine()
+    public void StartShortCountdown()
     {
-        float myCounter = myCountdownLength;
+        StopAllCoroutines();
+        StartCoroutine(StartCountdownCoroutine(myShorterCountdownLength));
+    }
+
+
+    public IEnumerator StartCountdownCoroutine(float countdownLength)
+    {
+        float myCounter = countdownLength;
 
         while (myCounter > 0)
         {
-            myCounter = Mathf.Clamp(myCounter - Time.deltaTime, 0, myCountdownLength);
+            myCounter = Mathf.Clamp(myCounter - Time.deltaTime, 0, countdownLength);
             myCountdownText.text = "" + Mathf.Ceil(myCounter);
             myBorder.fillAmount = myCounter % 1;
 
