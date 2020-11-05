@@ -13,6 +13,7 @@ public class PickupScript : MonoBehaviour
     [Header("Will boost player to a minimum speed")]
     [SerializeField] private float myBoostMinimumSpeed = 4.0f;
     [SerializeField] public bool myIsCheckpoint = false;
+    [SerializeField] public Vector3 myRespawnDirection;
 
     private GameObject myHalo;
     private Material myMaterial;
@@ -191,6 +192,23 @@ public class PickupScript : MonoBehaviour
         aMaterial.renderQueue = 3000;
     }
 
-    
+
+#if UNITY_EDITOR
+    void OnDrawGizmosSelected()
+    {
+        if (myIsCheckpoint == false || myRespawnDirection == null || myRespawnDirection == Vector3.zero)
+        {
+            return;
+        }
+        // Draws a blue line from this transform to the target
+        Gizmos.color = Color.cyan;
+        var p1 = transform.position;
+        var p2 = transform.position + myRespawnDirection.normalized*3f;
+        var thickness = 3;
+        UnityEditor.Handles.DrawBezier(p1, p2, p1, p2, Color.cyan, null, thickness);
+    }
+
+#endif
+
 }
 

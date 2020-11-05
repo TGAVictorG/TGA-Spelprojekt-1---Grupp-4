@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
@@ -110,7 +111,15 @@ public class StageManager : MonoBehaviour
         // Reset player position to my current checkpoint's
         GameObject playerGameObject = GameObject.FindGameObjectWithTag("Player");
         playerGameObject.transform.position = myCurrentCheckpoint.position;
-        playerGameObject.transform.LookAt(pickup.myNextTarget.transform.position);
+        if (pickup.myRespawnDirection != null && pickup.myRespawnDirection != Vector3.zero) // Look in specified direction
+        {
+            playerGameObject.transform.LookAt(pickup.transform.position + pickup.myRespawnDirection.normalized * 5f);
+        }
+        else
+        {
+            playerGameObject.transform.LookAt(pickup.myNextTarget.transform.position); // Default to next target
+        }
+        
         pickup.myNextTarget.ActivateMeAsTarget();
         playerGameObject.GetComponent<Fuel>().SetFuelToMax();
     }

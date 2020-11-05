@@ -12,7 +12,7 @@ public class Countdown : MonoBehaviour
     [SerializeField] private Image myBorder;
     [SerializeField] private TextMeshProUGUI myCountdownText;
     [SerializeField] private float myCountdownLength;
-    [SerializeField] private float myShorterCountdownLength;
+    [SerializeField] private float myShorterCountdownLength = 1f;
     [SerializeField] private float myFadeTime;
 
     private Color myInitialColor;
