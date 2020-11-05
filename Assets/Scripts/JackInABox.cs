@@ -43,7 +43,7 @@ public class JackInABox : MonoBehaviour
 
         myRootStartPos = myRootTransform.position;
         myRootStartRot = myRootTransform.rotation;
-        
+                
     }
 
     private void Update()
@@ -57,6 +57,7 @@ public class JackInABox : MonoBehaviour
                 //myLidTransform.transform.Rotate(new Vector3(0f, 0f, -90f));
                 myBoxLidAnchorPoint.transform.Rotate(new Vector3(0f, 0f, -90f));
                 GameManager.ourInstance.myAudioManager.PlaySFXClip("jack_activate");
+                StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.AddListener(ResetStartPosition);
             }
 
             if (myTimeCounter < myLerpTime)
@@ -86,11 +87,10 @@ public class JackInABox : MonoBehaviour
             var newSpringCenterOffset = myOldSpringTransform.position - mySpringStartPos;
             myHead.transform.position = myHeadStartPosition + newSpringCenterOffset * 2;
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                ResetStartPosition();
-                //Debug.Log(myBoxLidAnchorPoint.GetComponentInChildren<HingeJoint>().angle);
-            }
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    ResetStartPosition();
+            //}
         }
     }
 
@@ -99,8 +99,12 @@ public class JackInABox : MonoBehaviour
         myIsTriggered = true;
     }
 
+    
+
+
     virtual public void ResetStartPosition()
     {
+        StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.RemoveListener(ResetStartPosition);
         myIsTriggered = false;
         myFirstRun = true;
         myTimeCounter = 0;
@@ -111,12 +115,7 @@ public class JackInABox : MonoBehaviour
         myLidTransform.position = myLidStartPos;
         myLidTransform.rotation = myLidStartRot;
         
-        //myBoxLidAnchorPoint.transform.Rotate(new Vector3(0f, 0f, 90f));
-        //Debug.Log(myBoxLidAnchorPoint.GetComponentInChildren<HingeJoint>().angle);
-
         myOldSpringTransform.position = mySpringStartPos;
-        
-        
 
     }
 }
