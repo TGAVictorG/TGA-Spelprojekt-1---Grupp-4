@@ -12,30 +12,38 @@ public class JackInABox : MonoBehaviour
 
     protected float myTimeCounter = 0f;
     protected bool myFirstRun = true;
-    protected bool myAnimationIsPaused = false;
     protected bool myIsTriggered = false;
 
-    [SerializeField] protected float myCoolDownTime = 1f;
-    [SerializeField] protected float myAnimationPauseTime = 1f;
-    protected float myCoolDownCounter = 0f;
-    protected float myAnimationPauseCounter = 0f;
-
     protected float myLerpTime = 2.0f;
-    protected Vector3 myStartScale = new Vector3(1f, 0f, 1f);
+    protected Vector3 myStartScale = new Vector3(1f, 0.1f, 1f);
     protected Vector3 myEndScale = new Vector3(1f, 3f, 1f);
     protected Vector3 myHeadStartPosition;
-    protected Vector3 myChildStartPosition;
-    protected Vector3 myLidStartPosition;
-    protected Transform myChildTransform;
+    protected Vector3 mySpringStartPos;
+    protected Vector3 myLidStartPos;
+    protected Quaternion myLidStartRot;
+    protected Quaternion myLidAnchorPointStartRot;
+    protected Transform myOldSpringTransform;
     protected Transform myLidTransform;
+    
+    [SerializeField] protected Transform myRootTransform;
+    protected Vector3 myRootStartPos;
+    protected Quaternion myRootStartRot;
 
     private void Start()
     {
-        myHeadStartPosition = myHead.transform.position;
-        myChildTransform = transform.GetChild(0).transform; // child has the actual mesh renderer
-        myChildStartPosition = myChildTransform.position;
+        
+        myOldSpringTransform = transform.GetChild(0).transform; // child has the actual mesh renderer
         myLidTransform = myBoxLidAnchorPoint.transform.GetChild(0).transform;
-        myLidStartPosition = myLidTransform.position;
+
+        myHeadStartPosition = myHead.transform.position;
+        mySpringStartPos = myOldSpringTransform.position;
+        myLidStartPos = myLidTransform.position;
+        myLidStartRot = myLidTransform.rotation;
+        myLidAnchorPointStartRot = myBoxLidAnchorPoint.transform.rotation;
+
+        myRootStartPos = myRootTransform.position;
+        myRootStartRot = myRootTransform.rotation;
+        
     }
 
     private void Update()
@@ -46,11 +54,12 @@ public class JackInABox : MonoBehaviour
             if (myFirstRun)
             {
                 myFirstRun = false;
+                //myLidTransform.transform.Rotate(new Vector3(0f, 0f, -90f));
                 myBoxLidAnchorPoint.transform.Rotate(new Vector3(0f, 0f, -90f));
                 GameManager.ourInstance.myAudioManager.PlaySFXClip("jack_activate");
             }
 
-            if (myTimeCounter < myLerpTime && !myAnimationIsPaused)
+            if (myTimeCounter < myLerpTime)
             {
                 myTimeCounter += Time.deltaTime;
                 if (myTimeCounter > myLerpTime)
@@ -59,36 +68,7 @@ public class JackInABox : MonoBehaviour
                     myTimeCounter = myLerpTime;
                 }
             }
-            else
-            {
 
-                // Repeat animaton for debugging and tweaking purposes:
-                if (repeatAnimation)
-                {
-                    if (myAnimationIsPaused)
-                    {
-                        myAnimationPauseCounter += Time.deltaTime;
-                        if (myAnimationPauseCounter > myAnimationPauseTime)
-                        {
-                            myAnimationPauseCounter = 0f;
-                            myAnimationIsPaused = false;
-                            myFirstRun = true;
-                        }
-                    }
-                    else
-                    {
-                        myCoolDownCounter += Time.deltaTime;
-                        if (myCoolDownCounter > myCoolDownTime)
-                        {
-                            myAnimationIsPaused = true;
-                            myCoolDownCounter = 0f;
-                            myTimeCounter = 0f;
-                            myBoxLidAnchorPoint.transform.Rotate(new Vector3(0f, 0f, 0f));
-                            myLidTransform.position = myLidStartPosition;
-                        }
-                    }
-                }
-            }
 
             // Scale the spring
             float lerpRatio = myTimeCounter / myLerpTime; // x value of animation curve
@@ -103,13 +83,40 @@ public class JackInABox : MonoBehaviour
             }
 
             // Adjust head position
-            var newChildCenterOffset = myChildTransform.position - myChildStartPosition;
-            myHead.transform.position = myHeadStartPosition + newChildCenterOffset * 2;
+            var newSpringCenterOffset = myOldSpringTransform.position - mySpringStartPos;
+            myHead.transform.position = myHeadStartPosition + newSpringCenterOffset * 2;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                ResetStartPosition();
+                //Debug.Log(myBoxLidAnchorPoint.GetComponentInChildren<HingeJoint>().angle);
+            }
         }
     }
 
     virtual public void Trigger()
     {
         myIsTriggered = true;
+    }
+
+    virtual public void ResetStartPosition()
+    {
+        myIsTriggered = false;
+        myFirstRun = true;
+        myTimeCounter = 0;
+        transform.localScale = myStartScale;
+
+        myHead.transform.position = myHeadStartPosition;
+        myBoxLidAnchorPoint.transform.rotation = myLidAnchorPointStartRot;
+        myLidTransform.position = myLidStartPos;
+        myLidTransform.rotation = myLidStartRot;
+        
+        //myBoxLidAnchorPoint.transform.Rotate(new Vector3(0f, 0f, 90f));
+        //Debug.Log(myBoxLidAnchorPoint.GetComponentInChildren<HingeJoint>().angle);
+
+        myOldSpringTransform.position = mySpringStartPos;
+        
+        
+
     }
 }

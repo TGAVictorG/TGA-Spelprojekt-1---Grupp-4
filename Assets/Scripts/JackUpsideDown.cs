@@ -26,7 +26,7 @@ public class JackUpsideDown : JackInABox
         mySpringMeshStartPos = mySpringMeshTransform.position;
         myRelHeadStartPos = myHeadStartPosition - myAnchorPosition;
         myLidTransform = myBoxLidAnchorPoint.transform.GetChild(0).transform;
-        myLidStartPosition = myLidTransform.position;
+        myLidStartPos = myLidTransform.position;
 
 
     }
@@ -45,7 +45,7 @@ public class JackUpsideDown : JackInABox
             }
 
 
-            if (myTimeCounter < myLerpTime && !myAnimationIsPaused)
+            if (myTimeCounter < myLerpTime)
             {
                 myTimeCounter += Time.deltaTime;
                 if (myTimeCounter > myLerpTime)
