@@ -38,7 +38,14 @@ private void Start()
 
     void OnPickup(Transform newTarget)
     {
-        myCurrentTarget = newTarget;
+        if (newTarget != null)
+        {
+            myCurrentTarget = newTarget;
+        }
+        else
+        {
+            myCurrentTarget = StageManager.ourInstance.myGoalTransform;
+        }
     }
     void OnRestartFromCheckpoint()
     {

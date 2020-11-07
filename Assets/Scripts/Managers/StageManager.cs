@@ -28,6 +28,8 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     private int myBaseScore = 10000;
 
+    [SerializeField] public Transform myGoalTransform;
+
     [Header("Events")]
     public UnityEvent myOnPickedUpBlock = new UnityEvent();
     public UnityEvent myOnResetBlock = new UnityEvent();
@@ -51,6 +53,7 @@ public class StageManager : MonoBehaviour
 
     private int myLastPickupAudioIndex = 0;
     public Transform myCurrentCheckpoint { get; set; }
+
 
     public void ResetStageTime()
     {
