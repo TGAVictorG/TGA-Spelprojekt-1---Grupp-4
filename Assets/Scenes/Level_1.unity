@@ -25330,11 +25330,6 @@ PrefabInstance:
       propertyPath: myForce.y
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 2197626193693244935, guid: 962377e60e171d045a92bcedad66e201,
-        type: 3}
-      propertyPath: isDebugging
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2906731793655507094, guid: 962377e60e171d045a92bcedad66e201,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -41861,6 +41856,7 @@ MonoBehaviour:
   myFirstBlock: {fileID: 1522813380}
   myHomeworkText: THIS IS A FLYING ACESSAY
   myBaseScore: 10000
+  myGoalTransform: {fileID: 1651477708}
   myOnPickedUpBlock:
     m_PersistentCalls:
       m_Calls: []
@@ -41879,7 +41875,7 @@ MonoBehaviour:
   myOnPlayerRestartCheckpoint:
     m_PersistentCalls:
       m_Calls: []
-  myOnResetBlocksAfterCheckpoint:
+  myOnResetAtRespawn:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1609739068
@@ -42788,6 +42784,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fccadc8c54c14584582924bda5e7d6ea, type: 3}
+--- !u!4 &1651477708 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4180694616870890015, guid: fccadc8c54c14584582924bda5e7d6ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 1651477707}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1651839943 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c92796a80717b3e4c91ddd9184e3f32a,
