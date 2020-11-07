@@ -117,7 +117,7 @@ public class PickupScript : MonoBehaviour
             {
                 StageManager.ourInstance.myCurrentCheckpoint = transform;            
             }
-            StageManager.ourInstance.OnPickedUpBlock(myNextTarget.transform);
+            StageManager.ourInstance.OnPickedUpBlock(myNextTarget?.transform);
             
             // Hide current pickup
             gameObject.GetComponent<MeshRenderer>().enabled = false;
