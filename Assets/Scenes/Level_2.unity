@@ -5477,6 +5477,7 @@ MonoBehaviour:
   myFirstBlock: {fileID: 927151802}
   myHomeworkText: The train is coming right now
   myBaseScore: 10000
+  myGoalTransform: {fileID: 1104283102}
   myOnPickedUpBlock:
     m_PersistentCalls:
       m_Calls: []
@@ -5495,7 +5496,7 @@ MonoBehaviour:
   myOnPlayerRestartCheckpoint:
     m_PersistentCalls:
       m_Calls: []
-  myOnResetBlocksAfterCheckpoint:
+  myOnResetAtRespawn:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &218801749
@@ -29838,6 +29839,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fccadc8c54c14584582924bda5e7d6ea, type: 3}
+--- !u!4 &1104283102 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4180694616870890015, guid: fccadc8c54c14584582924bda5e7d6ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 1104283101}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1106621986 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d0b9a2da9fb4de14fb82cf4ef8e523bb,
