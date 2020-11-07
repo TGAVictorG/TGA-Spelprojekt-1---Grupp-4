@@ -43826,6 +43826,12 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 9042771077998628582, guid: 861fda76df0d14343a781ebd85b3bfee, type: 3}
+--- !u!4 &1536488866 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4180694616870890015, guid: fccadc8c54c14584582924bda5e7d6ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 1435314030}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1536815437 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6588137646990983289, guid: 861fda76df0d14343a781ebd85b3bfee,
@@ -43878,7 +43884,11 @@ MonoBehaviour:
   myFirstBlock: {fileID: 979234522}
   myHomeworkText: Once upon a time in a galaxy far far away
   myBaseScore: 10000
+  myGoalTransform: {fileID: 1536488866}
   myOnPickedUpBlock:
+    m_PersistentCalls:
+      m_Calls: []
+  myOnResetBlock:
     m_PersistentCalls:
       m_Calls: []
   myOnPickedUpStar:
@@ -43888,6 +43898,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   myOnPlayerDied:
+    m_PersistentCalls:
+      m_Calls: []
+  myOnPlayerRestartCheckpoint:
+    m_PersistentCalls:
+      m_Calls: []
+  myOnResetAtRespawn:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1537569486
