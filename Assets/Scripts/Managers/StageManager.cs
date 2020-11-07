@@ -175,7 +175,7 @@ public class StageManager : MonoBehaviour
         GameManager.ourInstance.myAudioManager.PlaySFXClip("picked_pickup");
         GameManager.ourInstance.myAudioManager.PlayVoiceClip($"point{pickupAudioIndex}");
         
-        if(OnPickup != null && newTarget != null)
+        if(OnPickup != null)
         {
             OnPickup.Invoke(newTarget);
         }
