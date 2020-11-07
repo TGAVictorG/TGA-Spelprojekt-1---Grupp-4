@@ -164,11 +164,12 @@ MonoBehaviour:
   myBoxLidAnchorPoint: {fileID: 4640032906460022815}
   myCrank: {fileID: 5465779503123303648}
   repeatAnimation: 0
-  myCoolDownTime: 1
-  myAnimationPauseTime: 1
+  myRootTransform: {fileID: 4640032906294379680}
   myForceJump: 1
   myForceRigidbody: {fileID: 1963374352}
-  myForce: {x: 0, y: -5, z: 0}
+  myForce: {x: 0, y: 15, z: 0}
+  isDebugging: 0
+  useImpulseForceMode: 1
   mySpringMeshTransform: {fileID: 4640032906155566533}
   mySpringTransform: {fileID: 4640032906868465724}
   myAnchorTransform: {fileID: 4640032906868465724}
@@ -210,27 +211,42 @@ PrefabInstance:
     - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0.80999994
+      value: 0.81000054
       objectReference: {fileID: 0}
     - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 1.4000001
+      value: 1.3999999
       objectReference: {fileID: 0}
     - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: 0.00000008568168
+      value: -0.0000005364418
       objectReference: {fileID: 0}
     - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_ConnectedBody
       value: 
       objectReference: {fileID: 1963374352}
+    - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
+        type: 3}
+      propertyPath: m_Limits.min
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161377089852606121, guid: ed71898b2f5e0344cbc695ead326a7e1,
+        type: 3}
+      propertyPath: m_Limits.bounciness
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4161377089852606166, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
       propertyPath: m_UseGravity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161377089852606166, guid: ed71898b2f5e0344cbc695ead326a7e1,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5904872324585908894, guid: ed71898b2f5e0344cbc695ead326a7e1,
         type: 3}
@@ -318,6 +334,12 @@ PrefabInstance:
 --- !u!1 &4640032906294379681 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5904872324585908894, guid: ed71898b2f5e0344cbc695ead326a7e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1267454607806082623}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4640032906294379680 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5904872324585908895, guid: ed71898b2f5e0344cbc695ead326a7e1,
     type: 3}
   m_PrefabInstance: {fileID: 1267454607806082623}
   m_PrefabAsset: {fileID: 0}

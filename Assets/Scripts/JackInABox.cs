@@ -57,7 +57,7 @@ public class JackInABox : MonoBehaviour
                 //myLidTransform.transform.Rotate(new Vector3(0f, 0f, -90f));
                 myBoxLidAnchorPoint.transform.Rotate(new Vector3(0f, 0f, -90f));
                 GameManager.ourInstance.myAudioManager.PlaySFXClip("jack_activate");
-                StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.AddListener(ResetStartPosition);
+                StageManager.ourInstance.myOnResetAtRespawn.AddListener(ResetStartPosition);
             }
 
             if (myTimeCounter < myLerpTime)
@@ -102,9 +102,9 @@ public class JackInABox : MonoBehaviour
     
 
 
-    virtual public void ResetStartPosition()
+    virtual protected void ResetStartPosition()
     {
-        StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.RemoveListener(ResetStartPosition);
+        StageManager.ourInstance.myOnResetAtRespawn.RemoveListener(ResetStartPosition);
         myIsTriggered = false;
         myFirstRun = true;
         myTimeCounter = 0;

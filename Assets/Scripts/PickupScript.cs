@@ -97,12 +97,12 @@ public class PickupScript : MonoBehaviour
 
                 if (myIsCheckpoint)
                 {
-                    StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.RemoveAllListeners();
+                    StageManager.ourInstance.myOnResetAtRespawn.RemoveAllListeners();
                     Debug.Log("Clearing all listeners on myOnResetBlocksAfterCheckpoint");
                 }
                 else if (StageManager.ourInstance.myCurrentCheckpoint != null)
                 {
-                    StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.AddListener(RestoreAsNotPickedUp);
+                    StageManager.ourInstance.myOnResetAtRespawn.AddListener(RestoreAsNotPickedUp);
                     Debug.Log("Adding a listener to myOnResetBlocksAfterCheckpoint");
                 }
             }
@@ -149,7 +149,7 @@ public class PickupScript : MonoBehaviour
 
     private void RestoreAsNotPickedUp()
     {
-        StageManager.ourInstance.myOnResetBlocksAfterCheckpoint.RemoveListener(RestoreAsNotPickedUp);
+        StageManager.ourInstance.myOnResetAtRespawn.RemoveListener(RestoreAsNotPickedUp);
         StageManager.ourInstance.OnResetBlock(); // Handle counter and UI
         gameObject.GetComponent<MeshRenderer>().enabled = true;
 

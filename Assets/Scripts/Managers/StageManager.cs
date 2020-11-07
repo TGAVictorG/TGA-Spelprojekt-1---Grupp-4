@@ -35,7 +35,7 @@ public class StageManager : MonoBehaviour
     public UnityEvent myOnPauseStateChanged = new UnityEvent();
     public UnityEvent myOnPlayerDied = new UnityEvent();
     public UnityEvent myOnPlayerRestartCheckpoint = new UnityEvent();
-    public UnityEvent myOnResetBlocksAfterCheckpoint = new UnityEvent();
+    public UnityEvent myOnResetAtRespawn = new UnityEvent();
 
     private int myBlockCount
     {
@@ -105,7 +105,7 @@ public class StageManager : MonoBehaviour
     {
         myIsPlayerDead = false;
         myOnPlayerRestartCheckpoint?.Invoke();
-        myOnResetBlocksAfterCheckpoint?.Invoke();
+        myOnResetAtRespawn?.Invoke();
         PickupScript pickup = myCurrentCheckpoint.GetComponent<PickupScript>();
 
         // Reset player position to my current checkpoint's
