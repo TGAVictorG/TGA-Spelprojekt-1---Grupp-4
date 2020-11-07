@@ -44,6 +44,7 @@ public class JackUpsideDown : JackInABox
                 myFirstRun = false;
                 myBoxLidAnchorPoint.transform.Rotate(new Vector3(0f, 0f, -90f));
                 GameManager.ourInstance.myAudioManager.PlaySFXClip("jack_jump");
+                StageManager.ourInstance.myOnResetAtRespawn.AddListener(ResetStartPosition);
 
                 HingeJoint hinge = GetComponentInChildren<HingeJoint>();
                 JointLimits limits = hinge.limits;
@@ -80,10 +81,10 @@ public class JackUpsideDown : JackInABox
             var newSpringCenterOffset = mySpringMeshTransform.position - myAnchorPosition;
             myHead.transform.position = myAnchorPosition + myRelHeadStartPos + newSpringCenterOffset * 2;
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                ResetStartPosition();
-            }
+            //if (isDebugging && Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    ResetStartPosition();
+            //}
         }
     }
 
