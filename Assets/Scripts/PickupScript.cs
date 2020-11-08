@@ -16,7 +16,9 @@ public class PickupScript : MonoBehaviour
     [SerializeField] public Vector3 myRespawnDirection;
 
     private GameObject myHalo;
+    private GameObject myHaloCheckpoint;
     private Material myMaterial;
+    private Material myMaterialCheckpoint;
     private Color myOriginalColor;
     private float myEmissionIntensity = 1.0f;
 
@@ -29,7 +31,9 @@ public class PickupScript : MonoBehaviour
     void Awake()
     {
         myHalo = transform.GetChild(0).gameObject;
+        myHaloCheckpoint = transform.GetChild(1).gameObject;
         myMaterial = gameObject.GetComponent<Renderer>().material;
+        myMaterialCheckpoint = myHaloCheckpoint.GetComponent<Renderer>().material;
         SetMaterialTransparent(myMaterial);
         myOriginalColor = myMaterial.color;
 
@@ -123,7 +127,12 @@ public class PickupScript : MonoBehaviour
             gameObject.GetComponent<MeshRenderer>().enabled = false;
             GetComponent<Collider>().enabled = false;
             Behaviour halo = (Behaviour)myHalo.GetComponent("Halo");
-            halo.enabled = false;            
+            halo.enabled = false;
+            if (myIsCheckpoint)
+            {
+                Behaviour haloCheckpoint = (Behaviour)myHaloCheckpoint.GetComponent("Halo");
+                haloCheckpoint.enabled = false;
+            }
         }
     }
 
@@ -134,17 +143,29 @@ public class PickupScript : MonoBehaviour
 
         // Make me glow:
         // Activate emission on material
-                
-        // Set alpha to 1
-        Color color = myOriginalColor;
-        color.a = 1f;
-        myMaterial.color = color;
-        myMaterial.SetColor("_EmissionColor", color * myEmissionIntensity); //new Color(0.06372549f, 0.25f, 0.40784314f, 1f)
+        if (!myIsCheckpoint)
+        {
+            // Set alpha to 1
+            Color color = myOriginalColor;
+            color.a = 1f;
+            myMaterial.color = color;
+            myMaterial.SetColor("_EmissionColor", color * myEmissionIntensity);
+
+            Behaviour halo = (Behaviour)myHalo.GetComponent("Halo");
+            halo.enabled = true;            
+        }
+        else
+        {
+            Color color = myMaterialCheckpoint.color;
+            myMaterial.color = color;
+            myMaterial.SetColor("_EmissionColor", color * myEmissionIntensity);
+
+            Behaviour haloCheckpoint = (Behaviour)myHaloCheckpoint.GetComponent("Halo");
+            haloCheckpoint.enabled = true;
+        }
 
         myMaterial.EnableKeyword("_EMISSION");
 
-        Behaviour halo = (Behaviour)myHalo.GetComponent("Halo");
-        halo.enabled = true;
     }
 
     private void RestoreAsNotPickedUp()
