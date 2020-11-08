@@ -165,6 +165,15 @@ public class CameraFollow : MonoBehaviour
         myTargetPosition = myTarget.position - playerForward * myDistanceToTargetBack + Vector3.up * myDistanceToTargetUp;
     }
 
+    private void ClampMaxDistance()
+    {
+        Vector3 playerToMe = transform.position - myTarget.position;
+        if (playerToMe.sqrMagnitude > myMaxDistanceToPlayer * myMaxDistanceToPlayer)
+        {
+            transform.position = myTarget.position + playerToMe.normalized * myMaxDistanceToPlayer;
+        }
+    }
+
     private void UpdatePosition(bool aClampMaxDistance)
     {
         Vector3 target = CalculateCameraTargetAndFade();
@@ -173,11 +182,7 @@ public class CameraFollow : MonoBehaviour
 
         if (aClampMaxDistance)
         {
-            Vector3 playerToMe = transform.position - myTarget.position;
-            if (playerToMe.sqrMagnitude > myMaxDistanceToPlayer * myMaxDistanceToPlayer)
-            {
-                transform.position = myTarget.position + playerToMe.normalized * myMaxDistanceToPlayer;
-            }
+            ClampMaxDistance();
         }
     }
 
@@ -246,8 +251,7 @@ public class CameraFollow : MonoBehaviour
 
         myCountdown.OnCountdownFinished += EnablePlayerMovement;
 
-        //transform.position = CalculateCameraTargetAndFade();
-        //transform.LookAt(myTarget.position);
+        StageManager.ourInstance.myOnAfterPlayerRestartCheckpoint.AddListener(OnResetAtSpawn);
     }
 
     private void Update()
@@ -260,5 +264,13 @@ public class CameraFollow : MonoBehaviour
         }
 
         UpdateRotation();
+    }
+
+    private void OnResetAtSpawn()
+    {
+        transform.position = CalculateCameraTargetAndFade();
+        ClampMaxDistance();
+
+        transform.rotation = Quaternion.LookRotation(myTarget.position - transform.position);
     }
 }

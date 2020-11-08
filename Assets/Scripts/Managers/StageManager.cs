@@ -38,6 +38,7 @@ public class StageManager : MonoBehaviour
     public UnityEvent myOnPlayerDied = new UnityEvent();
     public UnityEvent myOnPlayerRestartCheckpoint = new UnityEvent();
     public UnityEvent myOnResetAtRespawn = new UnityEvent();
+    public UnityEvent myOnAfterPlayerRestartCheckpoint = new UnityEvent();
 
     private int myBlockCount
     {
@@ -125,6 +126,8 @@ public class StageManager : MonoBehaviour
         
         pickup.myNextTarget.ActivateMeAsTarget();
         playerGameObject.GetComponent<Fuel>().SetFuelToMax();
+
+        myOnAfterPlayerRestartCheckpoint?.Invoke();
     }
 
     public void OnStageComplete()
