@@ -5499,6 +5499,9 @@ MonoBehaviour:
   myOnResetAtRespawn:
     m_PersistentCalls:
       m_Calls: []
+  myOnAfterPlayerRestartCheckpoint:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &218801749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31733,6 +31736,21 @@ PrefabInstance:
         type: 3}
       propertyPath: myIsCheckpoint
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: myRespawnDirection.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: myRespawnDirection.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: myRespawnDirection.z
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022624, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
