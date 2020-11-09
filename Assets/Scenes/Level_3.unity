@@ -14398,6 +14398,11 @@ PrefabInstance:
       propertyPath: myDebugIsCollectible
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: myIsCheckpoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022624, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -14491,6 +14496,11 @@ PrefabInstance:
         type: 3}
       propertyPath: myDebugIsCollectible
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: myIsCheckpoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022624, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
@@ -17629,6 +17639,11 @@ PrefabInstance:
         type: 3}
       propertyPath: myDebugIsCollectible
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: myIsCheckpoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022624, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
@@ -22948,6 +22963,11 @@ PrefabInstance:
         type: 3}
       propertyPath: myDebugIsCollectible
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: myIsCheckpoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022624, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
@@ -30939,6 +30959,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3501071424776058369, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
+        type: 3}
+      propertyPath: myShorterCountdownLength
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3501071424776058381, guid: a5e10e40260fa6b4685fe7f5e9330bfb,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -34214,6 +34239,11 @@ PrefabInstance:
         type: 3}
       propertyPath: myBoostMinimumSpeed
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: myIsCheckpoint
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022624, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
@@ -38404,6 +38434,11 @@ PrefabInstance:
         type: 3}
       propertyPath: myDebugIsCollectible
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: myIsCheckpoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022624, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
@@ -43906,6 +43941,9 @@ MonoBehaviour:
   myOnResetAtRespawn:
     m_PersistentCalls:
       m_Calls: []
+  myOnAfterPlayerRestartCheckpoint:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1537569486
 Transform:
   m_ObjectHideFlags: 0
@@ -47541,6 +47579,11 @@ PrefabInstance:
         type: 3}
       propertyPath: myDebugIsCollectible
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6239014964038551771, guid: 64d2f79c34c16e049868fc11ef797a5e,
+        type: 3}
+      propertyPath: myIsCheckpoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1630686787261022624, guid: 64d2f79c34c16e049868fc11ef797a5e,
         type: 3}
