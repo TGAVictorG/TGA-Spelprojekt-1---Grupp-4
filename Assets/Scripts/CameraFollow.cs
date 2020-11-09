@@ -214,7 +214,10 @@ public class CameraFollow : MonoBehaviour
     {
         myCurrentMoveSpeed = myMoveSpeed;
         myCurrentRotationSpeed = myRotationSpeed;
-        StageManager.ourInstance.ResetStageTime();
+        if (!StageManager.ourInstance.myTimerEnabled)
+        {
+            StageManager.ourInstance.ResetStageTime();
+        }
         myTarget.GetComponent<PlaneController>().enabled = true;
         myTarget.GetComponent<Fuel>().enabled = true;
         myTimer.GetComponent<TimerUI>().enabled = true;
