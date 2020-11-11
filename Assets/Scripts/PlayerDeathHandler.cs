@@ -28,7 +28,6 @@ public class PlayerDeathHandler : MonoBehaviour
         {
             myPlaneController.enabled = false;
             myRigidbody.useGravity = true;
-
             myCameraShake.ShakeCamera();
         }
 
@@ -57,7 +56,10 @@ public class PlayerDeathHandler : MonoBehaviour
         {
             // Restore plane controls
             myRigidbody.useGravity = false;
-            
+            myPlaneController.myCurrentVelocity = 0f;
+            myRigidbody.velocity = Vector3.zero;
+            myRigidbody.angularVelocity = Vector3.zero;
+
             // Restore model
             myAnimator.Play("Flying");
             
