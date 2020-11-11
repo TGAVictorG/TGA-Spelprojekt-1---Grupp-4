@@ -118,6 +118,7 @@ public class StageManager : MonoBehaviour
         if (pickup.myRespawnDirection != null && pickup.myRespawnDirection != Vector3.zero) // Look in specified direction
         {
             playerGameObject.transform.LookAt(pickup.transform.position + pickup.myRespawnDirection.normalized * 5f);
+            playerGameObject.GetComponent<Fuel>().enabled = false;            
         }
         else
         {
@@ -125,6 +126,10 @@ public class StageManager : MonoBehaviour
         }
         
         pickup.myNextTarget.ActivateMeAsTarget();
+
+        var planeController = playerGameObject.GetComponent<PlaneController>();
+        planeController.myCurrentVelocity = planeController.myStartingVelocity;
+        playerGameObject.GetComponent<Fuel>().enabled = false;
         playerGameObject.GetComponent<Fuel>().SetFuelToMax();
 
         myOnAfterPlayerRestartCheckpoint?.Invoke();

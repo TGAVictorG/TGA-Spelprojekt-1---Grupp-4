@@ -22,7 +22,7 @@ public class PlaneController : MonoBehaviour
     [SerializeField] private float myMaxPitch = 75;
 
     [Header("SPEED & DRAG SETTINGS")]
-    [SerializeField] private float myStartingVelocity = 3;
+    [SerializeField] public float myStartingVelocity = 3;
     [SerializeField] private float mySpeedMultiplier = 1f;
     [SerializeField] private float myMaximumVelocity = 5f;
     [SerializeField] private float myDragFactor = 0.2f;
@@ -53,7 +53,7 @@ public class PlaneController : MonoBehaviour
     private Rigidbody myRigidbody;
     private SpeedLineController mySpeedLineController;
     private SpeedBoost mySpeedBoost;
-    private float myCurrentVelocity;
+    public float myCurrentVelocity;
     private float myCurrentAngleOfAttack;
     private float myNoFuelTime = 0.0f;
 
@@ -144,7 +144,7 @@ public class PlaneController : MonoBehaviour
         }
     }
 
-    private void SetVelocity()
+    public void SetVelocity()
     {
         myCurrentVelocity += mySpeedMultiplier * myVelocityByAngleCurve.Evaluate(myCurrentAngleOfAttack);
 
