@@ -222,7 +222,7 @@ public class PickupScript : MonoBehaviour
         // Draws a blue line from this transform to the target
         Gizmos.color = Color.cyan;
         var p1 = transform.position;
-        var p2 = transform.position + myRespawnDirection.normalized*3f;
+        var p2 = transform.position + myRespawnDirection.normalized*5f;
         var thickness = 3;
         UnityEditor.Handles.DrawBezier(p1, p2, p1, p2, Color.cyan, null, thickness);
     }
