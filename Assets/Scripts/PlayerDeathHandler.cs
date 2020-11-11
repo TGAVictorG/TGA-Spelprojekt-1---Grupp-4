@@ -57,6 +57,7 @@ public class PlayerDeathHandler : MonoBehaviour
             // Restore plane controls
             myRigidbody.useGravity = false;
             myPlaneController.myCurrentVelocity = 0f;
+            myPlaneController.transform.eulerAngles = new Vector3(0f, 0f, 0f);
             myRigidbody.velocity = Vector3.zero;
             myRigidbody.angularVelocity = Vector3.zero;
 
