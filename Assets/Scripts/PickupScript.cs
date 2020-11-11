@@ -102,12 +102,10 @@ public class PickupScript : MonoBehaviour
                 if (myIsCheckpoint)
                 {
                     StageManager.ourInstance.myOnResetAtRespawn.RemoveAllListeners();
-                    Debug.Log("Clearing all listeners on myOnResetBlocksAfterCheckpoint");
                 }
                 else if (StageManager.ourInstance.myCurrentCheckpoint != null)
                 {
                     StageManager.ourInstance.myOnResetAtRespawn.AddListener(RestoreAsNotPickedUp);
-                    Debug.Log("Adding a listener to myOnResetBlocksAfterCheckpoint");
                 }
             }
 

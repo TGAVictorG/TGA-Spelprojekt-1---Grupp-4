@@ -193,7 +193,6 @@ public class StageManager : MonoBehaviour
     {
         --myPickedUpBlocksCount;
         myOnResetBlock?.Invoke();
-        Debug.Log("Resetting a block");
     }
 
     public void OnPickedUpStar()
