@@ -118,7 +118,6 @@ public class StageManager : MonoBehaviour
         if (pickup.myRespawnDirection != null && pickup.myRespawnDirection != Vector3.zero) // Look in specified direction
         {
             playerGameObject.transform.LookAt(pickup.transform.position + pickup.myRespawnDirection.normalized * 5f);
-            playerGameObject.GetComponent<Fuel>().enabled = false;            
         }
         else
         {
